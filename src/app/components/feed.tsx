@@ -8,8 +8,8 @@ type daveA={
 export default function Feed({dave}: daveA) {
   return (
     <div className="flex flex-col relative border-b border-dashed border-[hsl(var(--border-color))] last:border-none last:border-b-0" onClick={()=>console.log(dave.img)}>
-      <div className="flex flex-col py-5 w-full" role="article">
-        <div className="gap-3 flex item-start w-full px-4">
+      <div className="flex flex-col py-5 w-full"  role="article">
+        <div className="gap-3 flex item-start w-full px-4 lg:px-0">
           <Link href={""}>
             <div className="w-9 h-9 rounded-[50%] bg-red-200"></div>
           </Link>
@@ -106,12 +106,13 @@ export default function Feed({dave}: daveA) {
                     </div>
                 </div>
                 {dave.img?.length ? 
-                    // <div className="block overflow-hidden w-full">
-                    //     <div draggable="false" className={`flex bg-[hsl(var(--accent))] object-cover bg-center bg-cover  h-auto max-w-full max-h-[420px] overflow-hidden min-w-20 rounded-xl relative`}>
-                    //         <img src={dave.img[0]?.url} />
-                    //     </div>
-                    // </div>
-                    <ContentWrapper param={dave.img}/>
+                    <div className="block overflow-hidden w-full">
+                        <div draggable="false" className={`flex bg-[hsl(var(--accent))] object-cover bg-center w-fit bg-cover  h-auto max-w-full max-h-[420px] overflow-hidden min-w-20 rounded-xl relative border border-[hsl(var(--border-color))] border-dashed`}>
+                            <img src={dave.img[0]?.url} className="invisible" />
+                        </div>
+                    </div>
+                    // <ContentWrapper param={dave.img}/>
+                    // <></>
                     :
                     <></>
                 }
