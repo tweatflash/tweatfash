@@ -11,7 +11,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [userObj,setUserObj]=useState({})
   const [auth,setAuth]=useState(false)
   const [authLoader,setAuthLoader] =useState(true)
+  const [forYou,setForYou]=useState<HomeFeed[] | null>([])
   const [cook,setCook]=useState({refreshTkn:"",accessTkn:""})
+  const [following,setFollowing]=useState<HomeFeed[] | null>([])
   useEffect(()=>{
     if(document.cookie.includes("RFTFL")){
        const rf:string | undefined=Cookies.get("RFTFL")
@@ -32,7 +34,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   },[])
   return (
-    <AuthContext.Provider value={{userObj,auth,setAuth,authLoader,setAuthLoader,cook}}>
+    <AuthContext.Provider value={{userObj,auth,setAuth,authLoader,setAuthLoader,cook,forYou,setForYou,following,setFollowing}}>
       {children}
     </AuthContext.Provider>
   );

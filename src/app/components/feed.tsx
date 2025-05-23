@@ -28,10 +28,10 @@ export default function Feed({dave}: daveA) {
                             <div className="flex gap-3 items-center">
                                 <span className="">
                                 <div className="">
-                                    <span className="text-black font-[500] dark:text-[#EEEEEE] text-base ">
+                                    <span className="text-black font-[500] dark:text-[#EEEEEE] text-[15px] ">
                                         <Link
                                             href={"/"+ dave.user.username}
-                                            className="hover:decoration-dashed"
+                                            className="hover:underline"
                                         >
                                            {dave.user.name}
                                         </Link>
@@ -104,7 +104,7 @@ export default function Feed({dave}: daveA) {
                     <div className="">
                     <div className="">
                         <div className="">
-                            <p className=" dark:text-[#E1E1E1] text-[15px] whitespace-pre-wrap">
+                            <p className="dark:text-[rgb(225,225,225)] text-[15px] whitespace-pre-wrap font-[400]">
                                 {dave.text && dave.text}
                             </p>
                         </div>

@@ -1,21 +1,21 @@
 import Feed from "../feed"
 // import { cookies } from "next/headers";
-import getHomePosts from "../../../../lib/posts/getHomePosts";
+import getPosts from "../../../../lib/posts/getPosts";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "@/app/context/Authcontext";
 
 export default function SuggestedPost() {
-    const {cook} :any=useContext(AuthContext)
+    const {cook,forYou,setForYou} :any=useContext(AuthContext)
     const rf :string | undefined=cook.refreshTkn
     const ac:string | undefined=cook.accessTkn
     const [posts,setPosts]=useState<HomeFeed[] | null>(null)
     // console.log("hello world",rf,ac)
     let dataA :string[]=[]
     async function petch(){
-        const data : Promise<Post>=await getHomePosts(dataA,rf,ac) 
+        const data : Promise<Post>=await getPosts(dataA,"all",rf,ac) 
         const results: HomeFeed[] | undefined = await (await data)?.posts;
         if (results.length ){
-            setPosts([...(posts || []) ,...results])
+            setForYou([...(forYou || []) ,...results])
         }
     }
     useEffect(()=>{
@@ -23,7 +23,7 @@ export default function SuggestedPost() {
     },[])
     return (
         <div className="flex flex-col">  
-            { posts?.map(item=><Feed dave={item} key={item._id}/>)}
+            { forYou?.map((item:HomeFeed)=><Feed dave={item} key={item._id}/>)}
 
             <div className="mx-auto w-full max-w-[568px] rounded-md p-4 border-b border-dashed border-[hsl(var(--border-color))] last:border-none last:border-b-0" onClick={()=>petch()}>
                 <div className="flex animate-pulse space-x-4">
