@@ -57,7 +57,7 @@ export default function Feed({dave}: daveA) {
                                 aria-haspopup="dialog"
                                 aria-controls="dialog6"
                                 aria-label="View more"
-                                className=""
+                                className="flex items-center"
                                 >
                                 <button
                                     tab-index="0"

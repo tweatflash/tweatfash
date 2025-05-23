@@ -34,7 +34,7 @@ export default async function HomePage() {
                   {tabs.map((tab, index) => (
                       <button
                           key={index}
-                          className={`prewrap-no-wrap text-center text-sm text-nowrap h-8 rounded-lg px-3 bg-[hsl(var(--accent))] ${
+                          className={`whitespace-nowrap text-center text-sm text-nowrap h-8 rounded-lg px-3 bg-[hsl(var(--accent))] ${
                           activeTab === index ? "bg-black text-white dark:bg-white dark:text-black" : "text-[#777777]"
                           }`}
                       >
