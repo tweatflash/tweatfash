@@ -11,7 +11,13 @@ export default function Feed({dave}: daveA) {
       <div className="flex flex-col py-5 w-full"  role="article">
         <div className="gap-3 flex item-start w-full px-4 lg:px-0">
           <Link href={""}>
-            <div className="w-9 h-9 rounded-[50%] bg-red-200"></div>
+            <div className="w-9 h-9 rounded-[50%] bg-[hsl(var(--accent))]">
+                <img
+                    alt={dave.user.name}
+                    src={dave.user.profileImage}
+                    className="h-full w-full object-cover object-center rounded-full"
+                />
+            </div>
           </Link>
           <div className="w-full flex flex-col">
             <div className="w-full  flex flex-col gap-2">
@@ -120,7 +126,7 @@ export default function Feed({dave}: daveA) {
                     <div className="flex gap-[15px]">
                         <span className="flex ml-[-8px] ">
                             <button className="flex gap-[6px] px-2 h-8 items-center hover:bg-[hsl(var(--accent))] rounded-[20px]">
-                                <svg viewBox="0 0 20 20" stroke="#727272" fill="none" className="h-5 w-5"><path d="M5.00002 2.54822C8.00003 2.09722 9.58337 4.93428 10 5.87387C10.4167 4.93428 12 2.09722 15 2.54822C18 2.99923 18.75 5.66154 18.75 7.05826C18.75 9.28572 18.1249 10.9821 16.2499 13.244C14.3749 15.506 10 18.3333 10 18.3333C10 18.3333 5.62498 15.506 3.74999 13.244C1.875 10.9821 1.25 9.28572 1.25 7.05826C1.25 5.66154 2 2.99923 5.00002 2.54822Z"></path></svg>
+                                <svg viewBox="0 0 20 20" stroke="#727272" fill="none" className="h-5 w-5 stroke-[1.5]"><path d="M5.00002 2.54822C8.00003 2.09722 9.58337 4.93428 10 5.87387C10.4167 4.93428 12 2.09722 15 2.54822C18 2.99923 18.75 5.66154 18.75 7.05826C18.75 9.28572 18.1249 10.9821 16.2499 13.244C14.3749 15.506 10 18.3333 10 18.3333C10 18.3333 5.62498 15.506 3.74999 13.244C1.875 10.9821 1.25 9.28572 1.25 7.05826C1.25 5.66154 2 2.99923 5.00002 2.54822Z"></path></svg>
                                 <span className="text-sm text-[#727272]">1.5k</span>
                             </button>
                         </span>

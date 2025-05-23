@@ -1,7 +1,4 @@
-import Tabs from "../components/tab"
-import Feed from "../components/feed"
-import getHomePosts from "../../../lib/posts/getHomePosts"
-
+"use client"
 import { Suspense, useState } from "react"
 import SuggestedPost from "../components/posts/suggestedPost"
 import NewestPosts from "../components/posts/newestPosts"
@@ -9,19 +6,9 @@ import SavedPosts from "../components/posts/savedPosts"
 import FollowingPosts from "../components/posts/followingPosts"
 import LikedPosts from "../components/posts/likedPosts"
 import PostedByYou from "../components/posts/postedByYou"
-import Cookies from "js-cookie"
-import { cookies } from "next/headers";
 
-export default async function HomePage() {
-  const cookieStore = cookies();
-  const activeTab=0
-  const rf :string | undefined=cookieStore.get("RF  TFL")?.value
-  const ac:string | undefined=cookieStore.get("ACTFL")?.value
-  // console.log("hello world",rf,ac)
-  let dataA :string[]=[]
-  const data : Promise<Post>=await getHomePosts(dataA,rf,ac) 
-  const results: HomeFeed[] | undefined = await (await data)?.posts;
-  console.log(results)
+export default function HomePage() {
+  const [activeTab,setActiveTab]=useState(0)
   const tabs = ["for you","Following","Newest Tweats" ,"Saved Tweats" ,"Posted by you" ,"Liked Posts"];  
   return (
     
@@ -37,6 +24,7 @@ export default async function HomePage() {
                           className={`whitespace-nowrap text-center text-sm text-nowrap h-8 rounded-lg px-3 bg-[hsl(var(--accent))] ${
                           activeTab === index ? "bg-black text-white dark:bg-white dark:text-black" : "text-[#777777]"
                           }`}
+                          onClick={()=>setActiveTab(index)}
                       >
                           {tab}
                       </button>
@@ -57,13 +45,13 @@ export default async function HomePage() {
             <div className="w-full max-w-[568px]">
               <div className="w-full">
                 
-                { results?.map(item=><Feed dave={item} key={item._id}/>)}
-                {/* {activeTab === 0 && <SuggestedPost/>} */}
-                {/* {activeTab === 1 && <FollowingPosts/>}
+                {/* { results?.map(item=><Feed dave={item} key={item._id}/>)} */}
+                {activeTab === 0 && <SuggestedPost/>} 
+                {activeTab === 1 && <FollowingPosts/>}
                 {activeTab === 2 && <NewestPosts/>}
                 {activeTab === 3 && <SavedPosts/>}
                 {activeTab === 4 && <PostedByYou/>}
-                {activeTab === 5 && <LikedPosts/>} */}
+                {activeTab === 5 && <LikedPosts/>}
               </div>
             </div>
           </div>

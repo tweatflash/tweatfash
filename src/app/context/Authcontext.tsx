@@ -1,16 +1,25 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import checkLoggedinStatus from "../../../lib/checkLoggedinStatus.js";
-
+import { access } from "fs";
+type ckn={
+  refreshTkn:string,
+  accessTkn:string
+}
 export const AuthContext = createContext({});
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [userObj,setUserObj]=useState({})
   const [auth,setAuth]=useState(false)
   const [authLoader,setAuthLoader] =useState(true)
+  const [cook,setCook]=useState({refreshTkn:"",accessTkn:""})
   useEffect(()=>{
     if(document.cookie.includes("RFTFL")){
        const rf:string | undefined=Cookies.get("RFTFL")
        const ac:string| undefined=Cookies.get("ACTFL")
+       setCook({
+        refreshTkn:rf ?rf :"",
+        accessTkn:ac ? ac :""
+       })
        if (typeof(ac)!==undefined && typeof(rf)!==undefined){
         const fire=async ()=>{
           const data= await checkLoggedinStatus(rf,ac)
@@ -23,7 +32,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   },[])
   return (
-    <AuthContext.Provider value={{userObj,auth,setAuth,authLoader,setAuthLoader}}>
+    <AuthContext.Provider value={{userObj,auth,setAuth,authLoader,setAuthLoader,cook}}>
       {children}
     </AuthContext.Provider>
   );
