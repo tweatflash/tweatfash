@@ -41,3 +41,11 @@
   }
 }
 
+.classnammm{
+  max-width: 100% !important;
+  max-height: 430px !important;
+  overflow: hidden !important;
+  min-width: 200px !important;
+  width: auto !important;
+  /* aspect-ratio: 0.644512 / 1 !important; */
+}

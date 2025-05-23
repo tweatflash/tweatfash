@@ -33,7 +33,7 @@ export default function RootLayout({
   }, []);
 
   return (
-    <html lang="en" className='dark' data-theme='dark'>
+    <html lang="en" className='' data-theme=''>
         <body className={`${geist.className} flex justify-center bg-[hsl(var(--background))]`}>
           <AuthProvider>
             {isAuthenticated===null ? <Loading/>:(isAuthenticated ?<LayoutB>{children}</LayoutB> :<LayoutA>{children}</LayoutA>)}

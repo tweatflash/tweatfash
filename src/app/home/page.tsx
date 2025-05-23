@@ -22,7 +22,7 @@ export default async function HomePage() {
   const data : Promise<Post>=await getHomePosts(dataA,rf,ac) 
   const results: HomeFeed[] | undefined = await (await data)?.posts;
   console.log(results)
-  const tabs = ["Suggested for you","From Following","Newest Tweats" ,"Saved Tweats" ,"Posted by you" ,"Liked Posts"];  
+  const tabs = ["for you","Following","Newest Tweats" ,"Saved Tweats" ,"Posted by you" ,"Liked Posts"];  
   return (
     
       <div className="w-full h-auto"> 
@@ -34,7 +34,7 @@ export default async function HomePage() {
                   {tabs.map((tab, index) => (
                       <button
                           key={index}
-                          className={`text-center text-sm text-nowrap h-8 rounded-lg px-3 bg-[hsl(var(--accent))] ${
+                          className={`prewrap-no-wrap text-center text-sm text-nowrap h-8 rounded-lg px-3 bg-[hsl(var(--accent))] ${
                           activeTab === index ? "bg-black text-white dark:bg-white dark:text-black" : "text-[#777777]"
                           }`}
                       >

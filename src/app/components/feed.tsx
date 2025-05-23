@@ -1,8 +1,10 @@
 "use client"
 import Link from "next/link";
+import ContentWrapper from "./contentWrapper";
 type daveA={
     dave:HomeFeed
 }
+
 export default function Feed({dave}: daveA) {
   return (
     <div className="flex flex-col relative border-b border-dashed border-[hsl(var(--border-color))] last:border-none last:border-b-0" onClick={()=>console.log(dave.img)}>
@@ -20,10 +22,10 @@ export default function Feed({dave}: daveA) {
                             <div className="flex gap-3 items-center">
                                 <span className="">
                                 <div className="">
-                                    <span className="text-black dark:text-[#f4f7fe] text-[15px]">
+                                    <span className="text-black font-[500] dark:text-[#EEEEEE] text-base ">
                                         <Link
-                                            href="/@oyinosikoya?"
-                                            className=""
+                                            href={"/"+ dave.user.username}
+                                            className="hover:decoration-dashed"
                                         >
                                            {dave.user.name}
                                         </Link>
@@ -96,19 +98,23 @@ export default function Feed({dave}: daveA) {
                     <div className="">
                     <div className="">
                         <div className="">
-                            <p className="text-black dark:text-[#f4f7fe] text-[15px] whitespace-pre-wrap">
+                            <p className=" dark:text-[#E1E1E1] text-[15px] whitespace-pre-wrap">
                                 {dave.text && dave.text}
                             </p>
                         </div>
                     </div>
                     </div>
                 </div>
-              
-                <div className="block overflow-hidden w-full">
-                    <div draggable="false" className="flex bg-[hsl(var(--accent))] object-cover bg-center bg-cover  h-auto max-w-full max-h-[420px] overflow-hidden min-w-20 rounded-xl aspect-[500/667] relative">
-                        
-                    </div>
-                </div>
+                {dave.img?.length ? 
+                    // <div className="block overflow-hidden w-full">
+                    //     <div draggable="false" className={`flex bg-[hsl(var(--accent))] object-cover bg-center bg-cover  h-auto max-w-full max-h-[420px] overflow-hidden min-w-20 rounded-xl relative`}>
+                    //         <img src={dave.img[0]?.url} />
+                    //     </div>
+                    // </div>
+                    <ContentWrapper param={dave.img}/>
+                    :
+                    <></>
+                }
                 <div className="gap-2 flex justify-between">
                     <div className="flex gap-[15px]">
                         <span className="flex ml-[-8px] ">
