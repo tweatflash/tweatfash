@@ -1,6 +1,7 @@
 "use client"
 import { AuthContext, AuthProvider } from './context/Authcontext';
 import localFont from "next/font/local";
+import {Inter} from 'next/font/google';
 import './globals.css'
 import checkLoggedinStatus from '../../lib/checkLoggedinStatus';
 import { useContext, useEffect, useState } from 'react';
@@ -11,8 +12,15 @@ import Cookies from 'js-cookie';
 
 
 const bricolage = localFont({
-  src: "../../public/fonts/BricolageGrotesque_72pt-Light.ttf",
+  src: "../../public/fonts/BricolageGrotesque_72pt-Medium.ttf",
 });
+const Interfont = Inter(
+  {
+    subsets: ['latin'],
+    variable: '--font-inter',
+    display: 'swap',
+  }
+)
 
 
 
@@ -37,7 +45,7 @@ export default function RootLayout({
   return (
     <html lang="en" className='' data-theme=''>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"></meta>
-        <body className={`${bricolage.className} flex justify-center bg-[hsl(var(--background))]`}>
+        <body className={`${Interfont.className} flex justify-center bg-[hsl(var(--background))]`}>
           <AuthProvider>
             {isAuthenticated===null ? <Loading/>:(isAuthenticated ?<LayoutB>{children}</LayoutB> :<LayoutA>{children}</LayoutA>)}
           </AuthProvider>

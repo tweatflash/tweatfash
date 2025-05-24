@@ -1,10 +1,13 @@
 "use client"
 import Link from "next/link";
 import ContentWrapper from "./contentWrapper";
+import localFont from "next/font/local";
 type daveA={
     dave:HomeFeed
 }
-
+const bricolageThin = localFont({
+    src: "../../../public/fonts/BricolageGrotesque_72pt-Light.ttf",
+});
 export default function Feed({dave}: daveA) {
   return (
     <div className="flex flex-col relative border-b border-dashed border-[hsl(var(--border-color))] last:border-none last:border-b-0" onClick={()=>console.log(dave.img)}>
@@ -28,7 +31,7 @@ export default function Feed({dave}: daveA) {
                             <div className="flex gap-3 items-center">
                                 <span className="">
                                 <div className="">
-                                    <span className="text-black font-[500] dark:text-[#EEEEEE] text-[15px] ">
+                                    <span className="text-black font-[500] dark:text-[#EEEEEE] text-[14px] ">
                                         <Link
                                             href={"/"+ dave.user.username}
                                             className="hover:underline"
@@ -104,7 +107,7 @@ export default function Feed({dave}: daveA) {
                     <div className="">
                     <div className="">
                         <div className="">
-                            <p className="dark:text-[rgb(225,225,225)] text-[15px] whitespace-pre-wrap font-[400]">
+                            <p className={` dark:text-[rgb(225,225,225)] text-[14px] whitespace-pre-wrap`}>
                                 {dave.text && dave.text}
                             </p>
                         </div>
