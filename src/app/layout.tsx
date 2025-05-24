@@ -1,6 +1,6 @@
 "use client"
 import { AuthContext, AuthProvider } from './context/Authcontext';
-
+import localFont from "next/font/local";
 import './globals.css'
 import checkLoggedinStatus from '../../lib/checkLoggedinStatus';
 import { useContext, useEffect, useState } from 'react';
@@ -8,6 +8,12 @@ import Loading from './loadingd';
 import LayoutA from './components/layoutA';
 import LayoutB from './components/layoutB';
 import Cookies from 'js-cookie';
+
+
+const bricolage = localFont({
+  src: "../../public/fonts/BricolageGrotesque_72pt-Light.ttf",
+});
+
 
 
 export default function RootLayout({
@@ -31,7 +37,7 @@ export default function RootLayout({
   return (
     <html lang="en" className='' data-theme=''>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"></meta>
-        <body className={`flex justify-center bg-[hsl(var(--background))]`}>
+        <body className={`${bricolage.className} flex justify-center bg-[hsl(var(--background))]`}>
           <AuthProvider>
             {isAuthenticated===null ? <Loading/>:(isAuthenticated ?<LayoutB>{children}</LayoutB> :<LayoutA>{children}</LayoutA>)}
           </AuthProvider>

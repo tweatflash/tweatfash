@@ -1,18 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap');
-
-*{
-  font-family: "Bricolage Grotesque", sans-serif;;
-}
 :root {
   --background:0 0% 100%;
   --primary-bg-color: hsl(var(--background)/.6);
   --border-color:240 5.9% 90%;
   --accent:240 4.8% 95.9%;
 }
-[data-theme="dark"] {
+.dark {
   --background:240 10% 3.9%;
   --primary-bg-color: hsl(var(--background)/ .6);
   --border-color:240 3.7% 15.9%;
