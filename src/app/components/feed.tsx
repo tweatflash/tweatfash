@@ -10,7 +10,7 @@ const bricolageThin = localFont({
 });
 export default function Feed({dave}: daveA) {
   return (
-    <div className="flex flex-col relative border-b border-dashed border-[hsl(var(--border-color))] last:border-none last:border-b-0" onClick={()=>console.log(dave.img)}>
+    <div className="flex flex-col relative border-b border-solid border-[hsl(var(--border-color))] last:border-none last:border-b-0" onClick={()=>console.log(dave.img)}>
       <div className="flex flex-col py-5 w-full"  role="article">
         <div className="gap-3 flex item-start w-full px-4 lg:px-0">
           <Link href={""}>
@@ -30,28 +30,30 @@ export default function Feed({dave}: daveA) {
                         <div className="flex justify-between gap-2">
                             <div className="flex gap-3 items-center">
                                 <span className="">
-                                <div className="">
-                                    <span className="text-black font-[500] dark:text-[#EEEEEE] text-[14px] ">
+                                    
+                                        <span className="text-black font-[500] dark:text-[#EEEEEE] text-[14px] ">
+                                            <Link
+                                                href={"/"+ dave.user.username}
+                                                className="hover:underline"
+                                            >
+                                            {dave.user.name}
+                                            </Link>
+                                        </span>
+                                    
+                                </span>
+                                <span className="">
+                                    <span className="text-[13px] text-[#727272]">
                                         <Link
+                                            title="Apr 23, 2025, 10:04 AM"
                                             href={"/"+ dave.user.username}
-                                            className="hover:underline"
+                                            className=""
+                                            
                                         >
-                                           {dave.user.name}
+                                            
+                                            May 11
+                                            
                                         </Link>
                                     </span>
-                                </div>
-                                </span>
-                                <span className="text-[13px] text-[#727272]">
-                                    <Link
-                                        title="Apr 23, 2025, 10:04 AM"
-                                        href="/@oyinosikoya/note/c-111358406?"
-                                        className=""
-                                        
-                                    >
-                                        <span className="">
-                                        May 11
-                                        </span>
-                                    </Link>
                                 </span>
                             
                             </div>
@@ -116,7 +118,7 @@ export default function Feed({dave}: daveA) {
                 </div>
                 {dave.img?.length ? 
                     <div className="block overflow-hidden w-full">
-                        <div draggable="false" className={`flex bg-[hsl(var(--accent))] object-cover bg-center w-fit bg-cover  h-auto max-w-full max-h-[420px] overflow-hidden min-w-20 rounded-xl relative border border-[hsl(var(--border-color))] border-dashed`}>
+                        <div draggable="false" className={`flex bg-[hsl(var(--accent))] object-cover bg-center w-fit bg-cover  h-auto max-w-full max-h-[420px] overflow-hidden min-w-20 rounded-xl relative border border-[hsl(var(--border-color))] border-solid`}>
                             <img src={dave.img[0]?.url} className="invisible" />
                         </div>
                     </div>

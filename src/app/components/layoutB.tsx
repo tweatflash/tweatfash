@@ -16,10 +16,10 @@ const LayoutB = ({ children }: { children: React.ReactNode }) => {
   return(
     authLoader?<Loading/> :(!authLoader && userObj ?<div className="main-handler grid absolute t-0 l-0 r-0 b-0 w-full ">
 
-        <div className="flex flex-col border-dashed sticky top-0 left-0 w-full h-full border-[hsl(var(--border-color))] un-b"></div>
+        <div className="flex flex-col border-solid sticky top-0 left-0 w-full h-full border-[hsl(var(--border-color))] un-b"></div>
 
         {/* header */}
-        <div className="flex flex-col w-full h-full border-b sticky  border-dashed border-[hsl(var(--border-color))] top-0 z-20 bg-[hsl(var(--background)/.6)] backdrop-blur-md">
+        <div className="flex flex-col w-full h-full border-b sticky  border-solid border-[hsl(var(--border-color))] top-0 z-20 bg-[hsl(var(--background)/.6)] backdrop-blur-md">
         <div className="fixed top-0 w-full px-4">
           <div className="container-wrapper">
             <div className="w-full flex h-14 items-center gap-2 md:gap-4">
@@ -144,7 +144,7 @@ const LayoutB = ({ children }: { children: React.ReactNode }) => {
 
         {/* side nav */}
         <div className="flex flex-col un-b">
-          <div className="hidden fixed w-[72px] mobile:flex flex-col h-[calc(100vh-50px)] left-0 top-[50px] border-r border-dashed border-[hsl(var(--border-color))]">
+          <div className="hidden fixed w-[72px] mobile:flex flex-col h-[calc(100vh-50px)] left-0 top-[50px] border-r border-solid border-[hsl(var(--border-color))]">
             <nav className="w-full h-full ">
               <div className=" h-full flex items-center">
                 <div className="w-full h-full">
@@ -204,7 +204,7 @@ const LayoutB = ({ children }: { children: React.ReactNode }) => {
                       
                       </div>
                   </div>
-                  <div className="w-full p-3 h-[72px] border-t border-dashed border-[hsl(var(--border-color))]">
+                  <div className="w-full p-3 h-[72px] border-t border-solid border-[hsl(var(--border-color))]">
                       <div className="w-full h-full hover:bg-[hsl(var(--accent))] rounded-8">
                         {
                           userObj.user ?(userObj.user.profileImage ?<Image
@@ -232,7 +232,7 @@ const LayoutB = ({ children }: { children: React.ReactNode }) => {
         </div>
 
         {/* buttom nav */}
-        <div className="fixed mobile:hidden bottom-0 w-full h-[55px] border-t border-[hsl(var(--border-color))] border-dashed z-10 bg-[hsl(var(--background))] flex flex-1 gap-2">
+        <div className="fixed mobile:hidden bottom-0 w-full h-[55px] border-t border-[hsl(var(--border-color))] border-solid z-10 bg-[hsl(var(--background))] flex flex-1 gap-2">
               <span className="w-full py-2">
                   <Link href={"/home"} className="h-full">
                       <div className="flex items-center justify-center rounded-3xl hover:bg-[hsl(var(--accent))] h-full">
