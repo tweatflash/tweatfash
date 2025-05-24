@@ -29,7 +29,7 @@ export default function RootLayout({
   }, []);
 
   return (
-    <html lang="en" className='dark' data-theme='dark'>
+    <html lang="en" className='' data-theme=''>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"></meta>
         <body className={`flex justify-center bg-[hsl(var(--background))]`}>
           <AuthProvider>
