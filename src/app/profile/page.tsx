@@ -3,10 +3,12 @@ import Link from 'next/link'
 import React, { useContext, useState } from 'react'
 import { AuthContext } from '../context/Authcontext'
 import PostedByYou from '../components/posts/postedByYou'
+import { Tab } from '@headlessui/react'
 
 export default function profile() {
   const { userObj } :any= useContext(AuthContext)
-  const [activeTab,setActiveTab]=useState(0)
+  const [activeTab,setActiveTab]=useState<Number>(0)
+  const tabs= ["Posts","Saved Posts","Likes","Replies"]
   return (
     <div className="w-full h-auto"> 
       <div className="flex flex-col justify-center relative">
@@ -66,18 +68,14 @@ export default function profile() {
 
                 <div className="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
                     <ul className="flex flex-row justify-center -mb-px">
-                        <li className="flex-1 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">
-                            <a href="#" className="inline-block pb-2 ">posts</a>
-                        </li>
-                        <li className="flex-1 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500">
-                            <a href="#" className="inline-block pb-2 " aria-current="page">Saved Posts</a>
-                        </li>
-                        <li className="flex-1 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">
-                            <a href="#" className="inline-block pb-2 ">Likes</a>
-                        </li>
-                        <li className="flex-1 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">
-                            <a href="#" className="inline-block pb-2 ">Replies</a>
-                        </li>
+                        {tabs.map((tab, index) => {
+                          return(
+                            <li key={index} onClick={()=>setActiveTab(index)} className={`${activeTab===index?"text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500" :"flex-1 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"} `}>
+                              <a href="#" className="inline-block pb-2 ">{tab}</a>
+                            </li>
+                          )
+                        })}
+                        
                         {/* <li>
                              <a className="inline-block p-4 text-gray-400 rounded-t-lg cursor-not-allowed dark:text-gray-500">Disabled</a>
                         </li> */}
