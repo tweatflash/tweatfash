@@ -1,7 +1,7 @@
 "use client"
 import { AuthContext, AuthProvider } from './context/Authcontext';
 import localFont from "next/font/local";
-import {Lexend} from 'next/font/google';
+import {Sofia_Sans} from 'next/font/google';
 import './globals.css'
 import checkLoggedinStatus from '../../lib/checkLoggedinStatus';
 import { useContext, useEffect, useState } from 'react';
@@ -14,7 +14,7 @@ import Cookies from 'js-cookie';
 const bricolage = localFont({
   src: "../../public/fonts/Cooljazz.ttf",
 });
-const Interfont = Lexend(
+const Interfont = Sofia_Sans(
   {
     subsets: ['latin'],
     fallback: ['ui-sans-serif', 'system-ui', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji']
