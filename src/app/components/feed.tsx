@@ -31,7 +31,7 @@ export default function Feed({dave}: daveA) {
                             <div className="flex gap-3 items-center">
                                 <span className="">
                                     
-                                        <span className="text-black font-[500] dark:text-[#EEEEEE] text-[14px] ">
+                                        <span className="text-black font-[500] dark:text-[#EEEEEE] text-[15px] ">
                                             <Link
                                                 href={"/"+ dave.user.username}
                                                 className="hover:underline"
@@ -109,7 +109,7 @@ export default function Feed({dave}: daveA) {
                     <div className="">
                     <div className="">
                         <div className="">
-                            <p className={` dark:text-[rgb(225,225,225)] text-[14px] whitespace-pre-wrap`}>
+                            <p className={` dark:text-[rgb(225,225,225)] text-[15px] whitespace-pre-wrap`}>
                                 {dave.text && dave.text}
                             </p>
                         </div>
@@ -119,7 +119,7 @@ export default function Feed({dave}: daveA) {
                 {dave.img?.length ? 
                     <div className="block overflow-hidden w-full">
                         <div draggable="false" className={`flex bg-[hsl(var(--accent))] object-cover bg-center w-fit bg-cover  h-auto max-w-full max-h-[420px] overflow-hidden min-w-20 rounded-xl relative border border-[hsl(var(--border-color))] border-solid`}>
-                            <img src={dave.img[0]?.url} className="invisible" />
+                            <img src={dave.img[0]?.url} className="h-full w-full object-cover object-center" />
                         </div>
                     </div>
                     // <ContentWrapper param={dave.img}/>

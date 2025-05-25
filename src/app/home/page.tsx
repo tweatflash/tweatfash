@@ -35,11 +35,7 @@ export default function HomePage() {
             </div>
 
             
-            {/* <div className="p-4">
-              {activeTab === 0 && <p>Welcome to the Home tab!</p>}
-              {activeTab === 1 && <p>This is your Profile section.</p>}
-              {activeTab === 2 && <p>Here are your Settings.</p>}
-            </div> */}
+            
           </div>  
           <div className="flex justify-center"> 
             <div className="w-full max-w-[568px]">
