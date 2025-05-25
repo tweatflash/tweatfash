@@ -70,7 +70,7 @@ export default function profile() {
                     <ul className="flex flex-row justify-center -mb-px">
                         {tabs.map((tab, index) => {
                           return(
-                            <li key={index} onClick={()=>setActiveTab(index)} className={`${activeTab===index?"text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500" :"flex-1 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"} `}>
+                            <li key={index} onClick={()=>setActiveTab(index)} className={`flex-1 ${activeTab===index?"text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500" :"flex-1 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"} `}>
                               <a href="#" className="inline-block pb-2 ">{tab}</a>
                             </li>
                           )
