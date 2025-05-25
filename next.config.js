@@ -4,7 +4,7 @@ const nextConfig = {
     appDir: true,
   },
   images: {
-    domains: ["res.cloudinary.com","substackcdn.com"], // Add allowed image domains
+    domains: ["res.cloudinary.com","substackcdn.com","abs.twimg.com"], // Add allowed image domains
   },
 }
 

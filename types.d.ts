@@ -180,7 +180,7 @@ type User= {
         "location": "",
         "language": "",
         "isVerified": Boolean,
-        "wallet": 4.754716981132079,
+        "wallet": number,
         "tweatcoins": 9,
         "pricingPlanDuration": null,
         "verificationToken": "",

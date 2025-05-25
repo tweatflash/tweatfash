@@ -1,9 +1,8 @@
 import Feed from "../feed"
 // import { cookies } from "next/headers";
-import getPosts from "../../../../lib/posts/getPosts";
+import getPostSkipCount from "../../../../lib/posts/getPostSkipCount";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "@/app/context/Authcontext";
-
 export default function FollowingPosts() {
     const {cook,following,setFollowing} :any=useContext(AuthContext)
     const rf :string | undefined=cook.refreshTkn
@@ -12,7 +11,7 @@ export default function FollowingPosts() {
     // console.log("hello world",rf,ac)
     let dataA :string[]=[]
     async function petch(){
-        const data : Promise<Post>=await getPosts(dataA,"following",rf,ac) 
+        const data : Promise<Post>=await getPostSkipCount(0,"following",rf,ac) 
         const results: HomeFeed[] | undefined = await (await data)?.posts;
         if (results ){
             setFollowing([...(following || []) ,...results])
@@ -21,6 +20,7 @@ export default function FollowingPosts() {
     useEffect(()=>{
         petch()
     },[])
+    
     return (
         <div className="flex flex-col">  
             { following?.map((item:HomeFeed)=><Feed dave={item} key={item._id}/>)}
