@@ -16,8 +16,8 @@ const bricolage = localFont({
 });
 const Interfont = Sofia_Sans(
   {
-    subsets: ['latin'],
-    fallback: ['ui-sans-serif', 'system-ui', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji']
+    subsets:[],
+    fallback: ['ui-sans-serif', 'system-ui', 'sans-serif' ]
 
   }
 )
@@ -45,7 +45,7 @@ export default function RootLayout({
   return (
     <html lang="en" className='' data-theme=''>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"></meta>
-        <body className={`${Interfont.className} flex justify-center bg-[hsl(var(--background))]`}>
+        <body className={`${bricolage.className} flex justify-center bg-[hsl(var(--background))]`}>
           <AuthProvider>
             {isAuthenticated===null ? <Loading/>:(isAuthenticated ?<LayoutB>{children}</LayoutB> :<LayoutA>{children}</LayoutA>)}
           </AuthProvider>
