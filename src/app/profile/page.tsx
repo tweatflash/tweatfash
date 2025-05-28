@@ -10,6 +10,8 @@ export default function profile() {
   const [activeTab,setActiveTab]=useState<Number>(0)
   const tabs= ["Posts","Saved Posts","Likes","Replies"]
   return (
+    <>
+    {userObj ?
     <div className="w-full h-auto"> 
       <div className="flex flex-col justify-center relative">
         <div className="flex justify-center"> 
@@ -33,9 +35,7 @@ export default function profile() {
                         </div>
                       </div>
                       <div>
-                        <Link href={""} className="text-[14px] text-[#727272] hover:underline ">
-                          Edit Profile
-                        </Link>
+                      <Link className="rounded-full bg-gray-950 px-2.5 py-0.5 text-sm/6 font-medium text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-950" href="/plus#pricing">Get full access</Link>
                       </div>
                     </div>
 
@@ -90,5 +90,7 @@ export default function profile() {
         </div>
       </div>
     </div>
+    :<></>}
+    </>
   )
 }

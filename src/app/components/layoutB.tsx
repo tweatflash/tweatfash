@@ -14,7 +14,7 @@ const LayoutB = ({ children }: { children: React.ReactNode }) => {
     authLoader ? console.log("Loading") :console.log(userObj)
   },[authLoader])
   return(
-    authLoader?<Loading/> :(!authLoader && userObj ?<div className="main-handler grid absolute t-0 l-0 r-0 b-0 w-full ">
+    <div className="main-handler grid absolute t-0 l-0 r-0 b-0 w-full ">
 
         <div className="flex flex-col border-solid sticky top-0 left-0 w-full h-full border-[hsl(var(--border-color))] un-b"></div>
 
@@ -24,7 +24,7 @@ const LayoutB = ({ children }: { children: React.ReactNode }) => {
           <div className="container-wrapper">
             <div className="w-full flex h-14 items-center gap-2 md:gap-4">
               <div className="mr-4 hidden md:flex">
-                <a className="mr-4 flex items-center gap-2 lg:mr-6" href="/">
+                <Link className="mr-4 flex items-center gap-2 lg:mr-6" href="/david">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 256 256"
@@ -57,7 +57,7 @@ const LayoutB = ({ children }: { children: React.ReactNode }) => {
                   <span className="hidden font-bold lg:inline-block text-black dark:text-white">
                     tweatflash
                   </span>
-                </a>
+                </Link>
                 <nav className="flex items-center gap-4 text-sm xl:gap-6">
                   <a
                     className="transition-colors text-white"
@@ -207,7 +207,7 @@ const LayoutB = ({ children }: { children: React.ReactNode }) => {
                   <div className="w-full p-3 h-[72px] border-t border-solid border-[hsl(var(--border-color))]">
                       <div className="w-full h-full hover:bg-[hsl(var(--accent))] rounded-8">
                         {
-                          userObj.user ?(userObj.user.profileImage ?<Image
+                          userObj?.user ?(userObj.user.profileImage ?<Image
                             src={userObj.user.profileImage}
                             alt="A sample image"
                             className="h-full w-full object-cover object-center rounded-full"
@@ -278,39 +278,7 @@ const LayoutB = ({ children }: { children: React.ReactNode }) => {
               
               
         </div>
-    </div>: <div className="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-  
-  <div className="fixed bg-gray-900/5 inset-0 transition-opacity" aria-hidden="true"></div>
-
-  <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
-    <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-      
-      <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-        <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-          <div className="sm:flex sm:items-start">
-            <div className="mx-auto flex size-12 shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:size-10">
-              <svg className="w-11 aspect-square text-red-600" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
-              </svg>
-            </div>
-            <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-              <h3 className="text-base font-semibold text-gray-900" id="modal-title">Unexpected Error</h3>
-              <div className="mt-2">
-                <p className="text-sm text-gray-500">An unexpected error occoured this might be form you internet connection kindly hit the refresh  button to see if the page will be restored</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-          <button type="button" className="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-red-500 sm:ml-3 sm:w-auto" onClick={()=>window.location.reload()}>Refresh</button>
-          <button type="button" className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs ring-1 ring-gray-300 ring-inset hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
-        </div>
-      </div>
     </div>
-  </div>
-</div>
-    )
-  
   )
 }
   
