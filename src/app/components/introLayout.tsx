@@ -346,7 +346,7 @@ export default function IntroLayout() {
                     <h2 className="text-[38px] leading-tight md:text-[58px] text-black dark:text-white md:font-black font-bold text-center ">
                       Discover Tweatflash&apos;s Benefits
                     </h2>
-                    <p className="text-[#727272] text-[18px] text-center font-semibold">Unlock a world of meaningful connections, tailored experiences, and seamless social interaction.</p>
+                    <p className="text-[#727272] text-[18px] text-center">Unlock a world of meaningful connections, tailored experiences, and seamless social interaction.</p>
                   </div>
               </div>
           
@@ -360,10 +360,10 @@ export default function IntroLayout() {
                     </div>
                     <div className="flex flex-col gap-[6px]">
                       <div>
-                        <h3 className="text-[22px] text-black dark:text-white font-bold">Authentic Connections</h3>
+                        <h3 className="text-[22px] text-black dark:text-white ">Authentic Connections</h3>
                       </div>
                       <div>
-                        <p className="text-[#727272] text-[18px] font-semibold">Build genuine relationships with like-minded individuals.</p>
+                        <p className="text-[#727272] text-[18px]">Build genuine relationships with like-minded individuals.</p>
                       </div>
                     </div>
                 </div>
@@ -375,10 +375,10 @@ export default function IntroLayout() {
                     </div>
                     <div className="flex flex-col gap-[6px]">
                       <div>
-                        <h3 className="text-[22px] text-black dark:text-white font-bold">Global Reach</h3>
+                        <h3 className="text-[22px] text-black dark:text-white ">Global Reach</h3>
                       </div>
                       <div>
-                        <p className="text-[#727272] text-[18px] font-semibold">Connect with people across 50+ countries effortlessly.</p>
+                        <p className="text-[#727272] text-[18px]">Connect with people across 50+ countries effortlessly.</p>
                       </div>
                     </div>
                 </div>
@@ -399,10 +399,10 @@ export default function IntroLayout() {
                     </div>
                     <div className="flex flex-col gap-[6px]">
                       <div>
-                        <h3 className="text-[22px] text-black dark:text-white font-bold">Personalized Experience</h3>
+                        <h3 className="text-[22px] text-black dark:text-white ">Personalized Experience</h3>
                       </div>
                       <div>
-                        <p className="text-[#727272] text-[18px] font-semibold">Tailored content and recommendations just for you.</p>
+                        <p className="text-[#727272] text-[18px]">Tailored content and recommendations just for you.</p>
                       </div>
                     </div>
                 </div>
@@ -414,10 +414,10 @@ export default function IntroLayout() {
                     </div>
                     <div className="flex flex-col gap-[6px]">
                       <div>
-                        <h3 className="text-[22px] text-black dark:text-white font-bold">Community Support</h3>
+                        <h3 className="text-[22px] text-black dark:text-white ">Community Support</h3>
                       </div>
                       <div>
-                        <p className="text-[#727272] text-[18px] font-semibold">Join thriving communities aroundyour interests.</p>
+                        <p className="text-[#727272] text-[18px]">Join thriving communities aroundyour interests.</p>
                       </div>
                     </div>
                 </div>
@@ -470,10 +470,10 @@ export default function IntroLayout() {
                         <div className="w-[26px] h-[26px] flex items-center">
                           <img src="https://framerusercontent.com/images/0ZuOwnoOjO6aCuZyODXxddhTA.svg" alt="" className="w-full h-full"/>
                         </div>
-                        <h3 className="text-[20px] text-black dark:text-white font-bold">Instant Messaging</h3>
+                        <h3 className="text-[20px] text-black dark:text-white">Instant Messaging</h3>
                       </div>
                       <div className="flex">
-                        <p className="text-[#727272] text-lg font-semibold">Chat seamlessly with friends and communities.</p>
+                        <p className="text-[#727272] text-lg">Chat seamlessly with friends and communities.</p>
                       </div>
                     </div>
                   </div>
@@ -485,10 +485,10 @@ export default function IntroLayout() {
                         <div className="w-[26px] h-[26px] flex items-center">
                           <img src="https://framerusercontent.com/images/VkUZshZscEaDkcpWl3Cjwsa2eTk.svg" alt="" className="w-full h-full"/>
                         </div>
-                        <h3 className="text-[20px] text-black dark:text-white font-bold">Story Sharing</h3>
+                        <h3 className="text-[20px] text-black dark:text-white">Story Sharing</h3>
                       </div>
                       <div className="flex">
-                        <p className="text-[#727272] text-lg font-semibold">Share life moments through photos and videos.</p>
+                        <p className="text-[#727272] text-lg">Share life moments through photos and videos.</p>
                       </div>
                     </div>
                   </div>
@@ -500,10 +500,10 @@ export default function IntroLayout() {
                         <div className="w-[26px] h-[26px] flex items-center">
                           <img src="https://framerusercontent.com/images/cWLTQB9F2r4V1VWFjwhxL7pKw.svg" alt="" className="w-full h-full"/>
                         </div>
-                        <h3 className="text-[20px] text-black dark:text-white font-bold">Customizable Profiles</h3>
+                        <h3 className="text-[20px] text-black dark:text-white">Customizable Profiles</h3>
                       </div>
                       <div className="flex">
-                        <p className="text-[#727272] text-lg font-semibold">Personalize your profile with themes and layouts.</p>
+                        <p className="text-[#727272] text-lg">Personalize your profile with themes and layouts.</p>
                       </div>
                     </div>
                   </div>
@@ -515,10 +515,10 @@ export default function IntroLayout() {
                         <div className="w-[26px] h-[26px] flex items-center">
                           <img src="https://framerusercontent.com/images/TgZPYI3DkURzht1SO7C0GZKgOdE.svg" alt="" className="w-full h-full"/>
                         </div>
-                        <h3 className="text-[20px] text-black dark:text-white font-bold">Community Groups</h3>
+                        <h3 className="text-[20px] text-black dark:text-white">Community Groups</h3>
                       </div>
                       <div className="flex">
-                        <p className="text-[#727272] text-lg font-semibold">Chat seamlessly with friends and communities.</p>
+                        <p className="text-[#727272] text-lg">Chat seamlessly with friends and communities.</p>
                       </div>
                     </div>
                   </div>

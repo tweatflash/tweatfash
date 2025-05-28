@@ -1,16 +1,16 @@
 import localFont from "next/font/local";
-import { Lato} from 'next/font/google';
+import { Inter} from 'next/font/google';
 import './globals.css'
 
   const bricolage = localFont({
     src: "../../public/fonts/BricolageGrotesque_72pt-Medium.ttf",
     fallback: ['ui-sans-serif', 'system-ui', 'sans-serif'],                                                                                                                                                                                                                       
   });
-  const Interfont = Lato(
+  const Interfont = Inter(
     {
       subsets: ['latin'],
       weight: ['300', '400', '700',  '900'],
-      // fallback: ['Inter Tight Placeholder', 'sans-serif' ]
+      fallback: ['system' ]
 
     }
   )
