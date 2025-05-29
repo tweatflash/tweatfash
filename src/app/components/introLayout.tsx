@@ -285,7 +285,7 @@ export default function IntroLayout() {
               <img alt="" src="/tweatflash.svg" className="w-full h-full" />
             </div>
             <div className="w-full flex justify-center">
-              <h1 className="text-2xl font-bold md:font-black md:text-5xl !leading-[1.2] text-black dark:text-white text-center">
+              <h1 className="text-2xl font-bold md:text-5xl !leading-[1.2] text-black dark:text-white text-center">
                 Empowering authentic connections for a vibrant social
                 experience.
               </h1>
@@ -460,7 +460,7 @@ export default function IntroLayout() {
           </div>
           <div className="flex flex-col gap-[50px] flex-1">
               <div className=" flex justify-start flex-col">
-                  <h2 className="dark:text-white text-center lg:text-left mt-5 lg:mt-0 text-black text-2xl md:text-5xl md:font-black font-bold">Tweatflash Social&apos;s Advanced Capabilities</h2>
+                  <h2 className="dark:text-white text-center lg:text-left mt-5 lg:mt-0 text-black text-2xl md:text-5xl md:font-bold font-bold">Tweatflash Social&apos;s Advanced Capabilities</h2>
               </div>
               <div className="grid gap-5 md:grid-cols-2 grid-cols-1 grid-rows-2 w-full" >
                 <div className="contens">

@@ -1,16 +1,16 @@
 import localFont from "next/font/local";
-import { Inter} from 'next/font/google';
+import { Outfit} from 'next/font/google';
 import './globals.css'
 
   const bricolage = localFont({
     src: "../../public/fonts/BricolageGrotesque_72pt-Medium.ttf",
     fallback: ['ui-sans-serif', 'system-ui', 'sans-serif'],                                                                                                                                                                                                                       
   });
-  const Interfont = Inter(
+  const Outfitfont = Outfit(
     {
       subsets: ['latin'],
       weight: ['300', '400', '700',  '900'],
-      fallback: ['system' ]
+      fallback: ['Outfit Placeholder' ,'sans-serif']
 
     }
   )
@@ -27,7 +27,7 @@ import './globals.css'
   return (
     <html lang="en" className='dark' data-theme=''>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"></meta>
-        <body className={`${bricolage.className} flex justify-center bg-[hsl(var(--background))]`}>
+        <body className={`${Outfitfont.className} flex justify-center bg-[hsl(var(--background))]`}>
             {children}
         </body>
     </html>
