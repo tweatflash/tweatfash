@@ -11,9 +11,12 @@
   --background:0 0% 0%;
   --primary-bg-color: hsl(var(--background)/ .6);
   --border-color:240 3.7% 15.9%;
-  --accent:240 3.7% 15.9%;
+  --accent:240 2.9% 12.0%;
 }
+*{
+  font-family: "Outfit", "Outfit Placeholder", sans-serif !important;
 
+}
 .main-handler{  
 
   grid: 55px 1fr / 72px 1fr; 

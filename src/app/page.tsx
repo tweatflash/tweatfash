@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation'
 export default function Example() {
   const router=useRouter()
   if(false){
-    return router.push("/home") 
+    router.push("/home") 
   } else{ 
     return <IntroLayout/>
   }

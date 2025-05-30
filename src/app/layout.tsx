@@ -10,7 +10,7 @@ import './globals.css'
     {
       subsets: ['latin'],
       weight: ['300', '400', '700',  '900'],
-      fallback: ['Outfit Placeholder' ,'sans-serif']
+      fallback: ['Placeholder' ,'sans-serif']
 
     }
   )
@@ -26,6 +26,7 @@ import './globals.css'
 
   return (
     <html lang="en" className='dark' data-theme=''>
+        <link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"></meta>
         <body className={`${Outfitfont.className} flex justify-center bg-[hsl(var(--background))]`}>
             {children}
