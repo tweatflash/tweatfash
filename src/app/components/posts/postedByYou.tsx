@@ -5,12 +5,10 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "@/app/context/Authcontext";
 export default function PostedByYou() {
     const {cook,userObj} :any=useContext(AuthContext)
-    const rf :string | undefined=cook.refreshTkn
-    const ac:string | undefined=cook.accessTkn
     const [myPosts,setMyPosts]=useState<HomeFeed[] | null>(null)
     let SkipCount :number=myPosts?.length || 0
     async function petch(){
-        const data : Promise<Post>=await getPostSkipCount(SkipCount,`user/${userObj.user.username}`,rf,ac) 
+        const data : Promise<Post>=await getPostSkipCount(SkipCount,`user/${userObj.user.username}`,"rf","ac") 
         const results: HomeFeed[] | undefined = await (await data)?.posts;
         if (results ){
             setMyPosts([...(myPosts || []) ,...results])

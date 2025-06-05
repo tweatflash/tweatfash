@@ -43,7 +43,7 @@ export default function Section7() {
                     </div>
                     <div className="flex flex-col gap-5 max-w-[1200px] w-full">
                         <div className="flex items-center justify-center w-full">
-                            <h2 className="font-bold text-[38px] md:text-[58px] text-white text-center leading-[1.2]">Our Testimonials</h2>
+                            <h2 className="text-[38px] md:text-[58px] text-white text-center leading-[1.2]">Our Testimonials</h2>
                         </div>
                         <div className="flex lg:px-[320px] px-0">
                             <div className="w-full flex justify-center">
@@ -74,7 +74,7 @@ export default function Section7() {
                                     </div>
                                     <div className="flex flex-1 flex-col h-min">
                                         <div className="flex items-center">
-                                            <p className="text-[20px] text-white font-[500]">{item.name}</p>
+                                            <p className="text-[20px] text-white">{item.name}</p>
                                         </div>
                                         <div className="flex items-center">
                                             <p className="text-sm text-[#727272]" >{item.role}</p>

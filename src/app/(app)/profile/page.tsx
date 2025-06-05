@@ -1,17 +1,17 @@
 "use client"
 import Link from 'next/link'
 import React, { useContext, useState } from 'react'
-import { AuthContext } from '../context/Authcontext'
-import PostedByYou from '../components/posts/postedByYou'
+import { AuthContext } from '../../context/Authcontext'
+import PostedByYou from '../../components/posts/postedByYou'
 import { Tab } from '@headlessui/react'
 
 export default function profile() {
-  const { userObj } :any= useContext(AuthContext)
+  const { userObj} :any= useContext(AuthContext)
   const [activeTab,setActiveTab]=useState<Number>(0)
   const tabs= ["Posts","Saved Posts","Likes","Replies"]
   return (
     <>
-    {userObj ?
+    {/* {userObj ?
     <div className="w-full h-auto"> 
       <div className="flex flex-col justify-center relative">
         <div className="flex justify-center"> 
@@ -30,7 +30,7 @@ export default function profile() {
                         <div className='pb-[100%]'></div>
                         <div className="absolute top-0  w-full h-full rounded-full bg-[hsl(var(--background))] p-1 flex overflow-hidden">
                           <div className="bg-[hsl(var(--accent))] w-full h-full rounded-full overflow-hidden flex items-center justify-center">
-                            <img src={userObj.user.profileImage? userObj.user.profileImage: 'https://abs.twimg.com/sticky/default_profile_images/default_profile_200x200.png'} className='object-cover object-center w-full h-full' alt='profile image'/>
+                            <img src={userObj?.user?.profileImage? userObj?.user?.profileImage: 'https://abs.twimg.com/sticky/default_profile_images/default_profile_200x200.png'} className='object-cover object-center w-full h-full' alt='profile image'/>
                           </div>
                         </div>
                       </div>
@@ -40,10 +40,10 @@ export default function profile() {
                     </div>
 
                     <div className="flex flex-col">
-                      <h3 className='text-2xl dark:text-[rgb(225,225,225)] font-bold'>{userObj.user.name}</h3>
+                      <h3 className='text-2xl font-[boldCal] dark:text-[rgb(225,225,225)]'>{userObj?.user?.name}</h3>
                       <div>
                         <span className="text-[#727272] text-[15px] ">
-                          @{userObj.user.username}
+                          @{userObj?.user?.username}
                         </span>
                       </div>
                       <div className='mb-3'>
@@ -53,13 +53,13 @@ export default function profile() {
                       </div>
                       <div className="flex flex-row gap-4">
                         <Link href={"#"} className="text-[14px] text-[#727272] hover:underline">
-                          <span className="font-bold">{userObj.user.followers.length}</span>&nbsp;Followers
+                          <span className="text-black dark:text-white">{userObj?.user.followers.length}</span>&nbsp;Followers
                         </Link>
                         <Link href={"#"} className="text-[14px] text-[#727272] hover:underline">
-                          <span className="font-bold">{userObj.user.following.length}</span>&nbsp;Following
+                          <span className="text-black dark:text-white">{userObj?.user.following.length}</span>&nbsp;Following
                         </Link>
                         <Link href={"#"} className="text-[14px] text-[#727272] hover:underline">
-                          <span className="font-bold">0</span>&nbsp;Friends
+                          <span className="text-black dark:text-white">0</span>&nbsp;Friends
                         </Link>
                       </div>
                     </div>
@@ -76,9 +76,9 @@ export default function profile() {
                           )
                         })}
                         
-                        {/* <li>
+                        <li>
                              <a className="inline-block p-4 text-gray-400 rounded-t-lg cursor-not-allowed dark:text-gray-500">Disabled</a>
-                        </li> */}
+                        </li> 
                     </ul>
                 </div>
                 <div className="flex flex-col">
@@ -90,7 +90,7 @@ export default function profile() {
         </div>
       </div>
     </div>
-    :<></>}
+    :<></>} */}
     </>
   )
 }

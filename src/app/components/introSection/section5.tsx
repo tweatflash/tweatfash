@@ -8,7 +8,7 @@ export default function Section5() {
           <div className="flex gap-4 flex-col w-full">
             <div className="contents">
               <div className="flex">
-                <h2 className="text-center lg:text-left text-[38px] md:text-[58px] text-white leading-[1.2] font-bold">Tweatflash&apos;s Advanced Capabilities</h2>
+                <h2 className="text-center lg:text-left text-[38px] md:text-[58px] text-white leading-[1.2]">Tweatflash&apos;s Advanced Capabilities</h2>
               </div>
             </div>
             <div className="contents">

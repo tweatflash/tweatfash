@@ -33,7 +33,7 @@ export default function IntroLayout() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <div className="bg-[hsl(var(--background))] min-h-screen w-full flex flex-col justify-center">
+    <div className="bg-black min-h-screen w-full flex flex-col justify-center">
       <header className="sticky inset-x-0 top-0 z-50 border-b border-solid border-[hsl(var(--border-color))] flex justify-center w-full bg-[hsl(var(--background)/.6)] backdrop-blur-md">
         <nav
           aria-label="Global"
@@ -78,7 +78,7 @@ export default function IntroLayout() {
               <a
                 key={item.name}
                 href={item.href}
-                className="text-sm/6 font-semibold text-gray-900 dark:text-gray-400"
+                className="text-sm/6 text-gray-900 dark:text-gray-400"
               >
                 {item.name}
               </a>
@@ -87,7 +87,7 @@ export default function IntroLayout() {
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
             <Link
               href="/sign-in"
-              className="text-sm/6 font-semibold text-gray-900 dark:text-white"
+              className="text-sm/6 text-gray-900 dark:text-white"
             >
               Log in <span aria-hidden="true">&rarr;</span>
             </Link>

@@ -1,56 +1,19 @@
 export default function Section2() {
   return (
-    <div className="w-full flex flex-col gap-[60px]">
-          <div className="w-full flex flex-col justify-center gap-2">
-            <div className="w-20 md:w-24 aspect-square m-auto rounded-full overflow-hidden">
-              <img alt="" src="/tweatflash.svg" className="w-full h-full" />
-            </div>
-            <div className="w-full flex justify-center">
-              <h1 className="text-2xl font-bold md:text-5xl !leading-[1.2] text-black dark:text-white text-center">
-                Empowering authentic connections for a vibrant social
-                experience.
-              </h1>
-            </div>
-          </div>
-          <div className="w-full ">
-            <div className="mx-auto max-w-7xl">
-              <div className="flex flex-col md:flex-row md:gap-8 gap-5 h-auto text-center md:items-stretch">
-                <div className="mx-auto h-fit flex max-w-xs flex-col gap-y-2">
-                  <div className="text-[18px] text-[#727272] font-normal">
-                    Shared moments and stories every month
-                  </div>
-                  
-                  <div className="order-first md:text-[50px] font-semibold tracking-tight text-black dark:text-white text-[40px]">
-                    500k+
-                  </div>
-                </div>
-
-                <div className="w-[1px] bg-[hsl(var(--accent))] block">
-                </div>
-
-                <div className="mx-auto h-fit flex max-w-xs flex-col gap-y-2">
-                  <div className="text-[18px] text-[#727272] font-normal">
-                   Communities thriving across diverse interests
-                  </div>
-                  <dd className="order-first md:text-[50px] font-semibold tracking-tight text-black dark:text-white text-[40px]">
-                    200k+
-                  </dd>
-                </div>
-
-                <div className="w-[1px] bg-[hsl(var(--accent))]"></div>
-
-                <div className="mx-auto h-fit flex max-w-xs flex-col gap-y-2">
-                  <div className="text-[18px] text-[#727272] font-normal">
-                    Countries where Appit is growing strong
-                  </div>
-                  <dd className="order-first md:text-[50px] font-semibold tracking-tight text-black dark:text-white text-[40px]">
-                    50+
-                  </dd>
-                </div>
-              </div>
-            </div>
-          </div>
-          
+    <div className="w-full flex flex-col gap-[40px] ">
+      <div className="py-2 px-4 m-auto border flex rounded-full bg-[#0f0f0f] border-[hsl(var(--border-color))] w-fit gap-1">
+        <div className="h-5 w-5 ">
+          <img className="w-full h-full" src="https://framerusercontent.com/images/o8k4hpBGZSqpjSgLI7W0kJLJuw4.svg"/>
         </div>
+        <div>
+          <p className="text-4 text-black dark:text-white">Who we are</p>
+        </div>
+      </div>
+      <div className="w-full flex justify-center bg-[radial-gradient(28.000000000000004%_25%_at_50%_50%,rgba(81,47,235,.15)_0%,rgba(171,171,171,0)_100%)]">
+        <div className="flex text-center max-w-[800px] w-full">
+          <h3 className="leading-[1.4em] text-white text-[26px] md:text-[32px] lg:text-[40px]  "><span>We</span> <span>are</span> <span>Radison,</span> <span>we</span> <span>help</span> <span>founders</span> <span>like</span> <span>you</span> <span>to</span> <span>automate</span> <span>their</span> <span>day</span> <span>to</span> <span>day</span> <span>business</span> <span>operations</span> <span>with</span> <span>the</span> <span>help</span> <span>of</span> <span>AI</span></h3>
+        </div>
+      </div>
+    </div>
   )
 }

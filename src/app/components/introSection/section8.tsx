@@ -38,7 +38,7 @@ export default function Section8() {
                                     <img src="/tweatflash.svg" alt="Logo" className='w-full h-full object-contain' />
                                 </div>
                                 <div className='flex items-center'>
-                                    <p className='text-[28px] tracking-[-0.56px] font-[500] text-white spacing'>Tweatflash</p>
+                                    <p className='text-[28px] tracking-[-0.56px] text-white spacing'>Tweatflash</p>
                                 </div>
                             </Link> 
                             <div className='max-w-[350px] w-full'>
@@ -50,50 +50,50 @@ export default function Section8() {
                         <div className='flex flex-row w-full gap-[10px]'>
                             <div className='flex-1 flex flex-col gap-[10px]'>
                                 <div className='w-full'>
-                                    <p className='text-[16px] text-white font-[500]'>Sections</p>
+                                    <p className='text-[16px] text-white'>Sections</p>
                                 </div>
                                 <div className='w-full'>
-                                    <p className='text-[14px] font-[500]'>
+                                    <p className='text-[14px]'>
                                         <Link href="" className='text-[#727272] hover:text-white'>Process</Link>
                                     </p>
                                 </div>
                                 <div className='w-full'>
-                                    <p className='text-[14px] font-[500]'>
+                                    <p className='text-[14px]'>
                                         <Link href="" className='text-[#727272] hover:text-white'>Services</Link>
                                     </p>
                                 </div>
                                 <div className='w-full'>
-                                    <p className='text-[14px] font-[500]'>
+                                    <p className='text-[14px]'>
                                         <Link href="" className='text-[#727272] hover:text-white'>Benefits</Link>
                                     </p>
                                 </div>
                                 <div className='w-full'>
-                                    <p className='text-[14px] font-[500]'>
+                                    <p className='text-[14px]'>
                                         <Link href="" className='text-[#727272] hover:text-white'>Plans</Link>
                                     </p>
                                 </div>
                                 <div className='w-full'>
-                                    <p className='text-[14px] font-[500]'>
+                                    <p className='text-[14px]'>
                                         <Link href="" className='text-[#727272] hover:text-white'>Contact</Link>
                                     </p>
                                 </div>
                             </div>
                             <div className='flex-1 flex flex-col gap-[10px]'>
                                 <div className='w-full'>
-                                    <p className='text-[16px] text-white font-[500]'>Pages</p>
+                                    <p className='text-[16px] text-white'>Pages</p>
                                 </div>
                                 <div className='w-full'>
-                                    <p className='text-[14px] font-[500]'>
+                                    <p className='text-[14px]'>
                                         <Link href="" className='text-[#727272] hover:text-white'>Home</Link>
                                     </p>
                                 </div>
                                 <div className='w-full'>
-                                    <p className='text-[14px] font-[500]'>
+                                    <p className='text-[14px]'>
                                         <Link href="" className='text-[#727272] hover:text-white'>404</Link>
                                     </p>
                                 </div>
                                 <div className='w-full'>
-                                    <p className='text-[14px] font-[500]'>
+                                    <p className='text-[14px]'>
                                         <Link href="" className='text-[#727272] hover:text-white'>Login</Link>
                                     </p>
                                 </div>

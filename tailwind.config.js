@@ -19,7 +19,7 @@ module.exports = {
       }
     },
     screens:{
-      // mobile:{max:"1024px"},
+      mobileM:{max:"639px"},
       mobile:{min:"650px"},
       sm:"640px",
       md:"768px",

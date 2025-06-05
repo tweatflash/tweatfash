@@ -1,15 +1,14 @@
-"use client"
+"use client";
 import Link from "next/link";
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../context/Authcontext";
-import Loading from "../loadingd";
 import Image from "next/image";
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
+import { AuthProvider } from "../context/Authcontext";
 // import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
-const LayoutB = ({ children }: { children: React.ReactNode }) => {
+
+const HomeLayout = ({ children }: { children: React.ReactNode }) => {
   const userObj:any={}
   return(
-    <div className="main-handler grid absolute t-0 l-0 r-0 b-0 w-full ">
+    <div className="main-handler min-h-screen grid absolute t-0 l-0 r-0 b-0 w-full bg-[hsl(var(--background))]">
 
         <div className="flex flex-col border-solid sticky top-0 left-0 w-full h-full border-[hsl(var(--border-color))] un-b"></div>
 
@@ -118,7 +117,7 @@ const LayoutB = ({ children }: { children: React.ReactNode }) => {
                     </kbd>
                   </button>
                 </div>
-                <nav className="flex items-center gap-0.5" onClick={()=>document.body.classList.toggle("dark")}>
+                <nav className="flex items-center gap-0.5">
                   <div
                    
                     className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground h-8 w-8 px-0"
@@ -219,10 +218,13 @@ const LayoutB = ({ children }: { children: React.ReactNode }) => {
           </div>
         </div>
         {/* main outlet */}
-        <div className="relative flex flex-col justify-center un-b w-full">
-          <div className=" w-full flex flex-col pb-14 ">
+        <div className="relative flex flex-col justify-center un-b w-full min-h-full">
+          <div className=" w-full flex flex-col pb-14 min-h-full">
             {/* <div className="h-[60px] w-full"></div> */}
-            {children}
+            <AuthProvider>
+                {children}
+            </AuthProvider>
+            
           </div>
         </div>
 
@@ -277,5 +279,4 @@ const LayoutB = ({ children }: { children: React.ReactNode }) => {
   )
 }
   
-export default LayoutB;
-  
+export default HomeLayout;

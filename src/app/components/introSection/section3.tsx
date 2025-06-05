@@ -12,7 +12,7 @@ export default function Section3() {
                     </div>
                   </div>
                   <div className="flex-col gap-1">
-                    <h2 className="text-[38px] leading-tight md:text-[58px] text-black dark:text-white md:font-bold font-bold text-center ">
+                    <h2 className="text-[38px] leading-tight md:text-[58px] dark:text-white md:font-bold text-center ">
                       Discover Tweatflash&apos;s Benefits
                     </h2>
                     <p className="text-[#727272] text-[18px] text-center">Unlock a world of meaningful connections, tailored experiences, and seamless social interaction.</p>

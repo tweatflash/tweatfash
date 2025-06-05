@@ -34,7 +34,7 @@ export default function Section4() {
           </div>
           <div className="flex flex-col gap-[50px] flex-1">
               <div className=" flex justify-start flex-col">
-                  <h2 className="dark:text-white text-center lg:text-left mt-5 lg:mt-0 text-black text-2xl md:text-5xl md:font-bold font-bold">Tweatflash Social&apos;s Advanced Capabilities</h2>
+                  <h2 className="dark:text-white text-center lg:text-left mt-5 lg:mt-0 text-black text-2xl md:text-5xl">Tweatflash Social&apos;s Advanced Capabilities</h2>
               </div>
               <div className="grid gap-5 md:grid-cols-2 grid-cols-1 grid-rows-2 w-full" >
                 <div className="contens">
