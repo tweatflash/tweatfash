@@ -31,7 +31,7 @@ export default function Feed({dave}: daveA) {
                             <div className="flex gap-3 items-center">
                                 <span className="font-[boldCal]">
                                     
-                                        <span className="text-black dark:text-[#EEEEEE] text-[15px] tracking-wide">
+                                        <span className="text-black dark:text-[#EEEEEE] text-[15px]">
                                             <Link
                                                 href={"/"+ dave.user.username}
                                                 className="hover:underline"

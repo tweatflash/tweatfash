@@ -116,6 +116,9 @@ type Post={
     loggedIn:boolean,
     posts:HomeFeed[]
 }
+type UsersType={
+    user:Users
+}
 type User= {
         "_id": string,
         "name": string,
@@ -192,4 +195,146 @@ type User= {
         "resetPasswordExpire": "2025-03-23T14:46:28.570Z",
         "resetPasswordToken": string,
         "aura": 0
+}
+
+
+type Users= {
+  _id: string
+  name: string
+  username: string
+  email: string
+  dateOfBirth: string
+  followers: Follower[]
+  following: Following[]
+  friends: any[]
+  googleId: string
+  homeTown: string
+  relationshipStatus: string
+  placesLived: string
+  pricingPlan: string
+  role: string
+  profileImage: string
+  coverImage: string
+  bio: string
+  link: string
+  likedPosts: string[]
+  likedComments: any[]
+  likedreplies: any[]
+  pinnedPosts: any[]
+  mutePosts: any[]
+  accountViews: string[]
+  interests: string[]
+  blockedUsers: any[]
+  muteUsers: any[]
+  reposts: string[]
+  quotes: any[]
+  location: string
+  language: string
+  isVerified: boolean
+  wallet: number
+  tweatcoins: number
+  pricingPlanDuration: string
+  verificationToken: string
+  suspended: boolean
+  createdAt: string
+  updatedAt: string
+  __v: number
+  verified: string
+  gender: string
+  flags: string[]
+  aura: number
+  resetPasswordExpire: string
+  resetPasswordToken: string
+}
+
+type Follower ={
+  _id: string
+  name: string
+  username: string
+  email: string
+  dateOfBirth: string
+  followers: string[]
+  following: string[]
+  friends: any[]
+  googleId: string
+  homeTown: string
+  relationshipStatus: string
+  placesLived: string
+  pricingPlan: string
+  role: string
+  profileImage: string
+  coverImage: string
+  bio: string
+  link: string
+  likedPosts: string[]
+  flags: string[]
+  likedComments: any[]
+  likedreplies: any[]
+  pinnedPosts: any[]
+  mutePosts: any[]
+  accountViews: string[]
+  interests: any[]
+  blockedUsers: any[]
+  muteUsers: any[]
+  reposts: any[]
+  quotes: any[]
+  location: string
+  language: string
+  isVerified: boolean
+  wallet: number
+  tweatcoins: number
+  pricingPlanDuration?: string
+  verificationToken: string
+  suspended: boolean
+  createdAt: string
+  updatedAt: string
+  __v: number
+  verified: string
+  aura: number
+}
+
+type Following= {
+  _id: string
+  name: string
+  username: string
+  email: string
+  dateOfBirth: string
+  followers: string[]
+  following: string[]
+  friends: any[]
+  googleId: string
+  homeTown: string
+  relationshipStatus: string
+  placesLived: string
+  pricingPlan: string
+  role: string
+  profileImage: string
+  coverImage: string
+  bio: string
+  link: string
+  likedPosts: string[]
+  flags: any[]
+  likedComments: any[]
+  likedreplies: any[]
+  pinnedPosts: any[]
+  mutePosts: any[]
+  accountViews: string[]
+  interests: any[]
+  blockedUsers: any[]
+  muteUsers: any[]
+  reposts: any[]
+  quotes: any[]
+  location: string
+  language: string
+  isVerified: boolean
+  wallet: number
+  tweatcoins: number
+  pricingPlanDuration: any
+  verificationToken: string
+  suspended: boolean
+  createdAt: string
+  updatedAt: string
+  __v: number
+  verified: string
+  aura: number
 }

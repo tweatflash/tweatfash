@@ -14,16 +14,21 @@ export default function LoginPage() {
     const [email,setEmail]=useState("")
     const [password,setPassword] =useState("")
     const [emailError,setEmailerror]=useState({
-        "isValid":false,
+        "isValid":true,
         "emailError":""
     })
     const [isPending,setIsPending]=useState(false)
+    const [invalid,setInvalid]=useState(true)
     const router=useRouter()
-
+    
     const handleLogin= async (e:FormEvent<HTMLFormElement>) =>{
         e.preventDefault()
         if (email && password){
             setIsPending(true)
+            setEmailerror({
+                "isValid":true,
+                "emailError":""
+            })
           const request= await fetch(`https://tweatflash-web-app.onrender.com/api/v1/auth/login/`,{
             method:"POST",  
             headers: {
@@ -35,16 +40,21 @@ export default function LoginPage() {
             })
             
             }
-          )
-          const response =await request
-          const data=await response
-          const data2 =await data.json()
-          console.log(data2)
-          if (data.status===200){
-            Cookies.set("RFTFL", data2.refreshTokenJWT, { expires: 7 });
-            Cookies.set("ACTFL", data2.accessTokenJWT, { expires: 7 });
-            window.location.reload()
-          }
+            )
+            const response =await request
+            const data=await response.json()
+            response?.status && setIsPending(false)
+            console.log(data)
+            if (response.status===200 && (data.refreshTokenJWT && data.accessTokenJWT)){ 
+                Cookies.set("RFTFL", data.refreshTokenJWT, { expires: 1 })
+                Cookies.set("ACTFL", data.accessTokenJWT, { expires: 1 })
+                window.location.reload()
+            }else{
+                setEmailerror({
+                    "isValid":false,
+                    "emailError":"Email or password is incorrect."
+                })
+            }            
         }
     }
     const login:any = useGoogleLogin({
@@ -69,14 +79,14 @@ export default function LoginPage() {
         <div className="w-full min-h-screen text-white dark:bg-brand dark:text-brand-contrast text-emphasis [--cal-brand-emphasis:#101010] [--cal-brand-subtle:#9CA3AF] [--cal-brand-text:white] [--cal-brand:#111827] dark:[--cal-brand-emphasis:#e1e1e1] dark:[--cal-brand-text:black] dark:[--cal-brand:white] flex items-center justify-center">
         <div className="bg-subtle dark:bg-default flex flex-col justify-center py-12 sm:px-6 lg:px-8">
             <h3 className="logo mx-auto mb-auto">
-            <strong>
-                <img
-                className="h-10 w-auto"
-                alt="Cal"
-                title="Cal"
-                src="/tweatflash.svg"
-                />
-            </strong>
+                <strong>
+                    <img
+                    className="h-10 w-auto"
+                    alt="Cal"
+                    title="Cal"
+                    src="/tweatflash.svg"
+                    />
+                </strong>
             </h3>
             <div className="ml-auto mr-auto mt-0 flex w-full max-w-xl flex-col px-4 pt-6 sm:px-16 md:px-20 lg:mt-24 2xl:px-28">
                 <div className="flex w-fit lg:-mt-12">
@@ -143,7 +153,7 @@ export default function LoginPage() {
                                 placeholder="example@gmail.com"
                                 autoComplete="email"
                                 data-testid="signup-emailfield"
-                                className="rounded-[10px] border-2 border-gray-600 transition h-10 px-3 py-2 text-sm w-full bg-transparent disabled:hover:border-subtle disabled:cursor-not-allowed focus:border-[white] outline-none"
+                                className="peer rounded-[10px] border border-gray-600 transition h-10 px-3 py-2 text-sm w-full bg-transparent disabled:hover:border-subtle disabled:cursor-not-allowed focus:border-[white] outline-none"
                                 type="email"
                                 name="email"
                                 required
@@ -151,8 +161,10 @@ export default function LoginPage() {
                                 onChange={(e)=>setEmail(e.target.value)}
                                 onClick={()=>handleLogin}
                             />
+                            
+
                         </div>
-                        <div className="mt-2">
+                        <div>
                             <label
                             className="text-emphasis mb-2 block text-sm font-medium leading-none"
                             htmlFor="«r11»"
@@ -162,17 +174,27 @@ export default function LoginPage() {
                             <input
                                 placeholder="***********"
                                 autoComplete="password"
-                                className="rounded-[10px] border-2 border-gray-600 transition h-10 px-3 py-2 text-sm w-full bg-transparent focus:border-[white] outline-none"
+                                className="rounded-[10px] border border-gray-600 transition h-10 px-3 py-2 text-sm w-full bg-transparent focus:border-[white] outline-none"
                                 type="password"
                                 name="password"
                                 required
                                 value={password}
+
                                 onChange={(e)=>setPassword(e.target.value)}
                             />
                         </div>
                         <div>
                             
                         </div>
+                        {!emailError.isValid? <div className="rounded-[10px] p-3 bg-[#230606] text-[#f87272]">
+                            <div className="relative flex md:flex-row">
+                                <div className="flex flex-grow justify-center flex-col sm:flex-row">
+                                    <div className="space-y-1 ltr:ml-3 rtl:mr-3">
+                                        <h3 className="text-sm text-center font-medium leading-none">{emailError.emailError}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> :<></>}
                         <button
                             type="submit"
                             className="inline-flex justify-center disabled:cursor-not-allowed items-center rounded-md bg-indigo-500 px-4 py-2 disabled:opacity-25 text-sm leading-6 font-semibold text-white transition duration-150 ease-in-out hover:bg-indigo-400"
@@ -202,7 +224,7 @@ export default function LoginPage() {
                         </button>
                     </form>
                 </div>
-                <div className="mt-10 flex h-full flex-col justify-end pb-6 text-xs">
+                <div className="mt-10 flex h-full flex-col text-[#727272] justify-end pb-6 text-xs">
                     <div className="flex flex-col text-sm">
                     <div className="flex gap-1">
                         <p className="text-subtle">Don&apos;t have an account?</p>
@@ -231,7 +253,7 @@ export default function LoginPage() {
                     </div>
                     </div>
                 </div>
-                </div>
+            </div>
         </div>
         </div>
     );

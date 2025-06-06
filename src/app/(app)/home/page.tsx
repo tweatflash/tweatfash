@@ -44,7 +44,7 @@ export default function HomePage() {
                 {activeTab === 0 && <SuggestedPost/>} 
                 {activeTab === 1 && <FollowingPosts/>}
                 {activeTab === 2 && <NewestPosts/>}
-                {activeTab === 3 && <SavedPosts/>}
+                {activeTab === 3 && <SavedPosts data="dave"/>}
                 {activeTab === 4 && <PostedByYou/>}
                 {activeTab === 5 && <LikedPosts/>}
               </div>

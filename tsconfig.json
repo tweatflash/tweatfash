@@ -23,6 +23,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/components/context/AuthContext.js", "src/app/components/protectedLayout.tsx", "src/app/components/routeWrapper.js", "src/app/layout.tsx", "lib/checkLoggedinStatus.js", "lib/posts/getPosts.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/components/context/AuthContext.js", "src/app/components/protectedLayout.tsx", "src/app/components/routeWrapper.js", "src/app/layout.tsx", "lib/checkLoggedinStatus.js", "lib/posts/getPosts.js", "lib/getUserProfie.js"],
   "exclude": ["node_modules"]
 }
