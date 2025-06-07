@@ -21,6 +21,7 @@ module.exports = {
     screens:{
       mobileM:{max:"639px"},
       mobile:{min:"650px"},
+      feedMax:{min:"600px"},
       sm:"640px",
       md:"768px",
       lg:"1024px",

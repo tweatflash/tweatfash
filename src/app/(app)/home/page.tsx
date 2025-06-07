@@ -1,13 +1,15 @@
 "use client"
-import { Suspense, useState } from "react"
+import { Suspense, useContext, useState } from "react"
 import SuggestedPost from "../../components/posts/suggestedPost"
 import NewestPosts from "../../components/posts/newestPosts"
 import SavedPosts from "../../components/posts/savedPosts"
 import FollowingPosts from "../../components/posts/followingPosts"
 import LikedPosts from "../../components/posts/likedPosts"
 import PostedByYou from "../../components/posts/postedByYou"
+import { AuthContext } from "@/app/context/Authcontext"
 export default function HomePage() {
   const [activeTab,setActiveTab]=useState(0)
+  const {userObj}=useContext<any>(AuthContext)
   const tabs = ["for you","Following","Newest Tweats" ,"Saved Tweats" ,"Posted by you" ,"Liked Posts"];  
   return (
     
@@ -45,7 +47,7 @@ export default function HomePage() {
                 {activeTab === 1 && <FollowingPosts/>}
                 {activeTab === 2 && <NewestPosts/>}
                 {activeTab === 3 && <SavedPosts data="dave"/>}
-                {activeTab === 4 && <PostedByYou/>}
+                {activeTab === 4 && <PostedByYou username={userObj.user.username}/>}
                 {activeTab === 5 && <LikedPosts/>}
               </div>
             </div>

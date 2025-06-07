@@ -1,6 +1,7 @@
 import Link from "next/link";
 import getUserProfile from "../../../../lib/getUserProfie";
 import SavedPosts from "@/app/components/posts/savedPosts";
+import PostCompartment from "@/app/components/posts/postCompartment";
 type Props = {
   params: {
     userName: string;
@@ -12,13 +13,13 @@ export async function generateMetadata({ params: { userName } }: Props) {
   const displayTerm = userName.replace("%20", " ");
   if (!data) {
     return {
-      title: 'No results for'+ userName,
-      description: 'No results for '+ userName +'found',
+      title: 'No results for'+""+ userName,
+      description: 'No results for '+""+ userName +""+'found',
     };
   }
   return {
     title: data.user.name +' | Tweatflash',
-    description: 'Search results for'+ displayTerm,
+    description: 'tweatflash profile for' +""+ displayTerm,
     openGraph: {
         images: data.user.profileImage,
     },
@@ -31,7 +32,7 @@ export async function generateMetadata({ params: { userName } }: Props) {
 export default async  function Username({ params: { userName } }: Props) {
     const profileData: Promise<UsersType> = await getUserProfile(userName);
     const result :Users =(await profileData)?.user
-    const tabs= ["Posts","Saved Posts","Likes","Replies"]
+    
     if (!profileData) return <h1>Error Page no user found</h1>
     return ( 
         
@@ -39,15 +40,15 @@ export default async  function Username({ params: { userName } }: Props) {
       <div className="flex flex-col justify-center relative">
         <div className="flex justify-center"> 
           <div className="w-full max-w-[568px]">
-            <div className="w-full">
+            <div className="w-full feedMax:pt-4">
               
               <div className="flex flex-col">
                   <div className="flex-col relative overflow-hidden max-h-40">
                     <div className='pb-[33.3333%] '></div>
-                    <div className="absolute w-full h-full bg-[hsl(var(--accent))] top-0"></div>
+                    <div className="absolute feedMax:rounded-lg w-full h-full bg-[hsl(var(--accent))] top-0"></div>
 
                   </div>
-                  <div className='flex flex-col mb-4 p-4 pt-0 mobile:pl-0 mobile:pr-0'>
+                  <div className='flex flex-col gap-3 mb-4 p-4 pt-0 mobile:pl-0 mobile:pr-0'>
                     <div className="flex flex-wrap justify-between mobile:pl-4 mobile:pr-4">
                       <div className='min-w-[48px] relative mt-[-15%] w-[25%] mb-3'>
                         <div className='pb-[100%]'></div>
@@ -86,27 +87,37 @@ export default async  function Username({ params: { userName } }: Props) {
                         </Link>
                       </div>
                     </div>
-                  </div>
-                  
+                    <div className="flex flex-row flex-grow gap-2 justify-end">
+                        <div className="flex-1 flex-col">
+                            <button type="button" className="px-4 w-full h-full bg-[#4070f4] rounded-lg font-[500] text-white text-[15px]">follow</button>
+                        </div>
+                        <div className="flex-1 flex-col">
+                            <button type="button" className=" w-full h-full bg-[hsl(var(--accent))] rounded-lg text-black dark:text-white text-[15px]">Add Freiend</button>
+                        </div>
+                        <div className="flex flex-col">
+                            <button type="button" className="bg-[hsl(var(--accent))] flex justify-center items-center rounded-lg w-10 aspect-square">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width={20}
+                                height={20}
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                // stroke="currentColor"
+                                strokeWidth={2}
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                className="stroke-black dark:stroke-white"
+                              >
+                                <circle cx={12} cy={12} r={1} />
+                                <circle cx={19} cy={12} r={1} />
+                                <circle cx={5} cy={12} r={1} />
+                                  </svg>
 
-                <div className="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
-                    <ul className="flex flex-row justify-center -mb-px">
-                        {tabs.map((tab, index) => {
-                          return(
-                            <li key={index} className={`flex-1 ${index==0?"text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500" :"flex-1 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"} `}>
-                              <a href="#" className="inline-block pb-2 ">{tab}</a>
-                            </li>
-                          )
-                        })}
-                        
-                        {/* <li>
-                             <a className="inline-block p-4 text-gray-400 rounded-t-lg cursor-not-allowed dark:text-gray-500">Disabled</a>
-                        </li> */}
-                    </ul>
-                </div>
-                <div className="flex flex-col">
-                  <SavedPosts data={result.name}/>
-                </div>
+                            </button>
+                        </div>
+                    </div>
+                  </div>
+                  <PostCompartment username={userName}/>
               </div>
             </div>
           </div>
