@@ -15,87 +15,25 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
   const {userObj}: any = useContext(AuthContext)
   return (
     <div className="main-handler min-h-screen grid absolute t-0 l-0 r-0 b-0 w-full bg-[hsl(var(--background))]">
-      <div className="flex flex-col border-r border-solid sticky top-0 left-0 w-full h-full border-[hsl(var(--border-color))] un-b"></div>
+      <div className="flex flex-col border-r border-solid sticky top-0 left-0 w-full h-full border-[hsl(var(--border-color))] un-b p-3">
+         <Link href="/" className="w-full h-full flex justify-center items-center ">
+            <img
+              className="h-10 w-10"
+              alt="tweatflash logo"
+              title="tweatflash"
+              src="/tweatflash.svg"
+            />
+          </Link>
+      </div>
 
       {/* header */}
       <div className="flex flex-col w-full h-full border-b sticky  border-solid border-[hsl(var(--border-color))] top-0 z-20 bg-[hsl(var(--background)/.6)] backdrop-blur-md">
         
         <div className="fixed top-0 w-full px-4">
           <div className="container-wrapper">
-            <div className="w-full flex h-14 items-center gap-2 md:gap-4">
-              <div className="mr-4 hidden md:flex">
-                <Link
-                  className="mr-4 flex items-center gap-2 lg:mr-6"
-                  href="/david"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 256 256"
-                    className="h-6 w-6"
-                  >
-                    <rect width="256" height="256" fill="none"></rect>
-                    <line
-                      x1="208"
-                      y1="128"
-                      x2="128"
-                      y2="208"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="32"
-                    ></line>
-                    <line
-                      x1="192"
-                      y1="40"
-                      x2="40"
-                      y2="192"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="32"
-                    ></line>
-                  </svg>
-                  <span className="hidden font-bold lg:inline-block text-black dark:text-white">
-                    tweatflash
-                  </span>
-                </Link>
-                <nav className="flex items-center gap-4 text-sm xl:gap-6">
-                  <a
-                    className="transition-colors text-white"
-                    href="/docs/installation"
-                  >
-                    {" completed"}
-                  </a>
-                  <a
-                    className="transition-colors text-white"
-                    href="/docs/components"
-                  >
-                    Components
-                  </a>
-                  <a className="transition-colors text-white" href="/blocks">
-                    Blocks
-                  </a>
-                  <a className="transition-colors text-white" href="/charts">
-                    Charts
-                  </a>
-                  <a className="transition-colors text-white" href="/themes">
-                    Themes
-                  </a>
-                  <a className="transition-colors text-white" href="/colors">
-                    Colors
-                  </a>
-                </nav>
-              </div>
-              <button
-                className="inline-flex items-center justify-center whitespace-nowrap rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 hover:text-accent-foreground py-2 h-8 w-full gap-4 px-0 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 md:hidden"
-                type="button"
-                aria-haspopup="dialog"
-                aria-expanded="false"
-                aria-controls="radix-:R15u6ja:"
-                data-state="closed"
-              >
+            <div className="w-full flex h-14 mobile:h-16 items-center gap-2 md:gap-4">
+              
+              <div className="flex mobile:hidden items-center justify-between gap-2 w-full">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -109,38 +47,50 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
                     d="M3.75 9h16.5m-16.5 6.75h16.5"
                   ></path>
                 </svg>
-                <span className="sr-only">Toggle Menu</span>
-                <span className="flex h-8 flex-1 items-center justify-between rounded-md border bg-muted/50 px-2 text-sm font-normal text-muted-foreground shadow-none">
-                  Search documentation...
-                </span>
-              </button>
-              <div className="ml-auto flex items-center gap-2 md:flex-1 md:justify-end">
-                <div className="hidden w-full flex-1 md:flex md:w-auto md:flex-none">
-                  <button className="inline-flex items-center gap-2 whitespace-nowrap transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 border border-input hover:bg-accent hover:text-accent-foreground px-4 py-2 relative h-8 w-full justify-start rounded-[0.5rem] bg-muted/50 text-sm font-normal text-muted-foreground shadow-none sm:pr-12 md:w-40 lg:w-56 xl:w-64">
-                    <span className="hidden lg:inline-flex text-current">
-                      Search tweatflash...
-                    </span>
-                    <span className="inline-flex lg:hidden">Search...</span>
-                    <kbd className="pointer-events-none absolute right-[0.3rem] top-[0.3rem] hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
-                      <span className="text-xs">⌘</span>K
-                    </kbd>
-                  </button>
+                <div className="h-10 flex w-full items-center justify-between rounded-md">
+                  <div className="h-full aspect-square p-1">
+                    <Link href="/" className="w-full h-full flex justify-center items-center">
+                      <img
+                        className="h-full w-full"
+                        alt="tweatflash logo"
+                        title="tweatflash"
+                        src="/tweatflash.svg"
+                      />
+                    </Link>
+                  </div>
+                  <div className="h-full flex">
+                    <button className="h-full aspect-square hover:bg-[hsl(var(--accent))] rounded-full flex justify-center items-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="stroke-black dark:stroke-white"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+                    </button>
+                    <button className="h-full aspect-square hover:bg-[hsl(var(--accent))] rounded-full flex justify-center items-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"className="stroke-black dark:stroke-white"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg>
+                    </button>
+                    
+                  </div>
+                </div>
+                
+              </div>
+              <div className="h-full flex items-center gap-2 w-auto mobile:w-full">
+                <div className="hidden h-full items-center gap-4 justify-between flex-1 w-[calc(100%-48px)] mobile:flex md:flex-none">
+                  <div className="flex h-full items-center w-40">
+                    <h1 className="font-[boldCal] text-black dark:text-white text-2xl">Home</h1>
+                  </div>
+                  <div className="w-full flex justify-center">
+                    <button className="inline-flex items-center gap-2 border border-input hover:bg-accent hover:text-accent-foreground px-4 py-2 relative h-8 max-w-[600px] w-full justify-start rounded-[0.5rem] bg-muted/50 text-sm font-normal text-muted-foreground shadow-none">
+                      <span className="hidden lg:inline-flex text-current">
+                        Search tweatflash...
+                      </span>
+                      <span className="inline-flex lg:hidden">Search...</span>
+                      <kbd className="pointer-events-none absolute right-[0.3rem] top-[0.3rem] hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
+                        <span className="text-xs">⌘</span>K
+                      </kbd>
+                    </button>
+                  </div>
                 </div>
                 <nav className="flex items-center gap-0.5">
-                  <div className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground h-8 w-8 px-0">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      className="size-6 fill-[#4070f4]"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M9.528 1.718a.75.75 0 0 1 .162.819A8.97 8.97 0 0 0 9 6a9 9 0 0 0 9 9 8.97 8.97 0 0 0 3.463-.69.75.75 0 0 1 .981.98 10.503 10.503 0 0 1-9.694 6.46c-5.799 0-10.5-4.7-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 0 1 .818.162Z"
-                        clipRule="evenodd"
-                      ></path>
-                    </svg>
-
-                    <span className="sr-only">GitHub</span>
+                  <div className="h-10 w-10 rounded-full overflow-hidden bg-[hsl(var(--accent))]">
+                    
+                    <span className="sr-only">Profile</span>
                   </div>
                 </nav>
               </div>

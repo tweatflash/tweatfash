@@ -29,12 +29,12 @@ export default function Feed({dave}: daveA) {
                     <div className="flex flex-col">
                         <div className="flex justify-between gap-2">
                             <div className="flex gap-3 items-center">
-                                <span className="font-[boldCal]">
+                                <span className="font-[boldCal] tracking-wide decoration-0">
                                     
-                                        <span className="text-black dark:text-[#EEEEEE] text-[15px]">
+                                        <span className="text-black dark:text-[#EEEEEE] text-[15px] decoration-0">
                                             <Link
                                                 href={"/"+ dave.user.username}
-                                                className="hover:underline"
+                                                className="hover:underline decoration-0"
                                             >
                                             {dave.user.name}
                                             </Link>
@@ -109,7 +109,7 @@ export default function Feed({dave}: daveA) {
                     <div className="">
                     <div className="">
                         <div className="">
-                            <p className={`text-black dark:text-[rgb(225,225,225)] font-[500] text-[15px] whitespace-pre-wrap tracking-wide`}>
+                            <p className={`text-black dark:text-[#EEEEEE] font-thin text-[15px] whitespace-pre-wrap tracking-wide decoration-0`}>
                                 {dave.text && dave.text}
                             </p>
                         </div>

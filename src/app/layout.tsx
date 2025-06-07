@@ -3,13 +3,15 @@ import { Montserrat} from 'next/font/google';
 import './globals.css'
 import { GoogleOAuthProvider } from '@react-oauth/google';
   const bricolage = localFont({
-    src: "../../public/fonts/BricolageGrotesque_48pt-Regular.ttf",                                                                                                                                                                                                                    
+    src: "../../public/fonts/BricolageGrotesque_36pt-Light.ttf",      
+    fallback:["sans-serif","Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"]                                                                                                                                                                                                              
   });
   const Outfitfont = Montserrat(
     {
       subsets: ['latin'],
       weight: ['300', '400', '700', ],
-      fallback: ["Inter","Inter Placeholder","sans-serif"]
+      fallback: ["Inter","Inter Placeholder","sans-serif"],
+      style:"normal"
       
 
     }

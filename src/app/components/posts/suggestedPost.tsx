@@ -20,7 +20,7 @@ export default function SuggestedPost() {
     async function petch(){
         const data : Promise<Post>=await getPosts(postId,"all",rf,ac) 
         const results: HomeFeed[] | undefined = await (await data)?.posts;
-        if (results.length ){
+        if (results?.length ){
             setForYou([...(forYou || []) ,...results])
         }
     }

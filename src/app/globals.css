@@ -151,7 +151,7 @@ html.dark {
 }
 .main-handler{  
 
-  grid: 55px 1fr / 72px 1fr; 
+  grid: 64px 1fr / 72px 1fr; 
 }
 @font-face {
   font-family: boldCal;
