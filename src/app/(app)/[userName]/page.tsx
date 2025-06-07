@@ -50,7 +50,7 @@ export default async  function Username({ params: { userName } }: Props) {
                   </div>
                   <div className='flex flex-col gap-3 mb-4 p-4 pt-0 mobile:pl-0 mobile:pr-0'>
                     <div className="flex flex-wrap justify-between mobile:pl-4 mobile:pr-4">
-                      <div className='min-w-[48px] relative mt-[-15%] w-[25%] mb-3'>
+                      <div className='min-w-[48px] relative mt-[-15%] w-[25%]'>
                         <div className='pb-[100%]'></div>
                         <div className="absolute top-0  w-full h-full rounded-full bg-[hsl(var(--background))] p-1 flex overflow-hidden">
                           <div className="bg-[hsl(var(--accent))] w-full h-full rounded-full overflow-hidden flex items-center justify-center">
