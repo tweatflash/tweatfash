@@ -14,32 +14,6 @@ export default function Login() {
     })
     const [isPending,setIsPending]=useState(false)
     const router=useRouter()
-    const handleLogin= async (e:FormEvent<HTMLFormElement>) =>{
-        e.preventDefault()
-        if (email && password){
-        const request= await fetch(`https://tweatflash-web-app.onrender.com/api/v1/auth/login`,{
-            method:"POST",  
-            headers: {
-            'Content-Type': 'application/json',                                                                                                                                                                                                                       
-            },
-            body:JSON.stringify({
-            "email":email,
-            "password":password
-            })
-            
-            }
-        )
-        const response =await request
-        const data=await response
-        const data2 =await data.json()
-        console.log(data2)
-        if (data.status===200){
-            Cookies.set("RFTFL", data2.refreshTokenJWT, { expires: 7 });
-            Cookies.set("ACTFL", data2.accessTokenJWT, { expires: 7 });
-            window.location.reload()
-        }
-        }
-    }
     const checkValidAuth= async ()=>{
         try { 
             const request = await fetch("https://tweatflash-web-app.onrender.com/api/v1/auth/emailAndphoneNumberAuth",{
@@ -117,7 +91,7 @@ export default function Login() {
             <div className="ml-auto mr-auto mt-0 flex w-full max-w-xl flex-col px-4 pt-6 sm:px-16 md:px-20 lg:mt-24 2xl:px-28">
             <div className="flex w-fit lg:-mt-12">
                 <button
-                    className="group whitespace-nowrap font-medium relative disabled:cursor-not-allowed gap-1 text-[#727272] border border-transparent enabled:hover:bg-[hsl(var(--accent))] enabled:hover:text-emphasis enabled:hover:border-subtle hover:border disabled:opacity-30 focus-visible:bg-subtle focus-visible:outline-none focus-visible:ring-0 focus-visible:border-subtle focus-visible:shadow-button-outline-gray-focused enabled:active:shadow-outline-gray-active transition-shadow duration-200 text-sm leading-none hover:bg-subtle todesktop:mt-10 mb-6 flex h-6 max-h-6 w-full items-center rounded-md px-3 py-2"
+                    className="group whitespace-nowrap font-medium  relative disabled:cursor-not-allowed gap-1 text-[#727272] border border-transparent enabled:hover:bg-[hsl(var(--accent))] enabled:hover:text-emphasis enabled:hover:border-subtle hover:border disabled:opacity-30 focus-visible:bg-subtle focus-visible:outline-none focus-visible:ring-0 focus-visible:border-subtle focus-visible:shadow-button-outline-gray-focused enabled:active:shadow-outline-gray-active transition-shadow duration-200 text-sm leading-none hover:bg-subtle todesktop:mt-10 mb-6 flex h-6 max-h-6 w-full items-center rounded-md px-3 py-2"
                     data-testid="signup-back-button"
                     type="button"
                 >

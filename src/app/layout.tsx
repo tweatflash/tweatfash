@@ -3,7 +3,7 @@ import { Montserrat} from 'next/font/google';
 import './globals.css'
 import { GoogleOAuthProvider } from '@react-oauth/google';
   const bricolage = localFont({
-    src: "../../public/fonts/Matter-Regular.ttf",                                                                                                                                                                                                                    
+    src: "../../public/fonts/BricolageGrotesque_48pt-Regular.ttf",                                                                                                                                                                                                                    
   });
   const Outfitfont = Montserrat(
     {

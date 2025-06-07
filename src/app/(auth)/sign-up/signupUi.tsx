@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { Inter } from "next/font/google";
 import React from "react";
 import Cookies from "js-cookie"
@@ -29,32 +29,38 @@ export default function LoginPage() {
                 "isValid":true,
                 "emailError":""
             })
-          const request= await fetch(`https://tweatflash-web-app.onrender.com/api/v1/auth/login/`,{
-            method:"POST",  
-            headers: {
-              'Content-Type': 'application/json',                                                                                                                                                                                                                       
-            },
-            body:JSON.stringify({
-              "email":email,
-              "password":password
-            })
+            try {
+                const request= await fetch(`https://tweatflash-web-app.onrender.com/api/v1/auth/login/`,{
+                    method:"POST",  
+                    headers: {
+                        'Content-Type': 'application/json',                                                                                                                                                                                                                       
+                    },
+                    body:JSON.stringify({
+                        "email":email,
+                        "password":password
+                    })
             
-            }
-            )
-            const response =await request
-            const data=await response.json()
-            response?.status && setIsPending(false)
-            console.log(data)
-            if (response.status===200 && (data.refreshTokenJWT && data.accessTokenJWT)){ 
-                Cookies.set("RFTFL", data.refreshTokenJWT, { expires: 1 })
-                Cookies.set("ACTFL", data.accessTokenJWT, { expires: 1 })
-                window.location.reload()
-            }else{
+                })
+                const response =await request
+                const data=await response.json()
+                response?.status && setIsPending(false)
+                console.log(data)
+                if (response.status===200 && (data.refreshTokenJWT && data.accessTokenJWT)){ 
+                    Cookies.set("RFTFL", data.refreshTokenJWT, { expires: 1 })
+                    Cookies.set("ACTFL", data.accessTokenJWT, { expires: 1 })
+                    window.location.reload()
+                }else{
+                    setEmailerror({
+                        "isValid":false,
+                        "emailError":"Email or password is incorrect."
+                    })
+                }      
+            } catch (error) {
                 setEmailerror({
                     "isValid":false,
-                    "emailError":"Email or password is incorrect."
-                })
-            }            
+                    "emailError":"Sorry an unexpected error occured possibly your network"
+                 })
+            }      
         }
     }
     const login:any = useGoogleLogin({
