@@ -338,3 +338,55 @@ type Following= {
   verified: string
   aura: number
 }
+
+
+
+type SinglePost= {
+  _id: string
+  user: SinglePostuser
+  img: SinglePostuserImg[]
+  video: any[]
+  audio: any[]
+  visibility: string
+  likes: SinglePostuserLike[]
+  views: any[]
+  reposts: any[]
+  quotes: any[]
+  flagged: any[]
+  taggedFriends: any[]
+  promotedDuration: any
+  tweatstars: number
+  comments: any[]
+  createdAt: string
+  updatedAt: string
+  __v: number
+  commentCount: number
+  likesCount: number
+  flaggedCount: number
+  quotesCount: number
+  taggedFriendsCount: number
+}
+
+type SinglePostuser ={
+  _id: string
+  name: string
+  username: string
+  profileImage: string
+  coverImage: string
+}
+
+type SinglePostuserImg ={
+  url: string
+  width: number
+  height: number
+  aspectRatio: number
+  _id: string
+}
+
+type SinglePostuserLike= {
+  _id: string
+  name: string
+  username: string
+  profileImage: string
+  coverImage: string
+}

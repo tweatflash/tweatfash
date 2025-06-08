@@ -86,18 +86,8 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
                   </div>
                 </div>
                 <nav className="flex items-center gap-0.5">
-                  <div className="h-10 w-10 rounded-full overflow-hidden bg-[hsl(var(--accent))]">
-                    {
-                      userObj?.user?.profileImage ?<img
-                      className="h-full w-full"
-                      alt="tweatflash logo"
-                      title="tweatflash"
-                      src={userObj.user.profileImage }
-
-                    />
-                    :
-                    <></>
-                    }
+                  <div className="h-9 w-9 rounded-full overflow-hidden border border-dashed border-[hsl(var(--border-color))]">
+                   
                     <span className="sr-only">Profile</span>
                   </div>
                 </nav>

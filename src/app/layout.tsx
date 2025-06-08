@@ -4,7 +4,7 @@ import './globals.css'
 import { GoogleOAuthProvider } from '@react-oauth/google';
   const bricolage = localFont({
     src: "../../public/fonts/Cooljazz.ttf",      
-    // fallback:["sans-serif","Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"]                                                                                                                                                                                                              
+    fallback:["sans-serif","Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"]                                                                                                                                                                                                              
   });
   const Outfitfont = Montserrat(
     {
@@ -32,7 +32,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
       <html lang="en" className='' data-theme=''>
           {/* <link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet"/> */}
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"></meta>
-          <body className={`${bricolage.className} w-full `}>
+          <body className={`w-full `}>
               
                 {children}
               

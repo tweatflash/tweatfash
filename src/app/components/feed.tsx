@@ -2,6 +2,9 @@
 import Link from "next/link";
 import ContentWrapper from "./contentWrapper";
 import localFont from "next/font/local";
+import React from "react";
+import { useRouter } from "next/navigation";
+import Username from "../(app)/[userName]/page";
 type daveA={
     dave:HomeFeed
 }
@@ -9,6 +12,7 @@ const bricolageThin = localFont({
     src: "../../../public/fonts/BricolageGrotesque_72pt-Light.ttf",
 });
 export default function Feed({dave}: daveA) {
+    const router=useRouter()
     function time(date: string): string {
         const now = new Date();
         const past = new Date(date);
@@ -31,6 +35,13 @@ export default function Feed({dave}: daveA) {
             return seconds + (seconds === 1 ? 's' : 's');
         }
     }
+    const handleParent=(postId:string,username:string):void=>{
+        router.push(`/${username}/status/${postId}`)
+    }
+    const handleChild=(event:React.MouseEvent):void=>{
+        event.stopPropagation();
+        console.log("child")
+    }
     return (
         <div className="flex flex-col relative border-b border-solid border-[hsl(var(--border-color))] last:border-none last:border-b-0" onClick={()=>console.log(dave)}>
         <div className="flex flex-col py-5 w-full"  role="article">
@@ -51,7 +62,7 @@ export default function Feed({dave}: daveA) {
                         <div className="flex flex-col">
                             <div className="flex justify-between gap-2">
                                 <div className="flex gap-3 items-center">
-                                    <span className="font-[boldCal] tracking-wide decoration-0">
+                                    <span className="font-[500] tracking-wide decoration-0">
                                         
                                             <span className="text-black dark:text-[#EEEEEE] text-[15px] decoration-0">
                                                 <Link
@@ -131,7 +142,7 @@ export default function Feed({dave}: daveA) {
                         <div className="">
                         <div className="">
                             <div className="">
-                                <p className={`text-black dark:text-[#EEEEEE] text-[15px] whitespace-pre-wrap tracking-wide decoration-0`}>
+                                <p className={`text-black dark:text-[#EEEEEE] font-[400] text-[15px] whitespace-pre-wrap tracking-wide decoration-0`}>
                                     {dave.text && dave.text}
                                 </p>
                             </div>
@@ -139,8 +150,8 @@ export default function Feed({dave}: daveA) {
                         </div>
                     </div>
                     {dave.img?.length ? 
-                        <div className="block overflow-hidden w-full">
-                            <div draggable="false" className={`flex bg-[hsl(var(--accent))] object-cover bg-center w-fit bg-cover  h-auto overflow-hidden min-w-20 rounded-xl relative border border-[hsl(var(--border-color))] border-solid `}>
+                        <div className="block overflow-hidden w-full cursor-wait" tabIndex={1} onClick={()=>handleParent(dave._id ,dave.user.username)}>
+                            <div draggable="false" tabIndex={2} className={`cursor-not-allowed flex bg-[hsl(var(--accent))] object-cover bg-center w-fit bg-cover  h-auto overflow-hidden min-w-20 rounded-xl relative border border-[hsl(var(--border-color))] border-solid `} onClick={(event)=>handleChild(event)}>
                                 <img src={dave.img[0]?.url} className="max-h-[400px] max-w-full w-auto h-auto object-cover object-center invisible" />
                             </div>
                         </div>
