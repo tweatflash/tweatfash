@@ -63,7 +63,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="stroke-black dark:stroke-white"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
                     </button>
                     <button className="h-full aspect-square hover:bg-[hsl(var(--accent))] rounded-full flex justify-center items-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"className="stroke-black dark:stroke-white"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"className="stroke-black dark:stroke-white"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg>
                     </button>
                     
                   </div>
@@ -76,20 +76,28 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
                     <h1 className="font-[boldCal] text-black dark:text-white text-2xl">Home</h1>
                   </div>
                   <div className="w-full flex justify-center">
-                    <button className="inline-flex items-center gap-2 border border-input hover:bg-accent hover:text-accent-foreground px-4 py-2 relative h-8 max-w-[600px] w-full justify-start rounded-[0.5rem] bg-muted/50 text-sm font-normal text-muted-foreground shadow-none">
-                      <span className="hidden lg:inline-flex text-current">
-                        Search tweatflash...
-                      </span>
-                      <span className="inline-flex lg:hidden">Search...</span>
-                      <kbd className="pointer-events-none absolute right-[0.3rem] top-[0.3rem] hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
+                    <button className="inline-flex items-center gap-2 border border-[hsl(var(--border-color))] bg-[hsl(var(--accent))] px-4 py-2 relative h-8 max-w-[600px] w-full justify-start rounded-[0.5rem] bg-muted/50 text-sm font-normal text-muted-foreground shadow-none text-[#727272]">
+                     
+                      <span className="mobile:inline-flex hidden">Search tweatflash...</span>
+                      <div className="pointer-events-none absolute right-[0.3rem]  top-[0.3rem] hidden h-5 select-none items-center gap-1 rounded border border-[hsl(var(--border-color))] bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
                         <span className="text-xs">⌘</span>K
-                      </kbd>
+                      </div>
                     </button>
                   </div>
                 </div>
                 <nav className="flex items-center gap-0.5">
                   <div className="h-10 w-10 rounded-full overflow-hidden bg-[hsl(var(--accent))]">
-                    
+                    {
+                      userObj?.user?.profileImage ?<img
+                      className="h-full w-full"
+                      alt="tweatflash logo"
+                      title="tweatflash"
+                      src={userObj.user.profileImage }
+
+                    />
+                    :
+                    <></>
+                    }
                     <span className="sr-only">Profile</span>
                   </div>
                 </nav>

@@ -159,7 +159,7 @@ body {
 }
 @font-face {
   font-family: boldCal;
-  src: url(../../public/fonts/CalSans-Regular.ttf);
+  src: url(../../public/fonts/Cooljazz.ttf);
 }
 
 @media screen and (max-width:650px) {
