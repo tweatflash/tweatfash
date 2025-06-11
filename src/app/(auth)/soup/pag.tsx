@@ -1,17 +1,26 @@
 "use client"
 import Cookies from "js-cookie"
 import { useRouter } from "next/navigation"
-import { useEffect, useState,FormEvent } from "react"
+import { useEffect, useState,FormEvent, useContext } from "react"
 import { useGoogleLogin } from '@react-oauth/google';
 import Link from "next/link";
+import { AuthContext } from "@/app/context/Authcontext";
 export default function Login() {
     const [email,setEmail]=useState("")
     const [password,setPassword] =useState("")
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    const [emailError,setEmailerror]=useState({
-        "isValid":false,
-        "emailError":""
-    })
+    const [validEmail,setValidEmail]=useState(emailRegex.test(email))
+    const [googleObj,setGoogleObj]=useState({})
+    const { authError,setAuthError} :any=useContext(AuthContext)
+        const closeError=()=>{
+          setAuthError({
+            "show":false,
+            "error":""
+          })
+        }
+    useEffect(()=>{
+        setValidEmail(emailRegex.test(email))
+    },[email])
     const [isPending,setIsPending]=useState(false)
     const router=useRouter()
     const checkValidAuth= async ()=>{
@@ -33,9 +42,9 @@ export default function Login() {
         }
     }
     const login:any = useGoogleLogin({
-
+        
         onSuccess: async (response) =>{
-            // showLoader()
+            setIsPending(true)
             try {
                 const res =await fetch("https://www.googleapis.com/oauth2/v3/userinfo",{
                     headers:{
@@ -43,243 +52,197 @@ export default function Login() {
                     },
                 })
                 const dat=await res.json()
+                
                 console.log(dat)
               // 
             } catch (error) {
                 console.log(error)
             }
+        },
+        onError:()=>{
+            setIsPending(false)
         }
     });
     const handleSubmit = async (e:FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setIsPending(true)
         if (!emailRegex.test(email)){
-            setEmailerror({
-                "isValid":false,
-                "emailError":"Please enter a valid email"
+            setValidEmail(false)
+            setAuthError({
+                "show":true,
+                "error":"Please enter a valid email"
             })
         }
         try { 
-            const request = await fetch("https://tweatflash-web-app.onrender.com/api/v1/auth/emailAndphoneNumberAuth",{
+            const request = await fetch("https://tweatflash-web-app.onrender.com/api/v1/auth/login/",{
                 method:"POST",
                 headers:{
                     'Content-Type': 'application/json',
                     
                 },
                 body: JSON.stringify({
-                    "email":email
+                    "email":email,
+                    "password":password
                 }) 
             })
             const response=await request
-            console.log(response.status)
-            response?.status===200? setEmailerror({
-                "isValid":false,
-                "emailError":"These credentials do not match our records."
-            }):(response?.status===400?setEmailerror({
-                "isValid":true,
-                "emailError":""
-            }) :setEmailerror({
-                "isValid":false,
-                "emailError":"An Unexpected error occured"
+            
+            setIsPending(false)
+            const data =await response.json()
+             if (response.status===200){
+                Cookies.set("RFTFL", data.refreshTokenJWT, { expires: 7 });
+                Cookies.set("ACTFL", data.accessTokenJWT, { expires: 7 });
+                window.location.reload()
+            }
+            response?.status===500? setAuthError({
+                "show":true,
+                "error":data.msg
+            }):(response?.status===400?setAuthError({
+                "show":true,
+                "error":data.msg
+            }) :setAuthError({
+                "show":false,
+                "error":""
             }))
         } catch (error) {
-            console.log(error)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+            setIsPending(false)
+            setAuthError({
+                "show":true,
+                "error":"An Unexpected error occured possibly your network "
+            })
+            console.log(error)                                                                                  
         }
     }; 
     return (
-       <div className="light !text-white bg-muted 2xl:bg-default flex min-h-screen w-full flex-col items-center justify-center [--cal-brand:#111827] dark:[--cal-brand:#FFFFFF] [--cal-brand-subtle:#9CA3AF] [--cal-brand-text:#FFFFFF] dark:[--cal-brand-text:#000000] [--cal-brand-emphasis:#101010] dark:[--cal-brand-emphasis:#e1e1e1]">
-        <div className="bg-muted 2xl:border-subtle grid w-full max-w-[1440px] grid-cols-1 grid-rows-1 overflow-hidden lg:grid-cols-1 2xl:rounded-[20px] 2xl:border 2xl:py-6">
-            <div className="ml-auto mr-auto mt-0 flex w-full max-w-xl flex-col px-4 pt-6 sm:px-16 md:px-20 lg:mt-24 2xl:px-28">
-            <div className="flex w-fit lg:-mt-12">
-                <button
-                    className="group whitespace-nowrap font-medium  relative disabled:cursor-not-allowed gap-1 text-[#727272] border border-transparent enabled:hover:bg-[hsl(var(--accent))] enabled:hover:text-emphasis enabled:hover:border-subtle hover:border disabled:opacity-30 focus-visible:bg-subtle focus-visible:outline-none focus-visible:ring-0 focus-visible:border-subtle focus-visible:shadow-button-outline-gray-focused enabled:active:shadow-outline-gray-active transition-shadow duration-200 text-sm leading-none hover:bg-subtle todesktop:mt-10 mb-6 flex h-6 max-h-6 w-full items-center rounded-md px-3 py-2"
-                    data-testid="signup-back-button"
-                    type="button"
-                >
-                
-                <svg
-                    height={16}
-                    width={16} 
-                    viewBox="0 0 1024 1024" 
-                    xmlns="http://www.w3.org/2000/svg" fill="#727272"
-                >
-                   
-                    <g id="SVGRepo_iconCarrier">
-                        <path fill="#727272" d="M224 480h640a32 32 0 1 1 0 64H224a32 32 0 0 1 0-64z"></path><path fill="#727272" d="m237.248 512 265.408 265.344a32 32 0 0 1-45.312 45.312l-288-288a32 32 0 0 1 0-45.312l288-288a32 32 0 1 1 45.312 45.312L237.248 512z"></path>
-                    </g>
-                </svg>
-                <div className="contents visible group-active:translate-y-[0.5px]">
-                    Back
-                </div>
-                </button>
-            </div>
-            <div className="flex flex-col gap-2">
-                <h1 className="font-[boldCal] text-[28px] leading-none ">
-                Create your tweatflash.com account
-                </h1>
-                <p className="text-[#727272] font-bold text-base  leading-5">
-                Free for individuals. Team plans for collaborative features.
+    
+        <div className="flex flex-1 items-center justify-center dark:text-white text-black">
+        <div className="w-full max-w-[480px]">
+            <form className="flex flex-col gap-6" method="POST" onSubmit={handleSubmit}>
+            <div className="flex flex-col items-center gap-2 text-center">
+                <h1 className="text-[22px] mobile:text-[26px] font-bold w-full text-black dark:text-white">Automate your meeting notes</h1>
+                <p className="text-muted-foreground text-sm mobile:text-[16px] text-balance text-[#727272]" >
+                    Transcribe, summarize, search, and analyze all your voice conversations.
                 </p>
             </div>
-            <div className="mt-6 space-y-2">
-                <p className="text-subtle text-xs font-medium">Step 1 of 5</p>
-                <div
-                    data-testid="step-indicator-container"
-                    className="flex w-full space-x-2 rtl:space-x-reverse"
-                >
-                    <div
-                    className="bg-white h-1 w-full rounded-[1px]"
-                    data-testid="step-indicator-0"
-                    />
-                    <div
-                    className="bg-[hsl(var(--accent))] h-1 w-full rounded-[1px] opacity-25 dark:opacity-100"
-                    data-testid="step-indicator-1"
-                    />
-                    <div
-                    className="bg-[hsl(var(--accent))] h-1 w-full rounded-[1px] opacity-25 dark:opacity-100"
-                    data-testid="step-indicator-2"
-                    />
-                    <div
-                    className="bg-[hsl(var(--accent))] h-1 w-full rounded-[1px] opacity-25 dark:opacity-100"
-                    data-testid="step-indicator-3"
-                    />
-                    <div
-                    className="bg-[hsl(var(--accent))] h-1 w-full rounded-[1px] opacity-25 dark:opacity-100"
-                    data-testid="step-indicator-4"
-                    />
-                </div>
-                </div>
-
-            <div className="mt-12">
-                <form className="flex flex-col gap-4" data-gtm-form-interact-id={0}>
-                <div>
-                    <div className="">
-                    <label
-                        className="text-white mb-2 block text-sm font-medium leading-none"
-                        
-                    >
-                        Username
-                    </label>
-                    <div
-                        dir="ltr"
-                        className="rounded-[10px] border font-normal bg-default border-default text-default placeholder:text-muted hover:border-emphasis focus:ring-0 focus:shadow-outline-gray-focused disabled:bg-subtle disabled:hover:border-default disabled:cursor-not-allowed shadow-outline-gray-rested transition h-10 px-3 py-2 text-sm group relative mb-1 flex min-w-0 items-center gap-1 [&:focus-within]:border-subtle [&:focus-within]:ring-brand-default [&:focus-within]:ring-2 [&:has(:disabled)]:bg-subtle [&:has(:disabled)]:hover:border-default [&:has(:disabled)]:cursor-not-allowed"
-                    >
-                        <div className="flex flex-shrink-0 items-center justify-center whitespace-nowrap">
-                        <span className="text-sm font-medium leading-none text-muted peer-disabled:opacity-50">
-                            cal.com/
-                        </span>
-                        </div>
-                        <input
-                            data-testid="signup-usernamefield"
-                            id="«r10»"
-                            placeholder=""
-                            className="w-full min-w-0 truncate border-0 bg-transparent focus:outline-none focus:ring-0 text-default rounded-lg text-sm font-medium leading-none placeholder:text-muted disabled:cursor-not-allowed disabled:bg-transparent pl-0.5 pr-0"
-                            name="username"
-                        />
-                    </div>
-                    </div>
-                    <div className="text-gray text-default flex items-center text-sm">
-                    <div className="text-sm " />
-                    </div>
-                </div>
-                <div className="">
-                    <label
-                    className="text-emphasis mb-2 block text-sm font-medium leading-none"
-                    htmlFor="«r11»"
-                    >
-                    Email
-                    </label>
+            <div className="grid gap-6">
+                <label htmlFor="sign-in-email" className="rounded-xl bg-[rgba(0,0,0,.07)] dark:bg-[rgba(225,225,225,.051)] border border-transparent has-[input:focus]:border-[#4070f4] has-[input:focus]:bg-[hsl(var(--background))] px-[20px] py-[10px] flex flex-col gap-1">
+                    <p className='text-[12px] text-[#727272]'>Email</p>
                     <input
-                        id="signup-email"
-                        placeholder=""
-                        autoComplete="email"
-                        data-testid="signup-emailfield"
-                        className="rounded-[10px] border font-normal bg-default border-default text-default placeholder:text-muted hover:border-emphasis focus:ring-0 focus:shadow-outline-gray-focused shadow-outline-gray-rested transition h-10 px-3 py-2 text-sm w-full bg-transparent disabled:hover:border-subtle disabled:cursor-not-allowed"
                         type="email"
-                        name="email"
+                        id="sign-in-email" 
+                        name="email" 
+                        value={email}
+                        className="w-full h-6 bg-transparent border-none outline-none text-sm dark:text-white text-black"
+                        onChange ={(e)=> setEmail(e.target.value)}
+                        placeholder="example@gmail.co"
+                        aria-describedby="uidnote"
+                        autoComplete="on"
                     />
-                </div>
-                <div>
-                    
-                </div>
-                <div className="block items-center sm:flex">
-                    <div className="w-full">
-                    <div className="hover:bg-subtle relative flex w-fit items-center rounded-md p-1">
-                        <label className="relative flex items-start text-emphasis">
-                        <div className="flex h-5 items-center">
-                            <input
-                            data-testid="signup-cookie-content-checkbox"
-                            id="radix-«r12»"
-                            className="text-emphasis focus:ring-emphasis dark:text-muted border-default bg-default focus:bg-default active:bg-default h-4 w-4 rounded transition checked:hover:bg-gray-600 focus:outline-none focus:ring-0 ltr:mr-2 rtl:ml-2 hover:bg-subtle hover:border-emphasis checked:bg-gray-800"
-                            type="checkbox"
-                            data-gtm-form-interact-field-id={0}
-                            />
-                        </div>
-                        <span className="text-default ml-2 text-sm font-medium">
-                            I agree to the privacy policy and cookie usage
-                        </span>
-                        </label>
+                
+                </label>
+                <label htmlFor="sign-in-password" className="relative rounded-xl border bg-[rgba(0,0,0,.07)] dark:bg-[rgba(225,225,225,.051)] border-transparent has-[input:focus]:border-[#4070f4] has-[input:focus]:bg-[hsl(var(--background))] px-[20px] py-[10px] flex flex-col gap-1">
+                    <div className="flex justify-between text-[12px] dark:text-white w-full">
+                        <p className='text-[#727272]'>Password</p>
+                        {/* <Link href={""}>Forgot password</Link> */}
                     </div>
-                    </div>
-                </div>
+                    <input
+                        type="password"
+                        id="sign-in-password" 
+                        name="password" 
+                        placeholder="**********"
+                        className="w-full h-6 bg-transparent border-none outline-none text-sm text-black dark:text-white"
+                        onChange ={(e)=> setPassword(e.target.value)}
+                        aria-describedby="uidnote"
+                        autoComplete="on"
+                        value={password}
+                    />
+                    <span className="absolute h-5 bottom-[-20px] pt-2 right-0 text-sm ">Forgot Password ?</span>
+                
+                </label>
+                
+                
                 <button
-                    data-testid="saml-submit-button"
-                    className="group whitespace-nowrap inline-flex items-center font-medium relative disabled:cursor-not-allowed gap-1 bg-brand-default text-brand enabled:hover:bg-brand-emphasis focus-visible:outline-none focus-visible:ring-0 focus-visible:shadow-button-solid-brand-focused border border-brand-default disabled:opacity-30 shadow-button-solid-brand-default enabled:active:shadow-button-solid-brand-active enabled:hover:shadow-button-solid-brand-hover transition-transform duration-100 px-2.5 py-2 text-sm leading-none my-2 w-full justify-center rounded-md text-center"
-                    type="button"
+                    data-slot="button"
+                    className={`w-full px-6 mt-3 py-2 ${validEmail===false || password.length==0 || isPending ? "opacity-40 pointer-events-none cursor-not-allowed" :""} flex justify-center bg-black text-white rounded-lg outline-none dark:bg-[#E5E5E5] dark:text-black`}
+                    disabled={validEmail===false || password.length==0 || isPending? true :false}
+                    type="submit"
                 >
-                    <div className="contents visible group-active:translate-y-[0.5px]">
-                    <svg
-                        height={16}
-                        width={16}
-                        className="fill-transparent mr-2 h-5 w-5"
-                        aria-hidden="true"
-                    >
-                        <use href="#shield-check" />
-                    </svg>
-                    Create Account
-                    </div>
+                    {
+                        isPending ?<svg
+                            className=" animate-spin text-white size-5"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                        >
+                        <circle
+                            className="opacity-25"
+                            cx={12}
+                            cy={12}
+                            r={10}
+                            stroke="currentColor"
+                            strokeWidth={4}
+                        />
+                        <path
+                            className="opacity-75 fill-white dark:fill-black"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        />
+                    </svg>: "login"
+                    }
                 </button>
-                </form>
-            </div>
-            <div className="mt-10 flex h-full flex-col justify-end pb-6 text-xs">
-                <div className="flex flex-col text-sm">
-                <div className="flex gap-1">
-                    <p className="text-subtle">Already have an account?</p>
-                    <a className="text-emphasis hover:underline" href="/auth/login">
-                    Sign in
-                    </a>
+                <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
+                <span className="bg-[hsl(var(--background))] text-muted-foreground relative z-10 px-2">
+                    Or continue with
+                </span>
                 </div>
-                <div className="text-subtle">
-                    By proceeding, you agree to our{" "}
-                    <a
-                    className="text-emphasis hover:underline"
-                    target="_blank"
-                    href="https://cal.com/terms"
-                    >
-                    Terms
-                    </a>{" "}
-                    and{" "}
-                    <a
-                    className="text-emphasis hover:underline"
-                    target="_blank"
-                    href="https://cal.com/privacy"
-                    >
-                    Privacy Policy
-                    </a>
-                    .
-                </div>
-                </div>
+               
             </div>
-            </div>
-        </div>
-        <section
-            aria-label="Notifications alt+T"
-            tabIndex={-1}
-            aria-live="polite"
-            aria-relevant="additions text"
-            aria-atomic="false"
-        />
-        </div>
+             
+            </form>
+                <button
+                    data-slot="button"
+                    className="inline-flex my-3 items-center justify-between gap-4 whitespace-nowrap rounded-md transition-all disabled:pointer-events-none disabled:cursor-not-allowed hover:opacity-70 disabled:opacity-40 [&_svg]:pointer-events-none [&img:not([class*='size-'])]:size-4 shrink-0 [&img]:shrink-0 outline-none shadow-xs hover:bg-[accent]  px-6 py-4  w-full bg-gray-900 text-white dark:bg-[rgba(225,225,225,.051)] text-[16px] tracking-wide"
+                    onClick={()=>{
+                        login()
+                        setIsPending(true)
+                    }}
+                    disabled={isPending}
+                >
+                    <img src="/google.svg" className="size-6" alt="google"/>
+                    <span className="flex w-full dark:text-white ">Continue with Google</span>
+                    <svg
+                        width={21}
+                        height={20}
+                        viewBox="0 0 21 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="arrow-right"
+                        >
+                        <path
+                            d="M4.66667 10H16.3333"
+                            stroke="#D4D6FF"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        />
+                        <path
+                            d="M10.5 4.16675L16.3333 10.0001L10.5 15.8334"
+                            stroke="#D4D6FF"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        />
+                    </svg>
 
+                </button>
+                <div className="text-center text-sm">
+                Don't have an account?
+                <Link href="/sign-up" className="underline underline-offset-4">
+                Sign up
+                </Link>
+            </div>
+        </div>
+            
+        </div>
 
     )
 }

@@ -16,7 +16,7 @@ html.dark {
     --primary-bg-color: hsl(var(--background)/ .6);
     --border-color:240 3.7% 15.9%;
     --accent:240 2.9% 12.0%;
-
+    --color:white;
 
 
 
@@ -90,6 +90,7 @@ html.dark {
     --cal-brand: hsla(0, 0%, 100%, 1);
     --cal-brand-emphasis: hsla(218, 11%, 65%, 1);
     --cal-brand-text: hsla(0, 0%, 0%, 1);
+
 }
 
 :root {
@@ -148,7 +149,21 @@ html.dark {
     --border-color:240 5.9% 90%;
     --accent:240 4.8% 95.9%;
     --error-bg:0, 91%, 71%, ;
+    --color:black;
 }
+@layer base {
+  input:-webkit-autofill,
+  textarea:-webkit-autofill,
+  select:-webkit-autofill {
+    /* Use Tailwind’s utility classes via @apply if you wish */
+    @apply bg-white text-black;
+    /* Override the browser’s autofill background using box-shadow hacks */
+    -webkit-box-shadow: 0 0 0px 1000px #fff inset !important;
+    box-shadow: 0 0 0px 1000px #fff inset !important;
+    -webkit-text-fill-color: #000 !important;
+  }
+}
+
 .main-handler{  
 
   grid: 64px 1fr / 72px 1fr; 
