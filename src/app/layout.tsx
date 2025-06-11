@@ -19,22 +19,22 @@ import { AuthProvider } from "./context/Authcontext";
     }
   )
 
-  export default function RootLayout({children,}: {children: React.ReactNode}) {
-
-  return (
-    <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!}>
-      <AuthProvider>
-        <html lang="en" className='dark' data-theme='dark'>
-            {/* <link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet"/> */}
-            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"></meta>
-            <body className={`w-full `}>
-                
-                  {children}
-                
-            </body>
-        </html>
-      </AuthProvider>
-    </GoogleOAuthProvider>
+  export default function RootLayout({children}: {children: React.ReactNode}) {
+    const clientId =process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!
+    return (
+      <GoogleOAuthProvider clientId={clientId}>
+        <AuthProvider>
+          <html lang="en" className='dark' data-theme='dark'>
+              {/* <link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet"/> */}
+              <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"></meta>
+              <body className={`w-full `}>
+                  
+                    {children}
+                  
+              </body>
+          </html>
+        </AuthProvider>
+      </GoogleOAuthProvider>
   )
    
 }
