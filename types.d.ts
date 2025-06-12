@@ -365,7 +365,9 @@ type SinglePost= {
   flaggedCount: number
   quotesCount: number
   taggedFriendsCount: number
+  text?:string
 }
+
 
 type SinglePostuser ={
   _id: string
@@ -389,4 +391,10 @@ type SinglePostuserLike= {
   username: string
   profileImage: string
   coverImage: string
+}
+
+type SinglePostObj={
+    
+    loggedIn:boolean,
+    posts:SinglePost[]
 }

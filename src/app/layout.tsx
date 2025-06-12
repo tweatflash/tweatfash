@@ -5,7 +5,7 @@ import './globals.css'
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { AuthProvider } from "./context/Authcontext";
   const bricolage = localFont({
-    src: "../../public/fonts/Cooljazz.ttf",      
+    src: "../../public/fonts/segoe-ui-emoji.ttf",      
     fallback:["sans-serif","Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"]                                                                                                                                                                                                              
   });
   const Outfitfont = Montserrat(

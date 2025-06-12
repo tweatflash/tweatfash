@@ -94,7 +94,7 @@ export default function Feed({dave}: daveA) {
                                 <span className="h-fit font-bold inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-xs text-gray-600 ring-1 ring-gray-500/10 ring-inset">
                                     {dave.tweatstars} Aura
                                 </span>
-                                <div className="">
+                                <div className="flex items-center">
                                     <div
                                     id="trigger5"
                                     aria-expanded="false"
@@ -139,26 +139,25 @@ export default function Feed({dave}: daveA) {
                                 </Link>
                             </span> */}
                         </div>
-                        <div className="">
-                        <div className="">
-                            <div className="">
-                                <p className={`text-black dark:text-[#EEEEEE] font-[400] text-[15px] whitespace-pre-wrap tracking-wide decoration-0`}>
-                                    {dave.text && dave.text}
-                                </p>
+                        <div className="flex" onClick={()=>handleParent(dave._id ,dave.user.username)}>
+                            <div className="flex">
+                                <div className="flex">
+                                    <p className={`text-black dark:text-[#EEEEEE] font-[400] text-[15px] whitespace-pre-wrap tracking-wide decoration-0`}>
+                                        {dave.text && dave.text}
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                        </div>
                     </div>
-                    {dave.img?.length ? 
+                    {dave.img?.length ?
                         <div className="block overflow-hidden w-full cursor-wait" tabIndex={1} onClick={()=>handleParent(dave._id ,dave.user.username)}>
                             <div draggable="false" tabIndex={2} className={`cursor-not-allowed flex bg-[hsl(var(--accent))] object-cover bg-center w-fit bg-cover  h-auto overflow-hidden min-w-20 rounded-xl relative border border-[hsl(var(--border-color))] border-solid `} onClick={(event)=>handleChild(event)}>
                                 <img src={dave.img[0]?.url} className="max-h-[400px] max-w-full w-auto h-auto object-cover object-center invisible" />
                             </div>
                         </div>
                         // <ContentWrapper param={dave.img}/>
-                        // <></>
-                        :
-                        <></>
+                        :<></>
+                       
                     }
                     <div className="gap-2 flex justify-between">
                         <div className="flex gap-[15px]">

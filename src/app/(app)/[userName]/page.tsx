@@ -64,7 +64,7 @@ export default async  function Username({ params: { userName } }: Props) {
                     </div>
 
                     <div className="flex flex-col">
-                      <h3 className='text-2xl font-[boldCal] dark:text-[rgb(225,225,225)]'>{result.name}</h3>
+                      <h3 className='text-2xl font-bold dark:text-[rgb(225,225,225)]'>{result.name}</h3>
                       <div>
                         <span className="text-[#727272] text-[15px] ">
                           @{result.username}
