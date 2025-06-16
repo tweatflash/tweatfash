@@ -398,3 +398,13 @@ type SinglePostObj={
     loggedIn:boolean,
     posts:SinglePost[]
 }
+
+type Person= {
+  _id: string
+  name: string
+  username: string
+  profileImage: string
+  coverImage: string
+  pricingPlanDuration: string
+  impressions: number
+}

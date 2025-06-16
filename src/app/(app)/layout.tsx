@@ -9,10 +9,11 @@ import {
 } from "@headlessui/react";
 import { AuthContext, AuthProvider } from "../context/Authcontext";
 import { useContext } from "react";
+import CommandPalette from "./explore/[searchTerm]/command";
 // import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 
 const HomeLayout = ({ children }: { children: React.ReactNode }) => {
-  const {userObj}: any = useContext(AuthContext)
+  const {userObj , openSearch , setOpenSearch}: any = useContext(AuthContext)
   return (
     <div className="main-handler min-h-screen grid absolute t-0 l-0 r-0 b-0 w-full bg-[hsl(var(--background))]">
       <div className="flex flex-col border-r border-solid sticky top-0 left-0 w-full h-full border-[hsl(var(--border-color))] un-b p-3">
@@ -59,7 +60,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
                     </Link>
                   </div>
                   <div className="h-full flex">
-                    <button className="h-full aspect-square hover:bg-[hsl(var(--accent))] rounded-full flex justify-center items-center">
+                    <button className="h-full aspect-square hover:bg-[hsl(var(--accent))] rounded-full flex justify-center items-center" onClick={()=>setOpenSearch(true)}>
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="stroke-black dark:stroke-white"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
                     </button>
                     <button className="h-full aspect-square hover:bg-[hsl(var(--accent))] rounded-full flex justify-center items-center">
@@ -76,7 +77,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
                     <h1 className="font-[boldCal] text-black dark:text-white text-2xl">Home</h1>
                   </div>
                   <div className="w-full flex justify-center">
-                    <button className="inline-flex items-center gap-2 border border-[hsl(var(--border-color))] bg-[hsl(var(--accent))] px-4 py-2 relative h-8 max-w-[600px] w-full justify-start rounded-[0.5rem] bg-muted/50 text-sm font-normal text-muted-foreground shadow-none text-[#727272]">
+                    <button className="inline-flex items-center gap-2 border border-[hsl(var(--border-color))] bg-[hsl(var(--accent))] px-4 py-2 relative h-8 max-w-[600px] w-full justify-start rounded-[0.5rem] bg-muted/50 text-sm font-normal text-muted-foreground shadow-none text-[#727272]" onClick={()=>setOpenSearch(true)}>
                      
                       <span className="mobile:inline-flex hidden">Search tweatflash...</span>
                       <div className="pointer-events-none absolute right-[0.3rem]  top-[0.3rem] hidden h-5 select-none items-center gap-1 rounded border border-[hsl(var(--border-color))] bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
@@ -87,7 +88,11 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
                 </div>
                 <nav className="flex items-center gap-0.5">
                   <div className="h-9 w-9 rounded-full overflow-hidden border border-dashed border-[hsl(var(--border-color))]">
-                   
+                     <img
+                          alt={""}
+                          src={"https://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png"}
+                          className="h-full w-full object-cover object-center rounded-full"
+                      />
                     <span className="sr-only">Profile</span>
                   </div>
                 </nav>
@@ -313,6 +318,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
           </Link>
         </span>
       </div>
+      <CommandPalette />
     </div>
   );
 };

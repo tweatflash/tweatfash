@@ -53,13 +53,13 @@ export default async function page({params:{postId}}:Props) {
         } else if (days > 0) {
             return days + (days === 1 ? 'd' : 'd');
         } else if (hours > 0) {
-            return hours + (hours === 1 ? 'hr' : 'hr');
+            return hours + (hours === 1 ? 'h' : 'h');
         } else if (minutes > 0) {
-            return minutes + (minutes === 1 ? 'm' : 'min');
+            return minutes + (minutes === 1 ? 'm' : 'm');
         } else {
             return seconds + (seconds === 1 ? 's' : 's');
         }
-    }
+  }
     const longFormatTime=(ISODATE:string):{
       longDate:string,
       longTime:string

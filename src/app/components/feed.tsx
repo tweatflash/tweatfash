@@ -1,16 +1,10 @@
 "use client"
 import Link from "next/link";
-import ContentWrapper from "./contentWrapper";
-import localFont from "next/font/local";
 import React from "react";
 import { useRouter } from "next/navigation";
-import Username from "../(app)/[userName]/page";
 type daveA={
     dave:HomeFeed
 }
-const bricolageThin = localFont({
-    src: "../../../public/fonts/BricolageGrotesque_72pt-Light.ttf",
-});
 export default function Feed({dave}: daveA) {
     const router=useRouter()
     function time(date: string): string {
@@ -28,13 +22,34 @@ export default function Feed({dave}: daveA) {
         } else if (days > 0) {
             return days + (days === 1 ? 'd' : 'd');
         } else if (hours > 0) {
-            return hours + (hours === 1 ? 'hr' : 'hr');
+            return hours + (hours === 1 ? 'h' : 'h');
         } else if (minutes > 0) {
-            return minutes + (minutes === 1 ? 'm' : 'min');
+            return minutes + (minutes === 1 ? 'm' : 'm');
         } else {
             return seconds + (seconds === 1 ? 's' : 's');
         }
     }
+    const longFormatTime=(ISODATE:string):{
+      longDate:string,
+      longTime:string
+    }=>{
+    const isoDate = "2025-04-13T17:53:47.479Z";
+    const date = new Date(ISODATE);
+    const longDate = date.toLocaleDateString("en-US", {
+      
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    }); 
+    const longTime = date.toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "numeric",
+      // timeZoneName: "short",
+      // timeZone: "Africa/Lagos", 
+    });
+    return {longDate,longTime} 
+     // Output: Sunday, April 13, 2025, 5:53:47 PM UTC
+  }
     const handleParent=(postId:string,username:string):void=>{
         router.push(`/${username}/status/${postId}`)
     }
@@ -62,9 +77,9 @@ export default function Feed({dave}: daveA) {
                         <div className="flex flex-col">
                             <div className="flex justify-between gap-2">
                                 <div className="flex gap-3 items-center">
-                                    <span className="font-[500] tracking-wide decoration-0">
+                                    <span className=" tracking-wide decoration-0">
                                         
-                                            <span className="text-black  dark:text-[#EEEEEE] text-[15px] decoration-0">
+                                            <span className="text-black font-[500] dark:text-[#EEEEEE] text-[15px] decoration-0">
                                                 <Link
                                                     href={"/"+ dave.user.username}
                                                     className="hover:underline decoration-0"
@@ -77,7 +92,7 @@ export default function Feed({dave}: daveA) {
                                     <span className="">
                                         <span className="text-[13px] text-[#727272]">
                                             <Link
-                                                title="Apr 23, 2025, 10:04 AM"
+                                                title={longFormatTime(dave.createdAt).longDate +" "+longFormatTime(dave.createdAt).longTime }
                                                 href={"/"+ dave.user.username}
                                                 className=""
                                                 
@@ -142,7 +157,7 @@ export default function Feed({dave}: daveA) {
                         <div className="flex" onClick={()=>handleParent(dave._id ,dave.user.username)}>
                             <div className="flex">
                                 <div className="flex">
-                                    <p className={`text-black dark:text-[#EEEEEE] font-[400] text-[15px] whitespace-pre-wrap tracking-wide decoration-0`}>
+                                    <p className={`text-[--color] font-[400] opacity-85  text-[15px] whitespace-pre-wrap tracking-wide decoration-0`}>
                                         {dave.text && dave.text}
                                     </p>
                                 </div>

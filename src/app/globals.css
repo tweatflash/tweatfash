@@ -170,9 +170,11 @@ html.dark {
 }
 body {
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: antialiased;
-  /* font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important; */
+    -moz-osx-font-smoothing: grayscale;
+  /* font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,  Arial, sans-serif !important; */
   font-family: famil;
+  
+  font-family:"Segoe UI Historic", Roboto, Ubuntu, "Helvetica Neue", sans-serif
 }
 @font-face {
   font-family: boldCal;
@@ -181,6 +183,8 @@ body {
 @font-face {
   font-family: famil;
   src: url(../../public/fonts/Cooljazz.ttf);
+  
+
 }
 @media screen and (max-width:650px) {
   .main-handler{  
@@ -205,11 +209,64 @@ body {
   }
 }
 
-.classnammm{
-  max-width: 100% !important;
-  max-height: 430px !important;
-  overflow: hidden !important;
-  min-width: 200px !important;
-  width: auto !important;
-  /* aspect-ratio: 0.644512 / 1 !important; */
+.loader-line {
+  width: 100%;
+  height: 4px;
+  z-index: 30;
+  position: relative;
+  overflow: hidden;
+  background-color: transparent;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  visibility: visible;
+}
+.loader-line.hidden{
+  visibility: hidden;
+}
+.loader_holder{
+  background-color:transparent;
+  /* background-color: red; */
+  width:  100%;
+  position: absolute;
+  
+  
+  bottom: -1px;
+  border: 1px solid transparent;
+  border-top: 1px solid transparent;
+  overflow: hidden;
+}
+.loader-line::before {
+  content: "";
+  position: absolute;
+  left: -50%;
+  height: 4px;
+  width: calc(40% - 2px);
+  background-color: #4070f4;
+  -webkit-animation: lineAnim 1s linear infinite;
+  -moz-animation: lineAnim 1s linear infinite;
+  opacity: 1;
+  animation: lineAnim 1s linear infinite;
+  
+}
+@keyframes lineAnim {
+  0% {
+      left: -40%;
+     
+  }
+  30%{
+      left: 0%;
+      width: (50% );
+      
+  }
+  50% {
+      left: 20%;
+      width: 70%;
+      
+  }
+  100% {
+      left: 100%;
+      width: 100%;
+      background-color: #4070f4;
+  }
 }

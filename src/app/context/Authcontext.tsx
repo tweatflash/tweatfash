@@ -13,6 +13,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [forYou,setForYou]=useState<HomeFeed[] | null>([])
   const [cook,setCook]=useState({refreshTkn:"",accessTkn:""})
   const [following,setFollowing]=useState<HomeFeed[] | null>([])
+  const [openSearch,setOpenSearch]=useState<boolean>(false)
   const [authError,setAuthError]=useState({
     "show":false,
     "error":""
@@ -51,7 +52,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           following,
           setFollowing,
           authError,
-          setAuthError
+          setAuthError,
+          openSearch,
+          setOpenSearch
         }
       }
     >
