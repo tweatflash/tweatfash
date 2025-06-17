@@ -5,7 +5,10 @@ import { useEffect, useState,FormEvent, useContext } from "react"
 import { useGoogleLogin } from '@react-oauth/google';
 import Link from "next/link";
 import { AuthContext } from "@/app/context/Authcontext";
-export default function Login() {
+type Prop={
+    clientId:string
+}
+export default function Login({clientId}:Prop) {
     const [email,setEmail]=useState("")
     const [password,setPassword] =useState("")
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
