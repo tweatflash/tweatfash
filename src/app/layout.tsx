@@ -2,7 +2,6 @@
 import localFont from "next/font/local";
 import { Poppins} from 'next/font/google';
 import './globals.css'
-import { GoogleOAuthProvider } from '@react-oauth/google';
 import { AuthProvider } from "./context/Authcontext";
   const bricolage = localFont({
     src: "../../public/fonts/segoe-ui-emoji.ttf",      
@@ -22,7 +21,6 @@ import { AuthProvider } from "./context/Authcontext";
   export default function RootLayout({children}: {children: React.ReactNode}) {
     const clientId =process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!
     return (
-      <GoogleOAuthProvider clientId={clientId}>
         <AuthProvider>
           <html lang="en" className='dark' data-theme='dark'>
               {/* <link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet"/> */}
@@ -34,7 +32,7 @@ import { AuthProvider } from "./context/Authcontext";
               </body>
           </html>
         </AuthProvider>
-      </GoogleOAuthProvider>
+      
   )
    
 }
