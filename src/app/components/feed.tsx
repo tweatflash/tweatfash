@@ -76,37 +76,41 @@ export default function Feed({dave}: daveA) {
                     <div className="gap-1 flex flex-col">
                         <div className="flex flex-col">
                             <div className="flex justify-between gap-2">
-                                <div className="flex gap-3 items-center">
-                                    <span className=" tracking-wide decoration-0">
-                                        
-                                            <span className="text-black font-[500] dark:text-[#EEEEEE] text-[15px] decoration-0">
-                                                <Link
-                                                    href={"/"+ dave.user.username}
-                                                    className="hover:underline decoration-0"
-                                                >
-                                                {dave.user.name}
-                                                </Link>
+                                <div className="flex items-center w-full h-full">
+                                    <div className="w-full h-full tracking-wide decoration-0 flex">
+                                        <div className="flex justify-between gap-2">
+                                            <div className="flex">
+                                                <span className="text-black w-full overflow-ellipsis whitespace-nowrap font-[500] dark:text-[#EEEEEE] text-[15px] decoration-0 overflow-hidden ">
+                                                    <Link
+                                                        href={"/"+ dave.user.username}
+                                                        className="hover:underline decoration-0"
+                                                    >
+                                                        {dave.user.name}
+                                                    </Link>
+                                                </span>
+                                            </div>
+                                            <span className="">
+                                                <span className="text-[13px] text-[#727272] whitespace-nowrap ">
+                                                    <Link
+                                                        title={longFormatTime(dave.createdAt).longDate +" "+longFormatTime(dave.createdAt).longTime }
+                                                        href={"/"+ dave.user.username}
+                                                        className=""
+                                                        
+                                                    >
+                                                        
+                                                        {time(dave.createdAt)}
+                                                        
+                                                    </Link>
+                                                </span>
                                             </span>
-                                        
-                                    </span>
-                                    <span className="">
-                                        <span className="text-[13px] text-[#727272]">
-                                            <Link
-                                                title={longFormatTime(dave.createdAt).longDate +" "+longFormatTime(dave.createdAt).longTime }
-                                                href={"/"+ dave.user.username}
-                                                className=""
-                                                
-                                            >
-                                                
-                                                {time(dave.createdAt)}
-                                                
-                                            </Link>
-                                        </span>
-                                    </span>
+                                        </div>
+                                       
+                                    </div>
+                                    
                                 
                                 </div>
                             <div className="flex gap-2">
-                                <span className="h-fit font-bold inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-xs text-gray-600 ring-1 ring-gray-500/10 ring-inset">
+                                <span className="h-fit font-bold inline-flex whitespace-nowrap items-center rounded-md bg-gray-50 px-2 py-1 text-xs text-gray-600 ring-1 ring-gray-500/10 ring-inset">
                                     {dave.tweatstars} Aura
                                 </span>
                                 <div className="flex items-center">

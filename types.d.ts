@@ -408,3 +408,141 @@ type Person= {
   pricingPlanDuration: string
   impressions: number
 }
+
+
+type CommunityPost={
+  _id: string
+  text: string
+  img: string[]
+  video: any[]
+  audio: any[]
+  user: CommunityUser
+  communityDetails: CommunityDetails
+  type: string
+  pollId: any
+  visibility: string
+  likes: CommunityLike[]
+  views: any[]
+  quotes: any[]
+  taggedFriends: any[]
+  comments: any[]
+  replies: any[]
+  tweetstars: any
+  impressions: number
+}
+
+type CommunityUser ={
+  _id: string
+  name: string
+  username: string
+  email: string
+  dateOfBirth: string
+  followers: string[]
+  following: string[]
+  friends: any[]
+  googleId: string
+  homeTown: string
+  relationshipStatus: string
+  placesLived: string
+  pricingPlan: string
+  role: string
+  profileImage: string
+  coverImage: string
+  bio: string
+  link: string
+  likedPosts: string[]
+  likedComments: any[]
+  likedreplies: any[]
+  pinnedPosts: any[]
+  mutePosts: any[]
+  accountViews: string[]
+  interests: string[]
+  blockedUsers: any[]
+  muteUsers: any[]
+  reposts: string[]
+  quotes: any[]
+  location: string
+  language: string
+  isVerified: boolean
+  wallet: number
+  tweatcoins: number
+  pricingPlanDuration: string
+  verificationToken: string
+  suspended: boolean
+  createdAt: string
+  updatedAt: string
+  __v: number
+  verified: string
+  gender: string
+  password: string
+  flags: string[]
+  aura: number
+  resetPasswordExpire: string
+  resetPasswordToken: string
+}
+
+type CommunityDetails ={
+  _id: string
+  name: string
+  bio: string
+  profileImage: string
+  coverImage: string
+  createdBy: string
+  admin: string[]
+  followers: string[]
+  quotes: any[]
+  accountViews: any[]
+  createdAt: string
+  updatedAt: string
+  __v: number
+  categories: string[]
+}
+
+type CommunityLike ={
+  _id: string
+  name: string
+  username: string
+  email: string
+  dateOfBirth: string
+  password: string
+  followers: any[]
+  following: any[]
+  friends: any[]
+  googleId: string
+  homeTown: string
+  relationshipStatus: string
+  placesLived: string
+  pricingPlan: string
+  role: string
+  profileImage: string
+  coverImage: string
+  bio: string
+  link: string
+  likedPosts: string[]
+  flags: string[]
+  likedComments: any[]
+  likedreplies: any[]
+  pinnedPosts: any[]
+  mutePosts: any[]
+  accountViews: string[]
+  interests: any[]
+  blockedUsers: any[]
+  muteUsers: any[]
+  reposts: string[]
+  quotes: any[]
+  location: string
+  language: string
+  isVerified: boolean
+  wallet: number
+  tweatcoins: number
+  pricingPlanDuration: any
+  verificationToken: string
+  suspended: boolean
+  createdAt: string
+  updatedAt: string
+  __v: number
+  verified: string
+  aura: number
+  resetPasswordExpire: string
+  resetPasswordToken: string
+}

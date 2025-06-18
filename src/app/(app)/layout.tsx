@@ -74,7 +74,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
               <div className="h-full flex items-center gap-2 w-auto mobile:w-full">
                 <div className="hidden h-full items-center gap-4 justify-between flex-1 w-[calc(100%-48px)] mobile:flex md:flex-none">
                   <div className="flex h-full items-center w-40">
-                    <h1 className="font-[boldCal] text-black dark:text-white text-2xl">Home</h1>
+                    <h1 className="font-[boldCal] text-black dark:text-white text-2xl">Communites</h1>
                   </div>
                   <div className="w-full flex justify-center">
                     <button className="inline-flex items-center gap-2 border border-[hsl(var(--border-color))] bg-[hsl(var(--accent))] px-4 py-2 relative h-8 max-w-[600px] w-full justify-start rounded-[0.5rem] bg-muted/50 text-sm font-normal text-muted-foreground shadow-none text-[#727272]" onClick={()=>setOpenSearch(true)}>
@@ -126,7 +126,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
                       </Link>
                     </span>
                     <span>
-                      <Link href={"/explore"}>
+                      <div className="cursor-pointer" onClick={()=>setOpenSearch(true)}>
                         <div className="p-4 flex items-center rounded-3xl hover:bg-[hsl(var(--accent))]">
                           <svg
                             viewBox="0 0 24 24"
@@ -138,7 +138,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
                             </g>
                           </svg>
                         </div>
-                      </Link>
+                      </div>
                     </span>
                     <span>
                       <Link href={"/notifications"}>
@@ -173,7 +173,8 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
                     </span>
 
                     <span>
-                      <Link href={`${userObj?.user?.username ? userObj.user.userName :""}`}>
+
+                      <Link href={`${userObj?.user?.username ? "/"+userObj.user.username :""} `}>
                         <div className="p-4 flex items-center rounded-3xl hover:bg-[hsl(var(--accent))] ">
                           <svg
                             viewBox="0 0 24 24"
@@ -256,7 +257,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
           </Link>
         </span>
         <span className="w-full py-2">
-          <Link href={"/explore"} className="h-full">
+          <div onClick={()=>setOpenSearch(true)} className="h-full cursor-pointer">
             <div className="flex items-center justify-center rounded-3xl hover:bg-[hsl(var(--accent))] h-full">
               <svg
                 viewBox="0 0 24 24"
@@ -268,7 +269,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
                 </g>
               </svg>
             </div>
-          </Link>
+          </div>
         </span>
         <span className="w-full py-2">
           <Link href={"/notifications"} className="h-full">
@@ -303,7 +304,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
         </span>
 
         <span className="w-full py-2">
-          <Link href={"profile"} className="h-full">
+          <Link href={`${userObj?.user?.username ? "/"+userObj.user.username :""} `} className="h-full">
             <div className=" flex items-center justify-center rounded-3xl hover:bg-[hsl(var(--accent))] h-full">
               <svg
                 viewBox="0 0 24 24"

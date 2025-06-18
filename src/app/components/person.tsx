@@ -3,7 +3,7 @@ import React from 'react'
 type Param={
     userObj:Person
 }
-export default function person({userObj}:Param) {
+export default function Person({userObj}:Param) {
   return (
     <div className="flex-1 flex flex-row gap-3 p-2" >
         <div className="flex-1 flex flex-row gap-3">
@@ -11,8 +11,8 @@ export default function person({userObj}:Param) {
             <Link href={"/"+userObj.username}>
                 <div className="size-10 bg-[hsl(var(--accent))] rounded-full">
                     <img
-                        alt={""}
-                        src={"https://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png"}
+                        alt={userObj.name}
+                        src={userObj.profileImage?userObj.profileImage : "https://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png"}
                         className="h-full w-full object-cover object-center rounded-full"
                     />
                     
@@ -40,17 +40,17 @@ export default function person({userObj}:Param) {
                     </div>
                 </span>
                 </div>
-                <div className="w-full relative">
+                {/* <div className="w-full relative">
                     <span className="text-[--color] text-[15px] w-full overflow-hidden whitespace-nowrap absolute overflow-ellipsis">
                     Lorem ipsum dolor, sit amet consectetur adipisicing elit.
                     </span>
-                </div>
+                </div> */}
             </Link>
             </div>
         </div>
-        <button className="px-4 h-fit rounded-full py-1 text-white bg-[#4070f4] text-[15px] ">
+        {/* <button className="px-4 h-fit rounded-full py-1 text-white bg-[#4070f4] text-[15px] ">
             Follow
-        </button>
+        </button> */}
     </div>
   )
 }

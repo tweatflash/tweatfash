@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation'
 import Cookies from 'js-cookie'
 import getExplorePosts from '../../../../../lib/explore'
 import { AuthContext } from '@/app/context/Authcontext'
-
+import Person from '@/app/components/person'
 interface Item {
   id: string
   label: string
@@ -33,6 +33,12 @@ export default function CommandPalette() {
     const router = useRouter()
     const {openSearch , setOpenSearch}: any = useContext(AuthContext)
     /* keyboard shortcut: ⌘K / CtrlK toggles palette */
+    const handlePush=(data:string)=>{
+        console.log(data)
+        router.push(data)
+        setOpenSearch(false)
+        setQuery("")
+    }
     useEffect(() => {
         const toggle = (e: KeyboardEvent) => {
         const hotKey = (e.metaKey || e.ctrlKey) && e.key === 'k'
@@ -85,11 +91,16 @@ export default function CommandPalette() {
 
     }, [query])
     useEffect(()=>{
-        console.log(results)
-    },[results])
+        if (openSearch==false){
+            setQuery("")
+        }
+    },[openSearch])
     return (
         <Transition show={openSearch} as={Fragment}>
-        <Dialog onClose={() => setOpenSearch(false)} className="fixed bg-black/60 inset-0 z-50">
+        <Dialog onClose={() => {
+            setOpenSearch(false)
+            setQuery("")
+        }} className="fixed bg-black/60 inset-0 z-50">
             {/* backdrop */}
             <Transition.Child
             as={Fragment}
@@ -113,7 +124,7 @@ export default function CommandPalette() {
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-50 scale-95"
             >
-            <Dialog.Panel className="mx-auto mt-0 mobile:bg-transparent bg-[hsl(var(--background))] mobile:mt-[55px] w-full mobile:max-w-lg max-w-full mobile:px-4 min-h-full mobile:min-h-fit">
+            <Dialog.Panel className="mx-auto mt-0 mobile:bg-transparent bg-[hsl(var(--background))] mobile:mt-[55px] w-full mobile:max-w-[600px] max-w-full mobile:px-4 min-h-full mobile:min-h-fit">
                 <Command
                     className="overflow-hidden mobile:rounded-xl mobile:border mobile:border-[hsl(var(--border-color))] mobile:shadow-2xl mobile:bg-[hsl(var(--background))]"
                 >
@@ -154,7 +165,7 @@ export default function CommandPalette() {
                 {/* results */}
                 <Command.List className="h-fit overflow-y-auto p-2 flex flex-col">
                     {query && results && <Command.Item tabIndex={-1} className='flex-1 aria-selected:bg-[hsl(var(--accent))] flex px-2 py-2 cursor-pointer rounded-lg'>
-                        <div className='w-full flex-1 h-10 rounded-xl flex flex-row '>
+                        <div className='w-full flex-1 h-10 rounded-xl flex flex-row ' onClick={()=>handlePush(`/explore/${query}`)}>
                             <div className='h-full aspect-square flex justify-center items-center'>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="stroke-black dark:stroke-white"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
                             </div>
@@ -165,26 +176,20 @@ export default function CommandPalette() {
                             </div>
                         </div>
                     </Command.Item>}
-                    {results.posts && results.posts.map((cmd:any) => (
+                    {results.user && results.user.map((cmd:Person,index:number) => (
                         <Command.Item
-                            key={cmd.id}
+                            key={index}
                             value={cmd._id}
                             onSelect={() => {
-                            setOpen(false)
-                            if (cmd.href) router.push(cmd.href)
-                            if (cmd.action) cmd.action()
+                                setOpenSearch(false)
+                                router.push(`/${cmd.username}`)
+                            // if (cmd.action) cmd.action()
                             }}
                             className="flex cursor-pointer items-center justify-between
                                     rounded-md px-3 py-2 text-sm text-[--color]
-                                    aria-selected:bg-zinc-100 dark:aria-selected:bg-zinc-800"
+                                    aria-selected:bg-zinc-100 dark:aria-selected:bg-[hsl(var(--accent))]"
                         >
-                            <span>{cmd._id}</span>
-                            {cmd._id && (
-                            <kbd className="rounded border px-1.5 py-0.5 text-[10px]
-                                                text-zinc-500">
-                                {/* {cmd._id} */}
-                            </kbd>
-                            )}
+                            <Person userObj={cmd} key={index} />
                         </Command.Item>
                     ))}
 

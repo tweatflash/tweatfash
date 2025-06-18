@@ -1,9 +1,13 @@
+import Page from "./clientPage"
+export const metadata = {
+  title: "Communites | Tweatflash",
+  description: "Explore various communites on Tweatflash",
+};
 export default function Commmunites() {
+  
   return (
-    <div>
-        <h1 className='text-white'>
-            Communites pagwe
-        </h1>
-    </div>
+    <>
+      <Page/>
+    </>    
   )
 }

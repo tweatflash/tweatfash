@@ -25,7 +25,7 @@ export default function ClientPage( {searchTerm}:Prop) {
     const closePalette = () => setIsPaletteOpen(false);
     return (
         <div className="w-full max-w-[568px] text-[--color] flex gap-4 flex-col " >
-            <div className="flex  w-full pt-4 px-4 flex-col relative" >
+            <div className="flex w-full pt-4 px-4 flex-col relative" >
                 <label htmlFor="explore-search" className="inline-flex items-center gap-2 border h-auto has-[input:focus]:border-[#4070f4] border-[hsl(var(--border-color))] bg-[hsl(var(--accent))] px-4 py-2 relative w-full justify-start rounded-[0.5rem]  text-sm font-normal shadow-none text-[#727272]">
                     <div className="pointer-events-none h-5 select-none items-center gap-1 rounded border border-[hsl(var(--border-color))] bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
                         <span className="text-xs">⌘</span>K
