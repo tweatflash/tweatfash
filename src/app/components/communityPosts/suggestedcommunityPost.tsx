@@ -30,7 +30,6 @@ export default function SuggestedCommunityPost() {
                 return []
             }
       })
-      console.log(postId)
     },[posts])
     
     return (

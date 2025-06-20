@@ -62,10 +62,18 @@ export default function CommunityFeed({dave}: daveA) {
         <div className="flex flex-col py-5 w-full"  role="article">
             <div className="gap-3 flex item-start w-full px-4 lg:px-0">
                 {/* <Link href={""}> */}
-            <div className="size-9 relative rounded-md border border-[hsl(var(--border-color))] bg-[hsl(var(--accent))]">
+            <div className="size-9 relative rounded-md border border-[hsl(var(--border-color))] ">
                 
-                {/* <Link href={""}></Link> */}
-                <div className=" size-6 rounded-full absolute bottom-[-5px] right-[-5px]">
+                <Link href={"/communites/" + dave.communityDetails._id} className="relative">
+                    <div className="size-full rounded-md overflow-hidden">
+                        <img
+                            alt={dave.communityDetails.name}
+                            src={dave.communityDetails.profileImage?dave.communityDetails.profileImage : "https://abs.twimg.com/sticky/default_profile_images/default_profile_200x200.png"}
+                            className="size-full object-cover object-center"
+                        />
+                    </div>
+                </Link>
+                <div className=" size-6 rounded-full z-[2] absolute bottom-[-5px] right-[-5px] outline outline-3 dark:outline-[#0a0a0a]">
                     <img
                         alt={dave.user.name}
                         src={dave.user.profileImage?dave.user.profileImage : "https://abs.twimg.com/sticky/default_profile_images/default_profile_200x200.png"}
@@ -86,20 +94,20 @@ export default function CommunityFeed({dave}: daveA) {
                                             <div className="flex flex-col leading-1">
                                                 <span className="text-black w-full overflow-ellipsis whitespace-nowrap font-[500] dark:text-[#EEEEEE] text-[15px] decoration-0 overflow-hidden ">
                                                     <Link
-                                                        href={"/"+ dave.user.username}
+                                                        href={"/communites/"+ dave.communityDetails._id}
                                                         className="hover:underline decoration-0"
                                                     >
                                                         {dave.communityDetails.name}
                                                     </Link>
                                                 </span>
-                                                <span className="text-[#727272] w-full inline-flex gap-2 overflow-ellipsis whitespace-nowrap text-sm font-[boldCal] decoration-0 overflow-hidden ">
+                                                <span className="text-[#727272] w-full inline-flex gap-2 overflow-ellipsis whitespace-nowrap text-sm  decoration-0 overflow-hidden ">
                                                     <Link
                                                         href={"/"+ dave.user.username}
                                                         className="hover:underline decoration-0"
                                                     >
                                                         {dave.user.name}
                                                     </Link>
-                                                    <span className="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-blue-700/10 ring-inset">Badge</span>
+                                                    {/* <span className="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-blue-700/10 ring-inset">Badge</span> */}
                                                 </span>
                                             </div>
                                             

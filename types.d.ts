@@ -548,3 +548,165 @@ type CommunityLike ={
   resetPasswordExpire: string
   resetPasswordToken: string
 }
+
+
+type EachCommRes  ={
+  community: EachComm
+  loggedIn: boolean
+}
+
+type EachComm= {
+  status: any[]
+  _id: string
+  name: string
+  bio: string
+  profileImage: string
+  coverImage: string
+  createdBy: CommCreatedBy
+  admin: CommunityAdmin[]
+  followers: CommunityFollower[]
+  quotes: any[]
+  accountViews: any[]
+  createdAt: string
+  updatedAt: string
+  __v: number
+  categories: string[]
+}
+
+type CommCreatedBy= {
+  _id: string
+  name: string
+  username: string
+  dateOfBirth: string
+  followers: string[]
+  following: string[]
+  friends: any[]
+  googleId: string
+  homeTown: string
+  relationshipStatus: string
+  placesLived: string
+  pricingPlan: string
+  role: string
+  profileImage: string
+  coverImage: string
+  bio: string
+  link: string
+  likedPosts: string[]
+  likedComments: any[]
+  likedreplies: any[]
+  pinnedPosts: any[]
+  mutePosts: any[]
+  accountViews: string[]
+  interests: string[]
+  blockedUsers: any[]
+  muteUsers: any[]
+  reposts: string[]
+  quotes: any[]
+  location: string
+  language: string
+  isVerified: boolean
+  pricingPlanDuration: string
+  verificationToken: string
+  suspended: boolean
+  createdAt: string
+  updatedAt: string
+  __v: number
+  verified: string
+  gender: string
+  flags: string[]
+  aura: number
+  resetPasswordExpire: string
+  resetPasswordToken: string
+}
+
+type CommunityAdmin ={
+  _id: string
+  name: string
+  username: string
+  dateOfBirth: string
+  followers: string[]
+  following: string[]
+  friends: any[]
+  googleId: string
+  homeTown: string
+  relationshipStatus: string
+  placesLived: string
+  pricingPlan: string
+  role: string
+  profileImage: string
+  coverImage: string
+  bio: string
+  link: string
+  likedPosts: string[]
+  likedComments: any[]
+  likedreplies: any[]
+  pinnedPosts: any[]
+  mutePosts: any[]
+  accountViews: string[]
+  interests: string[]
+  blockedUsers: any[]
+  muteUsers: any[]
+  reposts: string[]
+  quotes: any[]
+  location: string
+  language: string
+  isVerified: boolean
+  pricingPlanDuration: string
+  verificationToken: string
+  suspended: boolean
+  createdAt: string
+  updatedAt: string
+  __v: number
+  verified: string
+  gender: string
+  flags: string[]
+  aura: number
+  resetPasswordExpire: string
+  resetPasswordToken: string
+}
+
+type CommunityFollower={
+  _id: string
+  name: string
+  username: string
+  dateOfBirth: string
+  followers: string[]
+  following: string[]
+  friends: any[]
+  googleId: string
+  homeTown: string
+  relationshipStatus: string
+  placesLived: string
+  pricingPlan: string
+  role: string
+  profileImage: string
+  coverImage: string
+  bio: string
+  link: string
+  likedPosts: string[]
+  flags: string[]
+  likedComments: any[]
+  likedreplies: any[]
+  pinnedPosts: any[]
+  mutePosts: any[]
+  accountViews: string[]
+  interests: string[]
+  blockedUsers: any[]
+  muteUsers: any[]
+  reposts: string[]
+  quotes: any[]
+  location: string
+  language: string
+  isVerified: boolean
+  pricingPlanDuration?: string
+  verificationToken: string
+  suspended: boolean
+  createdAt: string
+  updatedAt: string
+  __v: number
+  verified: string
+  aura: number
+  gender?: string
+  resetPasswordExpire?: string
+  resetPasswordToken?: string
+}

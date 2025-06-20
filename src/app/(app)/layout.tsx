@@ -10,10 +10,12 @@ import {
 import { AuthContext, AuthProvider } from "../context/Authcontext";
 import { useContext } from "react";
 import CommandPalette from "./explore/[searchTerm]/command";
+import { usePathname } from "next/navigation";
 // import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
-
 const HomeLayout = ({ children }: { children: React.ReactNode }) => {
   const {userObj , openSearch , setOpenSearch}: any = useContext(AuthContext)
+  const pathname = usePathname();
+  const mainpathname =  pathname.split('/')[1];
   return (
     <div className="main-handler min-h-screen grid absolute t-0 l-0 r-0 b-0 w-full bg-[hsl(var(--background))]">
       <div className="flex flex-col border-r border-solid sticky top-0 left-0 w-full h-full border-[hsl(var(--border-color))] un-b p-3">
@@ -74,7 +76,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
               <div className="h-full flex items-center gap-2 w-auto mobile:w-full">
                 <div className="hidden h-full items-center gap-4 justify-between flex-1 w-[calc(100%-48px)] mobile:flex md:flex-none">
                   <div className="flex h-full items-center w-40">
-                    <h1 className="font-[boldCal] text-black dark:text-white text-2xl">Communites</h1>
+                    <h1 className="font-[boldCal] text-black dark:text-white text-2xl">{mainpathname}</h1>
                   </div>
                   <div className="w-full flex justify-center">
                     <button className="inline-flex items-center gap-2 border border-[hsl(var(--border-color))] bg-[hsl(var(--accent))] px-4 py-2 relative h-8 max-w-[600px] w-full justify-start rounded-[0.5rem] bg-muted/50 text-sm font-normal text-muted-foreground shadow-none text-[#727272]" onClick={()=>setOpenSearch(true)}>
