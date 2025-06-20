@@ -186,7 +186,7 @@ body {
   
 
 }
-@media screen and (max-width:650px) {
+@media screen and (max-width:649px) {
   .main-handler{  
 
     grid: 55px 1fr / 0px 1fr !important; 

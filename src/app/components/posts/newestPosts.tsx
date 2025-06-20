@@ -12,7 +12,7 @@ export default function NewestPosts() {
     // console.log("hello world",rf,ac)
     let dataA :string[]=[]
     async function petch(){
-        const data : Promise<Post>=await getPosts(dataA,"newest",rf,ac) 
+        const data : Promise<Post>=await getPosts(dataA,"posts/newest",rf,ac) 
         const results: HomeFeed[] | undefined = await (await data)?.posts;
         if (results ){
             setNewest([...(newest || []) ,...results])

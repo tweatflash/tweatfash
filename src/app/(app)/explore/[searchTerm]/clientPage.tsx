@@ -46,22 +46,22 @@ export default function ClientPage( {searchTerm}:Prop) {
             </div>
             <div className="flex flex-col justify-start relative overflow-x-hidden resize-none px-4">
         
-            <div className="w-full relative overflow-x-auto flex flex-col h-8 no-scrollbar">
-                
-                <div className="flex min-w-full justify-start absolute m-auto w-fit gap-2">
-                    {tabs.map((tab, index) => (
-                        <button
-                            key={index}
-                            className={`flex-1 whitespace-nowrap text-center text-sm text-nowrap h-8 rounded-lg px-3 font-bold bg-[hsl(var(--accent))] ${
-                            0 === index ? "bg-black text-white dark:bg-white dark:text-black" : "text-[#777777]"
-                            }`}
-                        
-                        >
-                            {tab}
-                        </button>
-                    ))}
-                </div> 
-            </div>
+                <div className="w-full relative overflow-x-auto flex flex-col h-8 no-scrollbar">
+                    
+                    <div className="flex min-w-full justify-start absolute m-auto w-fit gap-2">
+                        {tabs.map((tab, index) => (
+                            <button
+                                key={index}
+                                className={`flex-1 whitespace-nowrap text-center text-sm text-nowrap h-8 rounded-lg px-3 font-bold bg-[hsl(var(--accent))] ${
+                                0 === index ? "bg-black text-white dark:bg-white dark:text-black" : "text-[#777777]"
+                                }`}
+                            
+                            >
+                                {tab}
+                            </button>
+                        ))}
+                    </div> 
+                </div>
                 
             </div>
             <div className="border-t border-[hsl(var(--border-color))] p-4 pb-0 flex flex-col">

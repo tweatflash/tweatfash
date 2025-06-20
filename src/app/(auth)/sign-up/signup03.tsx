@@ -19,7 +19,7 @@ export default function Signup03() {
                     <div className="w-full max-w-[480px]">
                         <form className="flex flex-col gap-6" method="POST" onSubmit={handleSubmit}>
                         <div className="flex flex-col items-center gap-2 text-center">
-                            <h1 className="text-[22px] mobile:text-[26px] font-bold w-full text-black dark:text-white">Lorem ipsum dolor sit amet consectetur</h1>
+                            <h1 className="text-[22px] mobile:text-[26px] w-full text-black dark:text-white">Lorem ipsum dolor sit amet consectetur</h1>
                             <p className="text-muted-foreground text-sm mobile:text-[16px] text-balance text-[#727272]" >
                                 id dolores quam corrupti doloremque. Iure ab, earum laudantium unde doloribus quis totam ?
                             </p>
@@ -96,7 +96,7 @@ export default function Signup03() {
                                         or] shadow-xs r" id="menu-button" aria-expanded="true" aria-haspopup="true">
                                         {gender?gender: "Gender"}
                                         <svg className="-mr-1 size-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
-                                            <path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+                                            <path fillRule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clipRule="evenodd" />
                                         </svg>
                                         </button>
                                     </div>

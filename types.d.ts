@@ -409,7 +409,9 @@ type Person= {
   impressions: number
 }
 
+type CommPostRes={
 
+}
 type CommunityPost={
   _id: string
   text: string

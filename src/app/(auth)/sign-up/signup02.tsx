@@ -13,7 +13,7 @@ export default function Signup02({email}:Prop) {
                 <div className="w-full max-w-[480px]">
                     <form className="flex flex-col gap-6" method="POST" onSubmit={handleSubmit}>
                     <div className="flex flex-col items-center gap-2 text-center">
-                        <h1 className="text-[22px] mobile:text-[26px] font-bold w-full text-black dark:text-white">We sent you a code</h1>
+                        <h1 className="text-[22px] mobile:text-[26px] w-full text-black dark:text-white">We sent you a code</h1>
                         <p className="text-muted-foreground text-sm mobile:text-[16px] text-balance text-[#727272]" >
                             Enter the code we sent below to verify tweatflash@gmail.co.
                         </p>

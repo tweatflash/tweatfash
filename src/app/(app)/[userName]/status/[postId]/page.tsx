@@ -300,6 +300,7 @@ export default async function page({params:{postId}}:Props) {
               </div>
             </div>
           </div>
+         
         </div>  
       </div>
     </div>
