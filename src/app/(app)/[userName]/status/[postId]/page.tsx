@@ -10,28 +10,30 @@ export async function generateMetadata({ params: { postId } }: Props) {
   const userProfile: Promise<SinglePostObj> = await await getSinglePost(postId);
   const data=  (await userProfile)?.posts
   const result:undefined | SinglePost[]=data
-  if (!result) {
+  
+  if (result.length){
     return {
-      title: 'No results for'+"",
-      description: 'No results for '+"" +""+'found',
-    };
+      title:` ${result[0].user.name} on Tweatflash : "${result[0].text?result[0].text:""}"`,
+      description:`${result[0].user.name} on Tweatflash "${result[0].text?result[0].text:""}"`,
+      openGraph: {
+          title:result[0].user.name +""+ "on Tweatflash",
+          descrition:result[0].text?result[0].text:"",
+          images: result[0].img.length? result[0].img[0] :"",
+          site_name:"Tweatflash"
+      },
+      twitter: {
+          card: "summary_large_image",
+          images: result[0].img.length? result[0].img[0] :"",
+          title:result[0].user.name +""+ "on Tweatflash",
+          descrition:result[0].text?result[0].text:"",
+      },
+    }
   }
+
   return {
-    title:` ${result[0].user.name} on Tweatflash : "${result[0].text?result[0].text:""}"`,
-    description:`${result[0].user.name} on Tweatflash "${result[0].text?result[0].text:""}"`,
-    openGraph: {
-        title:result[0].user.name +""+ "on Tweatflash",
-        descrition:result[0].text?result[0].text:"",
-        images: result[0].img.length? result[0].img[0] :"",
-        site_name:"Tweatflash"
-    },
-    twitter: {
-        card: "summary_large_image",
-        images: result[0].img.length? result[0].img[0] :"",
-        title:result[0].user.name +""+ "on Tweatflash",
-        descrition:result[0].text?result[0].text:"",
-    },
-  }
+    title: 'No results for'+"",
+    description: 'No results for '+"" +""+'found',
+  };
 };
 
 export default async function page({params:{postId}}:Props) {
@@ -81,14 +83,14 @@ export default async function page({params:{postId}}:Props) {
     return {longDate,longTime} 
      // Output: Sunday, April 13, 2025, 5:53:47 PM UTC
   }
-  if (result===undefined) return <h1>Error Page no user found</h1>
+  if (result===undefined || result.length ==0) return <h1>Error Page no user found</h1>
   return (
     <div className="w-full h-auto"> 
       <div className="flex flex-col justify-center relative">
         <div className="flex justify-center"> 
           <div className="w-full max-w-[568px]">
-            <div className="w-full pt-4 px-4 text-[--color] flex flex-col gap-5">
-              <div className="w-full ">
+            <div className="w-full pt-4 text-[--color] flex flex-col gap-5">
+              <div className="w-full mobile:px-0 px-4 ">
                 <div className="pt-4 w-full gap-3 flex flex-col">
                   <div className="h-auto flex flex-row gap-3 justify-between w-full items-center">
                     <Link href={"/"+result[0].user.username} className="flex">
@@ -282,8 +284,8 @@ export default async function page({params:{postId}}:Props) {
                 </div>
                 
               </div>
-              <div className="w-full">
-                  <div className="w-full h-auto rounded-[20px] flex flex-row gap-2 items-center">
+              <div className="w-full mobile:px-0 px-4 ">
+                  <div className="w-full h-auto rounded-xl bg-[hsl(var(--accent))] px-4 py-3 flex flex-row gap-2 items-center">
                     <div className="size-9 rounded-full bg-red-50"></div>
                     <div className="flex-1 flex justify-between">
                       <div className="flex">
@@ -295,7 +297,7 @@ export default async function page({params:{postId}}:Props) {
                     </div>
                   </div>
               </div>
-              <div className="w-full flex flex-col border-t border-[hsl(var(--border-color))]">
+              <div className="w-full flex flex-col ">
                   <PostsComments commentId={result[0]._id}/>
               </div>
             </div>

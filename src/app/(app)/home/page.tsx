@@ -47,7 +47,7 @@ export default function HomePage() {
                 {activeTab === 1 && <FollowingPosts/>}
                 {activeTab === 2 && <NewestPosts/>}
                 {activeTab === 3 && <SavedPosts data="dave"/>}
-                {activeTab === 4 && <PostedByYou username={userObj.user.username}/>}
+                {userObj?.user && (activeTab === 4 && <PostedByYou username={userObj.user.username}/>)}
                 {activeTab === 5 && <LikedPosts/>}
               </div>
             </div>

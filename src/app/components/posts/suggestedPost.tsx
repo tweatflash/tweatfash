@@ -7,7 +7,7 @@ type stri={
     
 }
 export default function SuggestedPost() {
-    const {cook,forYou,setForYou} :any=useContext(AuthContext)
+    const {cook,forYou,setForYou ,userObj} :any=useContext(AuthContext)
     const rf :string | undefined=cook?.refreshTkn
     const ac:string | undefined=cook?.accessTkn
     const [posts,setPosts]=useState<HomeFeed[] | null>(null)
@@ -37,7 +37,7 @@ export default function SuggestedPost() {
     },[forYou])
     return (
         <div className="flex flex-col">  
-            { forYou?.map((item:HomeFeed)=><Feed dave={item} key={item._id}/>)}
+            {userObj?.user&& forYou?.map((item:HomeFeed)=><Feed dave={item} key={item._id}/>)}
 
             <div className="mx-auto w-full max-w-[568px] p-4 border-b border-solid border-[hsl(var(--border-color))] last:border-none last:border-b-0" onClick={()=>petch()}>
                 <div className="flex animate-pulse space-x-4">

@@ -2,13 +2,11 @@ import Feed from "../feed"
 // import { cookies } from "next/headers";
 import getPostSkipCount from "../../../../lib/posts/getPostSkipCount";
 import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "@/app/context/Authcontext";
 type Param={
     username:string
 }
 export default function PostedByYou({username}:Param) {
-    const {cook,userObj} :any=useContext(AuthContext)
-    const [myPosts,setMyPosts]=useState<HomeFeed[] | null>(null)
+    const [myPosts,setMyPosts]=useState<HomeFeed[] | null>(null) 
     let SkipCount :number=myPosts?.length || 0
     async function petch(){
         const data : Promise<Post>=await getPostSkipCount(SkipCount,`user/${username}`,"rf","ac") 
@@ -20,7 +18,7 @@ export default function PostedByYou({username}:Param) {
         
     }
     useEffect(()=>{
-        petch()
+        petch()   
     },[])
     useEffect(()=>{
       SkipCount=myPosts?.length || 0

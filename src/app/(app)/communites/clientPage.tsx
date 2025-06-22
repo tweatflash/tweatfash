@@ -1,10 +1,11 @@
 "use client"
 import SuggestedCommunityPost from '@/app/components/communityPosts/suggestedcommunityPost';
 import Link from 'next/link';
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 export default function Page() {
     const tabs = [
+        "search",
         "Tech Enthusiasts",
         "Gamers",
         "Fitness & Wellness",
@@ -29,6 +30,7 @@ export default function Page() {
     useEffect(()=>{
 
     },[])
+    const [activeTab,setActiveTab]=useState(1)
     return (
         <div className="w-full h-auto"> 
             <div className="flex flex-col justify-center relative">
@@ -110,21 +112,36 @@ export default function Page() {
                         </div> */}
 
                         {/* tabs */}
-                        <div className="flex flex-col justify-start relative overflow-x-hidden resize-none px-4">
-        
+                        <div className="flex flex-col justify-start items-center relative overflow-x-hidden resize-none px-4">
+                            {/* <div className='absolute left-0 h-full aspect-square rounded-full bg-slate-500 z-10'></div>
+                            <div className='absolute right-0 h-full aspect-square rounded-full bg-slate-500 z-10'></div> */}
                             <div className="w-full relative overflow-x-auto flex flex-col h-8 no-scrollbar">
                                 
                                 <div className="flex min-w-full justify-start absolute m-auto w-fit gap-2">
                                     {tabs.map((tab, index) => (
-                                        <button
-                                            key={index}
-                                            className={`flex-1 whitespace-nowrap text-center text-sm text-nowrap h-8 rounded-lg px-4 font-bold bg-[hsl(var(--accent))] ${
-                                            0 === index ? "bg-black text-white dark:bg-white dark:text-black" : "text-[#777777]"
+
+                                        tab==='search' ? 
+                                            <button
+                                                key={index}
+                                                
+                                                className={`flex-1 whitespace-nowrap text-center text-sm text-nowrap h-8 rounded-lg border border-[hsl(var(--border-color))] px-2 font-bold bg-[hsl(var(--accent))] ${2 === index ? "bg-black text-white dark:bg-white dark:text-black" : "text-[#777777]"                                                    
                                             }`}
+                                            >
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="stroke-black dark:stroke-white"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg> 
+                                            </button> :
+                                            
+                                            <button
+                                                key={index}
+                                                onClick={()=>setActiveTab(index)}
+                                                className={`flex-1 whitespace-nowrap text-center text-sm text-nowrap h-8 rounded-lg px-4 bg-[hsl(var(--accent))] ${activeTab === index ? "bg-black text-white dark:bg-white dark:text-black" : "text-[#777777]"                                                    
+                                            }`}
+                                            >
+                                                {tab}
+                                            </button>
                                         
-                                        >
-                                            {tab}
-                                        </button>
+                                        
+                                            
+                                        
                                     ))}
                                 </div> 
                             </div>

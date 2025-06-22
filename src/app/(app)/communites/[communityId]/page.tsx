@@ -102,13 +102,13 @@ export default async function EachCommunity({ params: { communityId } }: Props) 
                     </div>
                     <div className="flex flex-row flex-grow gap-2 justify-end">
                         <div className="flex-1 flex-col">
-                            <button type="button" className="px-4 w-full h-full bg-[#4070f4] rounded-lg font-[500] text-white text-[15px]">Request Join</button>
+                            <button type="button" className="px-4 w-full h-full bg-[#4070f4] rounded-lg font-[500] text-white text-[15px]">Join</button>
                         </div>
                         <div className="flex-1 flex-col">
                             <button type="button" className=" w-full h-full bg-[hsl(var(--accent))] rounded-lg text-black dark:text-white text-[15px]">Copy Link</button>
                         </div>
                         <div className="flex flex-col">
-                            <button type="button" className="bg-[hsl(var(--accent))] flex justify-center items-center rounded-lg w-10 aspect-square">
+                            <button type="button" className="bg-[hsl(var(--accent))] flex justify-center items-center rounded-lg w-9 aspect-square">
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width={20}
@@ -124,12 +124,12 @@ export default async function EachCommunity({ params: { communityId } }: Props) 
                                 <circle cx={12} cy={12} r={1} />
                                 <circle cx={19} cy={12} r={1} />
                                 <circle cx={5} cy={12} r={1} />
-                                  </svg>
+                            </svg>
 
                             </button>
                         </div>
                         <div className="flex flex-col">
-                            <button type="button" className="bg-[hsl(var(--accent))] flex justify-center items-center rounded-lg w-10 aspect-square">
+                            <button type="button" className="bg-[hsl(var(--accent))] flex justify-center items-center rounded-lg w-9 aspect-square">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="stroke-black dark:stroke-white"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
                             </button>
                         </div>

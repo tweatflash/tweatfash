@@ -2,6 +2,8 @@
 import Link from "next/link";
 import React from "react";
 import { useRouter } from "next/navigation";
+import { useContext, } from "react";
+import { AuthContext } from "@/app/context/Authcontext";
 type daveA={
     dave:HomeFeed
 }
@@ -49,7 +51,7 @@ export default function Feed({dave}: daveA) {
     });
     return {longDate,longTime} 
      // Output: Sunday, April 13, 2025, 5:53:47 PM UTC
-  }
+    }
     const handleParent=(postId:string,username:string):void=>{
         router.push(`/${username}/status/${postId}`)
     }
@@ -57,6 +59,7 @@ export default function Feed({dave}: daveA) {
         event.stopPropagation();
         console.log("child")
     }
+    const {userObj}:any=useContext(AuthContext)
     return (
         <div className="flex flex-col relative border-b border-solid border-[hsl(var(--border-color))] last:border-none last:border-b-0" onClick={()=>console.log(dave)}>
         <div className="flex flex-col py-5 w-full"  role="article">
@@ -161,7 +164,7 @@ export default function Feed({dave}: daveA) {
                         <div className="flex" onClick={()=>handleParent(dave._id ,dave.user.username)}>
                             <div className="flex">
                                 <div className="flex">
-                                    <p className={`text-[--color] font-[400] opacity-85  text-[15px] whitespace-pre-wrap tracking-wide decoration-0`}>
+                                    <p className={`text-[--color] font-[400] opacity-80 text-[15px] whitespace-pre-wrap tracking-wide decoration-0`}>
                                         {dave.text && dave.text}
                                     </p>
                                 </div>
@@ -182,7 +185,7 @@ export default function Feed({dave}: daveA) {
                         <div className="flex gap-[15px]">
                             <span className="flex ml-[-8px] ">
                                 <button className="flex gap-[6px] px-2 h-8 items-center hover:bg-[hsl(var(--accent))] rounded-[20px]">
-                                    <svg viewBox="0 0 20 20" stroke="#727272" fill="none" className="h-5 w-5 stroke-[1.5]"><path d="M5.00002 2.54822C8.00003 2.09722 9.58337 4.93428 10 5.87387C10.4167 4.93428 12 2.09722 15 2.54822C18 2.99923 18.75 5.66154 18.75 7.05826C18.75 9.28572 18.1249 10.9821 16.2499 13.244C14.3749 15.506 10 18.3333 10 18.3333C10 18.3333 5.62498 15.506 3.74999 13.244C1.875 10.9821 1.25 9.28572 1.25 7.05826C1.25 5.66154 2 2.99923 5.00002 2.54822Z"></path></svg>
+                                    <svg viewBox="0 0 20 20" stroke={`#727272`} fill="none" className="h-5 w-5 stroke-[1.5]"><path d="M5.00002 2.54822C8.00003 2.09722 9.58337 4.93428 10 5.87387C10.4167 4.93428 12 2.09722 15 2.54822C18 2.99923 18.75 5.66154 18.75 7.05826C18.75 9.28572 18.1249 10.9821 16.2499 13.244C14.3749 15.506 10 18.3333 10 18.3333C10 18.3333 5.62498 15.506 3.74999 13.244C1.875 10.9821 1.25 9.28572 1.25 7.05826C1.25 5.66154 2 2.99923 5.00002 2.54822Z"></path></svg>
                                         {dave.likes.length? <span className="text-sm text-[#727272]">{dave.likes.length}</span>:<></>}
                                 </button>
                             </span>

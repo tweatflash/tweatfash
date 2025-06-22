@@ -149,13 +149,14 @@ export default function CommandPalette() {
                         </button>
                     </div>
                     <input
-                        autoFocus
+                    
                         type='search'
                         value={query}
                         onChange={(e)=>setQuery(e.target.value)}
                         placeholder="Type a command or search…"
                         className="flex-1 text-[--color] bg-transparent px-4 py-3 pl-0 text-sm
                                     outline-none placeholder:text-zinc-400"
+                        autoFocus
                     />
                     <div className="loader_holder">
                       <div className={`loader-line ${loading ?"" :"hidden"}`}></div>

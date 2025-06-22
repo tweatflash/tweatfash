@@ -710,3 +710,27 @@ type CommunityFollower={
   resetPasswordExpire?: string
   resetPasswordToken?: string
 }
+
+type PostComment={
+  
+  text: string,
+  user: {
+      _id: string,
+      name: string,
+      username: string,
+      profileImage:string,
+      coverImage:string
+  },
+  img: [
+      string
+  ],
+  views: [],
+  likes: [],
+  _id: string,
+  replies: [],
+  createdAt:string,
+  updatedAt:string
+}
+type PostCommentResponse={
+  comments:PostComment[]
+}
