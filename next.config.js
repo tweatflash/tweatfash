@@ -6,8 +6,18 @@ const nextConfig = {
     appDir: true,
   },
   images: {
-    domains: ["res.cloudinary.com","substackcdn.com","abs.twimg.com"], // Add allowed image domains
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        pathname: '/**',
+      },
+    ],
   },
+
+  // images: {
+  //   domains: ["res.cloudinary.com","substackcdn.com","abs.twimg.com",""], // Add allowed image domains
+  // },
 }
 
 module.exports = nextConfig

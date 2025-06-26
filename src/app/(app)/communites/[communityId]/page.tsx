@@ -61,7 +61,7 @@ export default async function EachCommunity({ params: { communityId } }: Props) 
                     </div>
 
                     <div className="flex flex-col gap-2">
-                      <h3 className='text-2xl font-[boldCal] dark:text-[rgb(225,225,225)]'>{data.name}</h3>
+                      <h3 className='text-2xl font-bold dark:text-[rgb(225,225,225)]'>{data.name}</h3>
                       
                       <div className=''>
                         <span className="dark:text-[rgb(225,225,225)] text-[15px] ">

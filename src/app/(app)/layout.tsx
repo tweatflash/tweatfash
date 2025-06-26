@@ -295,7 +295,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
       </div>
 
       {/* buttom nav */}
-      <nav className="fixed mobile:hidden bottom-0 w-full h-[55px] border-t border-[hsl(var(--border-color))] border-solid z-10 bg-[hsl(var(--background))] flex flex-1 gap-2 px-2">
+      <nav className="fixed mobile:hidden bottom-0 w-full h-[55px] border-t border-[hsl(var(--border-color))] border-solid z-10 bg-[hsl(var(--background)/.6)] backdrop-blur-md flex flex-1 gap-2 px-2">
         <span className="w-full py-2">
           <Link href={"/home"} className="h-full">
             <div className={`flex items-center justify-center rounded-3xl ${mainpathname ==="home" && "bg-[hsl(var(--accent))] border border-[hsl(var(--border-color))]"} h-full`}>

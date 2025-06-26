@@ -1,14 +1,18 @@
 "use client"
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useContext, } from "react";
 import { AuthContext } from "@/app/context/Authcontext";
+import likePost from "../../../lib/likePost"
+import ContentWrapper from "./contentWrapper";
+
 type daveA={
     dave:HomeFeed
 }
 export default function Feed({dave}: daveA) {
     const router=useRouter()
+    
     function time(date: string): string {
         const now = new Date();
         const past = new Date(date);
@@ -59,9 +63,38 @@ export default function Feed({dave}: daveA) {
         event.stopPropagation();
         console.log("child")
     }
+
     const {userObj}:any=useContext(AuthContext)
+    const [liked,setLiked]=useState(userObj?.user && userObj.user.likedPosts.some((item:any) => item._id == dave._id))
+    const likeAPost =async (postId:string)=>{
+        if (liked){
+            setLiked(false)
+            console.log(userObj)
+            dave.likes=dave.likes.filter(item => item._id !==userObj.user._id)
+            console.log(dave.likes)
+        }else{
+            setLiked(true)
+            const newItem = { _id: postId }
+            userObj.user.likedPosts.push(newItem)   
+            // dave.likes.push(postId)
+            
+            likePost(postId)
+            const newLike = {
+                "_id": userObj.user._id,
+                "name": userObj.user.name,
+                "username": userObj.user.username,
+                "profileImage": userObj.user.profileImage,
+                "coverImage":userObj.user.coverImage,
+            }
+            dave.likes.push(newLike)
+            // const result =await data
+            // console.log(result)
+        }
+            
+            
+    }
     return (
-        <div className="flex flex-col relative border-b border-solid border-[hsl(var(--border-color))] last:border-none last:border-b-0" onClick={()=>console.log(dave)}>
+        <div className="flex flex-col relative border-b border-solid border-[hsl(var(--border-color))] last:border-none last:border-b-0">
         <div className="flex flex-col py-5 w-full"  role="article">
             <div className="gap-3 flex item-start w-full px-4 lg:px-0">
             <Link href={""}>
@@ -171,26 +204,22 @@ export default function Feed({dave}: daveA) {
                             </div>
                         </div>
                     </div>
-                    {dave.img?.length ?
-                        <div className="block overflow-hidden w-full cursor-wait" tabIndex={1} onClick={()=>handleParent(dave._id ,dave.user.username)}>
-                            <div draggable="false" tabIndex={2} className={`cursor-not-allowed flex bg-[hsl(var(--accent))] object-cover bg-center w-fit bg-cover  h-auto overflow-hidden min-w-20 rounded-xl relative border border-[hsl(var(--border-color))] border-solid `} onClick={(event)=>handleChild(event)}>
-                                <img src={dave.img[0]?.url} className="max-h-[400px] max-w-full w-auto h-auto object-cover object-center invisible" />
-                            </div>
-                        </div>
-                        // <ContentWrapper param={dave.img}/>
-                        :<></>
-                       
-                    }
+                    <ContentWrapper param={dave} />
                     <div className="gap-2 flex justify-between">
                         <div className="flex gap-[15px]">
                             <span className="flex ml-[-8px] ">
-                                <button className="flex gap-[6px] px-2 h-8 items-center hover:bg-[hsl(var(--accent))] rounded-[20px]">
-                                    <svg viewBox="0 0 20 20" stroke={`#727272`} fill="none" className="h-5 w-5 stroke-[1.5]"><path d="M5.00002 2.54822C8.00003 2.09722 9.58337 4.93428 10 5.87387C10.4167 4.93428 12 2.09722 15 2.54822C18 2.99923 18.75 5.66154 18.75 7.05826C18.75 9.28572 18.1249 10.9821 16.2499 13.244C14.3749 15.506 10 18.3333 10 18.3333C10 18.3333 5.62498 15.506 3.74999 13.244C1.875 10.9821 1.25 9.28572 1.25 7.05826C1.25 5.66154 2 2.99923 5.00002 2.54822Z"></path></svg>
-                                        {dave.likes.length? <span className="text-sm text-[#727272]">{dave.likes.length}</span>:<></>}
+                                <button  
+                                    onClick={()=>likeAPost(dave._id)}
+                                    className={`
+                                        flex gap-[6px] px-2 h-8 items-center rounded-[20px] 
+                                        ${liked ? "hover:bg-[rgba(235,87,87,.2)] text-[#eb5757]" : "hover:bg-[hsl(var(--accent))] text-[#727272] hover:text-[--color]"}
+                                    `}>
+                                    <svg viewBox="0 0 20 20" stroke={"currentColor"} fill={liked ? "#eb5757" :"none"} className="h-5 w-5 stroke-[1.5]"><path d="M5.00002 2.54822C8.00003 2.09722 9.58337 4.93428 10 5.87387C10.4167 4.93428 12 2.09722 15 2.54822C18 2.99923 18.75 5.66154 18.75 7.05826C18.75 9.28572 18.1249 10.9821 16.2499 13.244C14.3749 15.506 10 18.3333 10 18.3333C10 18.3333 5.62498 15.506 3.74999 13.244C1.875 10.9821 1.25 9.28572 1.25 7.05826C1.25 5.66154 2 2.99923 5.00002 2.54822Z"></path></svg>
+                                        {dave.likes.length? <span className={`text-sm `}>{dave.likes.length}</span>:<></>}
                                 </button>
                             </span>
                             <span className="flex ml-[-8px] ">
-                                <button className="flex gap-[6px] px-2 h-8 items-center hover:bg-[hsl(var(--accent))] rounded-[20px]">
+                                <button className="flex gap-[6px] px-2 h-8 items-center hover:bg-[hsl(var(--accent))] rounded-[20px]"onClick={()=>handleParent(dave._id ,dave.user.username)} >
                                 <svg role="img" width="20" height="20" viewBox="0 0 20 20" fill="none" strokeWidth="1.5" stroke="#727272" strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5"><g><title></title><path d="M18.7502 11V7.50097C18.7502 4.73917 16.5131 2.50033 13.7513 2.50042L6.25021 2.50044C3.48848 2.5004 1.25017 4.73875 1.2502 7.50048L1.25021 10.9971C1.2502 13.749 3.47395 15.9836 6.22586 15.9971L6.82888 16V19.0182L12.1067 16H13.7502C16.5116 16 18.7502 13.7614 18.7502 11Z"></path></g></svg>
                                     {dave.commentCount? <span className="text-sm text-[#727272]">{dave.commentCount}</span>:<></>}
                                 </button>

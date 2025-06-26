@@ -97,9 +97,16 @@ type HomeFeed={
     "pollId": (number | string)[],
     "text": string,
     "img"?: any,
-    "video": string[],
+    "video": any,
     "audio": string[],
-    "likes": string[],
+    "likes": {
+      
+      "_id": string,
+      "name": string,
+      "username": string,
+      "profileImage": string,
+      "coverImage":string
+    }[],
     "views": string[],
     "visibility": string,
     "promotedDuration": null,
@@ -118,83 +125,6 @@ type Post={
 }
 type UsersType={
     user:Users
-}
-type User= {
-        "_id": string,
-        "name": string,
-        "username": string,
-        "email": string,
-        "dateOfBirth": string,
-        "followers": [],
-        "following": [],
-        "friends": [],
-        "googleId": "",
-        "homeTown": "",
-        "relationshipStatus": "",
-        "placesLived": "",
-        "pricingPlan": "basic",
-        "role": "user",
-        "profileImage": "https://res.cloudinary.com/dlsngc9fb/image/upload/v1744731869/profile-images/tmp-3-1744731868349_hj59zq.jpg",
-        "coverImage": "https://res.cloudinary.com/dlsngc9fb/image/upload/v1741866154/cover-images/tmp-2-1741866153307_uc9z8g.jpg",
-        "bio": "Your future is determined with what you are doing today,now not tomorrow or later",
-        "link": "",
-        "likedPosts":  {
-            "_id": string,
-            "user": string,
-            "type": string,
-            "text": string,
-            "img": {
-                "url": string,
-                "width": number,
-                "height": number,
-                "aspectRatio": number,
-                "_id": string
-            }[],
-            "audio": [],
-            "visibility": string,
-            "likes": [],
-            "views": [],
-            "reposts": [],
-            "quotes": [],
-            "flagged": [],
-            "taggedFriends": [],
-            "promotedDuration": null,
-            "tweatstars": number,
-            "video": [],
-            "comments": [],
-            "createdAt": string,
-            "updatedAt": string,
-            "__v": number
-        }[],
-        "flags": [
-            "676db98f2cf6a9604cbf4451",
-            "67fffb132c6addfdf4636f60"
-        ],
-        "likedComments": [],
-        "likedreplies": [],
-        "pinnedPosts": [],
-        "mutePosts": [],
-        "accountViews": string[],
-        "interests": [],
-        "blockedUsers": [],
-        "muteUsers": [],
-        "reposts": [],
-        "quotes": [],
-        "location": "",
-        "language": "",
-        "isVerified": Boolean,
-        "wallet": number,
-        "tweatcoins": 9,
-        "pricingPlanDuration": null,
-        "verificationToken": "",
-        "suspended": false,
-        "createdAt": "2025-01-26T07:49:11.921Z",
-        "updatedAt": "2025-04-23T09:29:43.872Z",
-        "__v": number,
-        "verified": "2025-01-26T07:49:12.575Z",
-        "resetPasswordExpire": "2025-03-23T14:46:28.570Z",
-        "resetPasswordToken": string,
-        "aura": 0
 }
 
 
@@ -345,7 +275,7 @@ type SinglePost= {
   _id: string
   user: SinglePostuser
   img: SinglePostuserImg[]
-  video: any[]
+  video: SinglePostuserImg[]
   audio: any[]
   visibility: string
   likes: SinglePostuserLike[]
@@ -733,4 +663,70 @@ type PostComment={
 }
 type PostCommentResponse={
   comments:PostComment[]
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+type User ={
+  _id: string
+  name: string
+  username: string
+  email: string
+  dateOfBirth: string
+  followers: any[]
+  following: any[]
+  friends: any[]
+  googleId: string
+  homeTown: string
+  relationshipStatus: string
+  placesLived: string
+  pricingPlan: string
+  role: string
+  profileImage: string
+  coverImage: string
+  bio: string
+  link: string
+  likedPosts: LikedPost[]
+  flags: string[]
+  likedComments: any[]
+  likedreplies: any[]
+  pinnedPosts: any[]
+  mutePosts: any[]
+  accountViews: string[]
+  interests: any[]
+  blockedUsers: any[]
+  muteUsers: any[]
+  reposts: any[]
+  quotes: any[]
+  location: string
+  language: string
+  isVerified: boolean
+  wallet: number
+  tweatcoins: number
+  pricingPlanDuration: any
+  verificationToken: string
+  suspended: boolean
+  createdAt: string
+  updatedAt: string
+  __v: number
+  verified: string
+  aura: number
+  resetPasswordExpire: string
+  resetPasswordToken: string
+}
+
+type LikedPost ={
+  _id: string
 }

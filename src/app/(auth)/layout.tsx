@@ -32,7 +32,7 @@ export default function AuthLayout({children,}: {children: React.ReactNode}) {
     },[authError])
     return (
       
-        <div className={`bg-[hsl(var(--background))] grid min-h-svh lg:grid-cols-2 font-[boldCal]`}>
+        <div className={`bg-[hsl(var(--background))] grid min-h-svh lg:grid-cols-2`}>
 
             <div className="flex flex-col gap-4 p-6 md:p-10">
               <div className="flex justify-center gap-2 ">
