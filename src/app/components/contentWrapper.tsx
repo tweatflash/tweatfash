@@ -33,7 +33,7 @@ export default function ContentWrapper({param}:Prop) {
                                 total[0].url?.endsWith('.mp4') || total[0].url?.endsWith('.webm') ?
                                     <video src={total[0].url} className='object-cover object-center w-full h-full max-h-full min-h-full'/> 
                                     :
-                                    <img src={total[0].url} className={`max-h-[510px] max-w-full  min-w-64  object-cover object-center w-auto h-auto invisible` } />
+                                    <img src={total[0].url} className={`max-h-[450px] max-w-full  min-w-64  object-cover object-center w-auto h-auto invisible` } />
                             }
                         </div>
                     
