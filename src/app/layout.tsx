@@ -24,7 +24,7 @@ import { AuthProvider } from "./context/Authcontext";
     return (
       <GoogleOAuthProvider clientId={clientId}>
         <AuthProvider>
-          <html lang="en" className='' data-theme='dark'>
+          <html lang="en" className='dark' data-theme='dark'>
               {/* <link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet"/> */}
               <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"></meta>
               <body className={`w-full bg-[hsl(var(--background))]`}>

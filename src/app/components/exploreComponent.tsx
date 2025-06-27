@@ -1,13 +1,15 @@
 "use client"
 import getExplorePosts from "../../../lib/explore"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import Cookies from "js-cookie"
+import Feed from "./feed"
 type Param={
     suggestedData:string
 }
 export default function ExploreComponent({suggestedData}:Param) {
     const ref=Cookies.get("RFTFL")
     const acc=Cookies.get("ACTFL")
+    const [posts,setPosts]=useState<HomeFeed[] | null>(null)
     async function petch(){
         const data : any=await getExplorePosts(suggestedData,ref,acc)
         const results = await data
@@ -15,6 +17,7 @@ export default function ExploreComponent({suggestedData}:Param) {
             console.log("undefined")
         }else{
             console.log(results)
+            setPosts(results?.posts)
         }
     }
     useEffect(()=>{
@@ -22,8 +25,12 @@ export default function ExploreComponent({suggestedData}:Param) {
             petch()
         }
     },[suggestedData])
+    
     return (
-        <div className="flex flex-col">  
+        <div className="flex flex-col"> 
+            {
+                posts?.map((item:HomeFeed)=><Feed dave={item} key={item._id}/>)
+            }
             <div className="mx-auto w-full max-w-[568px] p-4 border-b border-solid border-[hsl(var(--border-color))] last:border-none last:border-b-0">
                 <div className="flex animate-pulse space-x-4">
                     <div className="size-10 rounded-full bg-gray-300 dark:bg-gray-700"></div>

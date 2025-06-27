@@ -148,3 +148,57 @@ body {
       background-color: #4070f4;
   }
 }
+
+
+/* Parent with exactly 2 children */
+.img-gallery > :first-child:nth-last-child(2) {
+  /* Your styles here */
+  
+  border-radius: 12px 0px 0px 12px;
+}
+.img-gallery > :last-child:nth-child(2) {
+  /* Your styles here */
+  
+  border-radius:0px 12px  12px 0px;
+}
+
+
+
+/* Parent with exactly 3 children */
+.img-gallery > :first-child:nth-last-child(3) {
+  border-radius:12px 0px 0px 12px;
+}
+.img-gallery > :nth-child(2):nth-last-child(2) {
+  border-radius:0px 12px 0px 0px;
+}
+.img-gallery > :last-child:nth-child(3) {
+  border-radius:0px 0px 12px 0px;
+}
+
+/* Parent with exactly 4 children */
+/* First child */
+.img-gallery > :first-child:nth-last-child(4) {
+  border-radius:12px 0px 0px 0px;
+}
+
+/* Second child */
+.img-gallery > :nth-child(2):nth-last-child(3) {
+  border-radius:0px 12px 0px 0px;
+}
+
+/* Third child */
+.img-gallery > :nth-child(3):nth-last-child(2) {
+  border-radius:0px 0px 0px 12px ;
+}
+
+/* Fourth child */
+.img-gallery > :last-child:nth-child(4) {
+  border-radius:0px 0px 12px 0px;
+}
+
+.img-gallery{
+  
+}
+.gallery-cnt{
+
+}

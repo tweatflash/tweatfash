@@ -64,7 +64,7 @@ export default function ClientPage( {searchTerm}:Prop) {
                 </div>
                 
             </div>
-            <div className="border-t border-[hsl(var(--border-color))] p-4 pb-0 flex flex-col">
+            <div className="border-t border-[hsl(var(--border-color))] py-4 pb-0 flex flex-col">
                 <ExploreComponent suggestedData={displayTerm} />
                 
             </div>

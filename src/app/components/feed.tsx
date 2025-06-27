@@ -197,7 +197,7 @@ export default function Feed({dave}: daveA) {
                         <div className="flex" onClick={()=>handleParent(dave._id ,dave.user.username)}>
                             <div className="flex">
                                 <div className="flex">
-                                    <p className={`text-[--color] font-[400] opacity-80 text-[15px] whitespace-pre-wrap tracking-wide decoration-0`}>
+                                    <p className={`text-[--color] break-all break-words font-[400] opacity-80 text-[15px] whitespace-pre-wrap tracking-wide decoration-0`}>
                                         {dave.text && dave.text}
                                     </p>
                                 </div>

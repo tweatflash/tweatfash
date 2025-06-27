@@ -1,6 +1,8 @@
 import Link from "next/link";
 import getSinglePost from "../../../../../../lib/posts/getSinglePost";
 import PostsComments from "@/app/components/posts/postsComments";
+import ContentWrapper from "@/app/components/contentWrapper";
+
 type Props = {
   params: {
     postId: string,
@@ -193,14 +195,7 @@ export default async function page({params:{postId}}:Props) {
                         </div>
                     </div>
                   }
-                  {
-                    result[0].img.length ?
-                      <div className="block overflow-hidden w-full cursor-wait">
-                          <div draggable="false" tabIndex={2} className={`cursor-not-allowed flex bg-[hsl(var(--accent))] object-cover bg-center w-fit bg-cover  h-auto overflow-hidden min-w-20 rounded-xl relative border border-[hsl(var(--border-color))] border-solid `}>
-                              <img src={result[0].img[0].url} className="max-h-[400px] max-w-full w-auto h-auto object-cover object-center invisible" />
-                          </div>
-                      </div>:<></>
-                  }
+                  <ContentWrapper param={result[0]} />
                   <div className="gap-2 flex justify-between">
                         <div className="flex gap-[15px] flex-1">
                             <span className="flex ml-[-8px] ">
