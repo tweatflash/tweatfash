@@ -1,19 +1,16 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import {
-  Dialog,
-  DialogBackdrop,
-  DialogPanel,
-  DialogTitle,
-} from "@headlessui/react";
+
 import { AuthContext, AuthProvider } from "../context/Authcontext";
 import { useContext } from "react";
-import CommandPalette from "./explore/[searchTerm]/command";
+import CommandPalette from "../components/search/command";
 import { usePathname } from "next/navigation";
+// import Generate from "./explore/[searchTerm]/add";
+import CreatePostDialog from "../components/addPost/S";
 // import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 const HomeLayout = ({ children }: { children: React.ReactNode }) => {
-  const {userObj , openSearch , setOpenSearch}: any = useContext(AuthContext)
+  const {userObj , post ,setPost , setOpenSearch}: any = useContext(AuthContext)
   const pathname = usePathname();
   const mainpathname =  pathname.split('/')[1];
   return (
@@ -116,7 +113,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
                   <div className="p-2 w-full grid gap-1">
                     <span className="w-full">
                       <Link href={"/home"} className="">
-                        <div className="p-4 flex items-center rounded-3xl hover:bg-[hsl(var(--accent))] ">
+                        <div className="p-4 flex items-center rounded-full hover:bg-[hsl(var(--accent))] ">
                           {
                             mainpathname==="home" ?
                             <svg
@@ -145,7 +142,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
                     </span>
                     <span>
                       <div className="cursor-pointer" onClick={()=>setOpenSearch(true)}>
-                        <div className="p-4 flex items-center rounded-3xl hover:bg-[hsl(var(--accent))]">
+                        <div className="p-4 flex items-center rounded-full hover:bg-[hsl(var(--accent))]">
                           <svg
                             viewBox="0 0 24 24"
                             aria-hidden="true"
@@ -160,7 +157,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
                     </span>
                     <span>
                       <Link href={"/notifications"}>
-                        <div className="p-4 flex items-center rounded-3xl hover:bg-[hsl(var(--accent))]">
+                        <div className="p-4 flex items-center rounded-full hover:bg-[hsl(var(--accent))]">
                          {mainpathname==="notifications"?
                           <svg
                             viewBox="0 0 24 24"
@@ -187,7 +184,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
 
                     <span>
                       <Link href={"/bookmarks"}>
-                        <div className="p-4 flex items-center rounded-3xl hover:bg-[hsl(var(--accent))] ">
+                        <div className="p-4 flex items-center rounded-full hover:bg-[hsl(var(--accent))] ">
                           {mainpathname ==="bookmarks" ?
                             <svg
                               viewBox="0 0 24 24"
@@ -216,7 +213,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
                     <span>
 
                       <Link href={`${userObj?.user?.username ? "/"+userObj.user.username :""} `}>
-                        <div className="p-4 flex items-center rounded-3xl hover:bg-[hsl(var(--accent))] ">
+                        <div className="p-4 flex items-center rounded-full hover:bg-[hsl(var(--accent))] ">
                           <svg
                             viewBox="0 0 24 24"
                             aria-hidden="true"
@@ -232,7 +229,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
 
                     <span>
                       <Link href={"/communites"}>
-                        <div className="p-4 flex items-center rounded-3xl hover:bg-[hsl(var(--accent))] ">
+                        <div className="p-4 flex items-center rounded-full hover:bg-[hsl(var(--accent))] ">
                           {
                             mainpathname==='communites' ?
                               <svg
@@ -258,6 +255,25 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
                          
                         </div>
                       </Link>
+                    </span>
+                    <span className="flex justify-center cursor-pointer" onClick={()=>setPost(true)}>
+                        <div className="size-12 flex items-center justify-center rounded-full text-white bg-[#4070f4] ">
+                          
+                          <svg
+
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="size-6"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth={2}
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <path d="M5 12h14M12 5v14" />
+                          </svg>
+                        </div>
+
                     </span>
                   </div>
                 </div>
@@ -292,13 +308,31 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
           {/* <div className="h-[60px] w-full"></div> */}
           <AuthProvider>{children}</AuthProvider>
         </div>
+          <button onClick={()=> {
+              setPost(true)
+              
+            }} tabIndex={2} className={`fixed justify-center items-center flex ${mainpathname==="home" ?"mobile:hidden":"hidden"}  size-[50px] rounded-xl text-white right-5 bg-[#4070f4] bottom-16`} type="button">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width={24}
+                height={24}
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M5 12h14M12 5v14" />
+              </svg>
+            </button>
       </div>
 
       {/* buttom nav */}
       <nav className="fixed mobile:hidden bottom-0 w-full h-[55px] border-t border-[hsl(var(--border-color))] border-solid z-10 bg-[hsl(var(--background)/.6)] backdrop-blur-md flex flex-1 gap-2 px-2">
         <span className="w-full py-2">
           <Link href={"/home"} className="h-full">
-            <div className={`flex items-center justify-center rounded-3xl ${mainpathname ==="home" && "bg-[hsl(var(--accent))] border border-[hsl(var(--border-color))]"} h-full`}>
+            <div className={`flex items-center justify-center rounded-full ${mainpathname ==="home" && "bg-[hsl(var(--accent))] border border-[hsl(var(--border-color))]"} h-full`}>
               {
                 mainpathname==="home" ?
                 <svg
@@ -326,7 +360,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
         </span>
         <span className="w-full py-2">
           <div onClick={()=>setOpenSearch(true)} className="h-full cursor-pointer">
-            <div className="flex items-center justify-center rounded-3xl hover:bg-[hsl(var(--accent))] h-full">
+            <div className="flex items-center justify-center rounded-full hover:bg-[hsl(var(--accent))] h-full">
               <svg
                 viewBox="0 0 24 24"
                 aria-hidden="true"
@@ -341,7 +375,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
         </span>
         <span className="w-full py-2">
           <Link href={"/communites"} className="h-full">
-            <div className={`flex items-center justify-center rounded-3xl ${mainpathname ==="communites" && "bg-[hsl(var(--accent))] border border-[hsl(var(--border-color))]"} h-full`}>
+            <div className={`flex items-center justify-center rounded-full ${mainpathname ==="communites" && "bg-[hsl(var(--accent))] border border-[hsl(var(--border-color))]"} h-full`}>
               {
                 mainpathname==='communites' ?
                   <svg
@@ -370,7 +404,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
 
         <span className="w-full py-2">
           <Link href={"bookmarks"} className="h-full">
-            <div className={`flex items-center justify-center rounded-3xl ${mainpathname ==="bookmarks" && "bg-[hsl(var(--accent))] border border-[hsl(var(--border-color))]"} h-full`}>
+            <div className={`flex items-center justify-center rounded-full ${mainpathname ==="bookmarks" && "bg-[hsl(var(--accent))] border border-[hsl(var(--border-color))]"} h-full`}>
               <svg
                 viewBox="0 0 24 24"
                 aria-hidden="true"
@@ -386,7 +420,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
 
         <span className="w-full py-2">
           <Link href={`${userObj?.user?.username ? "/"+userObj.user.username :""} `} className="h-full">
-            <div className={`flex items-center justify-center rounded-3xl ${mainpathname ==="Xlemson" && "bg-[hsl(var(--accent))] border border-[hsl(var(--border-color))]"} h-full`}>
+            <div className={`flex items-center justify-center rounded-full ${mainpathname ==="Xlemson" && "bg-[hsl(var(--accent))] border border-[hsl(var(--border-color))]"} h-full`}>
               <svg
                 viewBox="0 0 24 24"
                 aria-hidden="true"
@@ -401,6 +435,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
         </span>
       </nav>
       <CommandPalette />
+      <CreatePostDialog post={post} setPost={setPost} />
     </div>
   );
 };

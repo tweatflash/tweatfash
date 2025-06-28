@@ -64,7 +64,7 @@ export default function ContentWrapper({param}:Prop) {
                 :
                 <div className='w-full aspect-[1.6/1] flex relative overflow-hidden'>
                  <div className='size-full relative overflow-hidden '>
-                    <div className={`grid h-full grid-cols-2 gap-[3px] img-gallery`}>
+                    <div className={`grid h-full grid-cols-2 gap-[2px] img-gallery`}>
                          {total.slice(0,4).map((file ,index)=>(
                              <div className={`gallery-cnt relative rounded-md border border-[hsl(var(--border-color))] bg-[hsl(var(--accent))] overflow-hidden ${total.length===3 ? "first:row-start-1 first:row-end-[span_2]" :""}`} key={index}>
                                 {

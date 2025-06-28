@@ -6,23 +6,9 @@ import { Command } from 'cmdk'
 import { useRouter } from 'next/navigation'
 import Cookies from 'js-cookie'
 import getExplorePosts from '../../../../../lib/explore'
-import { AuthContext } from '@/app/context/Authcontext'
-import Person from '@/app/components/person'
-interface Item {
-  id: string
-  label: string
-  shortcut?: string   // e.g. "G H" for GitHub’s palette vibes
-  href?: string
-  action?: () => void
-}
-/* --- your app-specific commands ----------------------------------------- */
-const COMMANDS: Item[] = [
-  { id: 'home', label: 'Home', href: '/' },
-  { id: 'blog', label: 'Blog', href: '/blog' },
-  { id: 'profile', label: 'Open profile modal', action: () => alert('👋') },
-]
+import CreatePostDialog from '../../../components/addPost/S'
 
-export default function CommandPalette() {
+export default function Generate() {
     const ref=Cookies.get("RFTFL")
     const acc=Cookies.get("ACTFL")
     const [open, setOpen] = useState(false)
@@ -31,7 +17,11 @@ export default function CommandPalette() {
     const [loading, setLoading] = useState(false)
     const abortRef = useRef<AbortController | null>(null)
     const router = useRouter()
-    const {openSearch , setOpenSearch}: any = useContext(AuthContext)
+    const refs = useRef<HTMLDivElement>(null)
+    const [html, setHtml] = useState('')
+    const editableRef = useRef<HTMLDivElement>(null)
+    const [placeholderVisible, setPlaceholderVisible] = useState(true)
+    const [openSearch , setOpenSearch]: any = useState(true)
     /* keyboard shortcut: ⌘K / CtrlK toggles palette */
     const handlePush=(data:string)=>{
         console.log(data)
@@ -41,7 +31,7 @@ export default function CommandPalette() {
     }
     useEffect(() => {
         const toggle = (e: KeyboardEvent) => {
-        const hotKey = (e.metaKey || e.ctrlKey) && e.key === 'k'
+        const hotKey = (e.metaKey || e.ctrlKey) && e.key === 'c'
         if (hotKey) {
             e.preventDefault()
             setOpenSearch((prev:boolean) => !prev)
@@ -95,6 +85,25 @@ export default function CommandPalette() {
             setQuery("")
         }
     },[openSearch])
+    useEffect(() => {
+        // for browsers that support it
+        document.execCommand('defaultParagraphSeparator', false, 'br')
+      }, [])
+    
+      // 3) Show/hide placeholder
+      const onInput = () => {
+        const txt = editableRef.current?.innerText || ''
+        setPlaceholderVisible(txt.trim().length === 0)
+      }
+    
+      const onKeyDown = (e: React.KeyboardEvent) => {
+        if (e.key === 'Enter') {
+          e.preventDefault()
+          // insert two <br> so you get a blank line
+          document.execCommand('insertHTML', false, '<br><br>')
+          onInput()
+        }
+      }
     return (
         <Transition show={openSearch} as={Fragment}>
         <Dialog onClose={() => {
@@ -129,7 +138,7 @@ export default function CommandPalette() {
                     className="overflow-hidden mobile:rounded-xl mobile:border mobile:border-[hsl(var(--border-color))] mobile:shadow-2xl mobile:bg-[hsl(var(--background))]"
                 >
                 {/* search input */}
-                <div className="border-b relative border-zinc-200 dark:border-zinc-700 h-[55px] flex flex-row gap-1">
+                <div className="border-b sm:border-none relative border-zinc-200 dark:border-zinc-700 h-[55px] flex flex-row justify-between  gap-1">
                     <div className='aspect-square h-[55px] p-2'>
                         <button className="h-full aspect-square hover:bg-[hsl(var(--accent))] rounded-full flex justify-center items-center"
                             onClick={()=>setOpenSearch(false)}
@@ -140,31 +149,59 @@ export default function CommandPalette() {
                             aria-hidden="true"
                             className="fill-black dark:fill-white size-5"
                             style={{ color: "rgb(239, 243, 244)" }}
-                            >
-                            <g>
-                                <path d="M7.414 13l5.043 5.04-1.414 1.42L3.586 12l7.457-7.46 1.414 1.42L7.414 11H21v2H7.414z" />
-                            </g>
-                            </svg>
+                        >
+                        <g>
+                            <path d="M10.59 12L4.54 5.96l1.42-1.42L12 10.59l6.04-6.05 1.42 1.42L13.41 12l6.05 6.04-1.42 1.42L12 13.41l-6.04 6.05-1.42-1.42L10.59 12z" />
+                        </g>
+                        </svg>
 
                         </button>
                     </div>
-                    <input
-                    
-                        type='search'
-                        value={query}
-                        onChange={(e)=>setQuery(e.target.value)}
-                        placeholder="Type a command or search…"
-                        className="flex-1 text-[--color] bg-transparent px-4 py-3 pl-0 text-sm
-                                    outline-none placeholder:text-zinc-400"
-                        autoFocus
-                    />
-                    <div className="loader_holder">
-                      <div className={`loader-line ${loading ?"" :"hidden"}`}></div>
+                    <div className='h-full flex flex-1 justify-between items-center pr-4'>
+                        <h2 className='text-[--color] text-lg font-bold'>Create Post</h2>
+                        <button className="px-4 rounded-xl bg-[hsl(var(--accent))] text-[#727272] text-[15px] py-[2px]">drafts</button>
                     </div>
                 </div>
-
+                <div className='pt-2 w-full px-2'>
+                    <div className="flex flex-col relative border-b border-solid border-[hsl(var(--border-color))] last:border-none last:border-b-0">
+                        <div className="flex flex-col py-3 w-full">
+                            <div className="gap-3 flex item-start w-full px-4 ">
+                                <div>
+                                    <div className="w-9 h-9 rounded-[50%] border border-[hsl(var(--border-color))] bg-[hsl(var(--accent))]">
+                                        <img
+                                            alt=""
+                                            src="https://abs.twimg.com/sticky/default_profile_images/default_profile_200x200.png"
+                                            className="h-full w-full object-cover object-center rounded-full"
+                                        />
+                                    </div>
+                                </div>
+                                <div className="w-full h-auto flex flex-col">
+                                    <div className="w-full relative">
+                                        <div
+                                            ref={editableRef}
+                                            contentEditable
+                                            suppressContentEditableWarning
+                                            role="textbox"
+                                            aria-multiline="true"
+                                            tabIndex={0}
+                                            className={`
+                                            w-full min-h-[6rem] max-h-[20rem] overflow-auto
+                                            whitespace-pre-wrap break-words
+                                            bg-transparent text-current outline-none p-3
+                                            
+                                            `}
+                                            onInput={onInput}
+                                            onKeyDown={onKeyDown}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
                 {/* results */}
-                <Command.List className="h-fit overflow-y-auto p-2 flex flex-col">
+                {/* <Command.List className="h-fit overflow-y-auto p-2 flex flex-col">
                     {query && results && <Command.Item tabIndex={-1} className='flex-1 aria-selected:bg-[hsl(var(--accent))] flex px-2 py-2 cursor-pointer rounded-lg'>
                         <div className='w-full flex-1 h-10 rounded-xl flex flex-row ' onClick={()=>handlePush(`/explore/${query}`)}>
                             <div className='h-full aspect-square flex justify-center items-center'>
@@ -197,7 +234,7 @@ export default function CommandPalette() {
                     <Command.Empty className="p-3 text-center text-xs text-zinc-500">
                         No result
                     </Command.Empty>
-                </Command.List>
+                </Command.List> */}
                 </Command>
             </Dialog.Panel>
             </Transition.Child>

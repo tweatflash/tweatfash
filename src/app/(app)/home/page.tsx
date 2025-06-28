@@ -9,7 +9,7 @@ import PostedByYou from "../../components/posts/postedByYou"
 import { AuthContext } from "@/app/context/Authcontext"
 export default function HomePage() {
   const [activeTab,setActiveTab]=useState(0)
-  const {userObj}=useContext<any>(AuthContext)
+  const {userObj ,openSearch,post,setPost,setOpenSearch}=useContext<any>(AuthContext)
   const tabs = ["for you","Following","Newest Tweats" ,"Saved Tweats" ,"Posted by you" ,"Liked Posts"];  
   return (
     
@@ -52,6 +52,7 @@ export default function HomePage() {
               </div>
             </div>
           </div>
+          
       </div>
   )
 }

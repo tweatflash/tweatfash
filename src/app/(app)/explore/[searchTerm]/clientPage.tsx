@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState,FormEvent } from "react";
 
-import CommandPalette from "./command";
+import CommandPalette from "../../../components/search/command";
 type Prop={
     searchTerm:string
 }

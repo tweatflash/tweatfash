@@ -37,7 +37,7 @@ export default function SuggestedPost() {
     },[forYou])
     return (
         <div className="flex flex-col">  
-            {userObj?.user&& forYou?.map((item:HomeFeed)=><Feed dave={item} key={item._id}/>)}
+            {userObj?.user&& forYou?.map((item:HomeFeed,index:number)=><Feed dave={item} key={index}/>)}
 
             <div className="mx-auto w-full max-w-[568px] p-4 border-b border-solid border-[hsl(var(--border-color))] last:border-none last:border-b-0" onClick={()=>petch()}>
                 <div className="flex animate-pulse space-x-4">
