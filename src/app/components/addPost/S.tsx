@@ -38,13 +38,27 @@ const people = [
       'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
   }
 ]
-
+type File={
+  lastModified :number
+  lastModifiedDate: any
+  name: string
+  size:number
+  type: string
+  webkitRelativePath:string
+}
 export default function CreatePostDialog({post,setPost}:Prop) {
   const editableRef = useRef<HTMLDivElement>(null);
   const [placeholderVisible, setPlaceholderVisible] = useState(true);
-  
-   const [selected, setSelected] = useState(people[0])
-   
+  const [selectedFiles, setSelectedFiles] = useState<any>([]);
+  useEffect(()=>{
+    console.log("selectedFiles",selectedFiles)
+  },[selectedFiles])
+  const [selected, setSelected] = useState(people[0])
+  const handleFileChange = (event:any) => {
+    event.preventDefault();
+    setSelectedFiles([...selectedFiles, ...Array.from(event.target.files)]);
+    
+  }; 
   // 1) On open, focus the editable
   useEffect(() => {
     if (post) {
@@ -89,7 +103,7 @@ export default function CreatePostDialog({post,setPost}:Prop) {
     <Transition show={post} as={Fragment}>
       <Dialog
         as="div"
-        className="fixed inset-0 z-50 flex items-start justify-center md:pt-20"
+        className="fixed inset-0 z-50 flex items-start justify-center mobile:pt-10"
         initialFocus={editableRef}
         onClose={() => setPost(false)}
       >
@@ -104,7 +118,7 @@ export default function CreatePostDialog({post,setPost}:Prop) {
           leaveFrom="opacity-100 scale-100"
           leaveTo="opacity-0 scale-95"
         >
-          <Dialog.Panel className="mx-auto mt-0 mobile:bg-transparent bg-[hsl(var(--background))] mobile:mt-[55px] w-full mobile:max-w-[600px] max-w-full mobile:px-4 min-h-full mobile:min-h-fit z-10 ">
+          <Dialog.Panel className="mx-auto mt-0 mobile:bg-transparent bg-[hsl(var(--background))] w-full mobile:max-w-[600px] max-w-full mobile:px-4 min-h-full mobile:min-h-fit z-10 ">
             <Dialog.Panel className="mobile:rounded-2xl flex flex-col gap-4 pb-4 mobile:bg-[hsl(var(--background))]">
               <Dialog.Title className="text-lg">
                 <div className="border-b sm:border-none relative border-zinc-200 dark:border-zinc-700 h-[55px] flex flex-row justify-between  gap-1">
@@ -139,7 +153,7 @@ export default function CreatePostDialog({post,setPost}:Prop) {
                 <div className="flex flex-col relative border-b border-solid border-[hsl(var(--border-color))] last:border-none last:border-b-0">
                   <div className="flex flex-col w-full">
                     <div className="gap-3 flex item-start w-full px-4 ">
-                      <div>
+                      <div className="">
                         <div className="w-9 h-9 rounded-[50%] border border-[hsl(var(--border-color))] bg-[hsl(var(--accent))]">
                           <img
                             alt=""
@@ -148,7 +162,7 @@ export default function CreatePostDialog({post,setPost}:Prop) {
                           />
                         </div>
                       </div>
-                      <div className="w-full h-auto flex flex-col gap-3">
+                      <div className="w-[calc(100%-50px)] flex-1 h-auto flex flex-col gap-3">
                         <Listbox value={selected} onChange={setSelected}>
                           {/* <Label className="block text-sm/6 font-medium text-gray-900">Assigned to</Label> */}
                           <div className="relative">
@@ -223,8 +237,38 @@ export default function CreatePostDialog({post,setPost}:Prop) {
                             onKeyDown={onKeyDown}
                           />
                         </div>
+                        <>
+                            {selectedFiles.length ?<div className='w-full overflow-x-scroll no-scrollbar'>
+                                <div className='w-full h-full'>
+                                    <div className='w-full h-full relative'>
+                                        {/* {selectedFiles.map((file:File)=>(
+                                            <div className='h-full relative w-auto rounded-lg overflow-hidden border border-[hsl(var(--border-color))]'>
+                                                <div className='absolute w-full h-14 px-3 flex justify-end gap-3 z-[2] pt-5'>
+                                                    <div className='pvi-ho' onClick={()=>setSelectedFiles(selectedFiles.filter(it2=>it2!==file))}>
+                                                        <svg width="25px" height="25px" viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#ffffff"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>cancel</title> <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fill-rule="evenodd"> <g id="work-case" fill="#ffffff" transform="translate(91.520000, 91.520000)"> <polygon id="Close" points="328.96 30.2933333 298.666667 1.42108547e-14 164.48 134.4 30.2933333 1.42108547e-14 1.42108547e-14 30.2933333 134.4 164.48 1.42108547e-14 298.666667 30.2933333 328.96 164.48 194.56 298.666667 328.96 328.96 298.666667 194.56 164.48"> </polygon> </g> </g> </g></svg>
+                                                    </div>
+                                                    
+                                                </div>
+                                                {file.type.startsWith('image/') ? <img src={URL.createObjectURL(file)} className="h-full"/> :<video controls  src={URL.createObjectURL(file)} ></video>}
+                                            </div>
+                                        ))} */}
+                                        <div className={`${selectedFiles.length >1 ? "pb-[57%]" : "pb-[100%]"}  w-full`}></div>
+                                        <div className='h-full absolute w-full top-0 rounded-lg'>
+                                          <div className='flex-1  gap-3 h-full relative shrink grow flex scroll-px-9 scroll-py-0 snap-x overflow-x-auto overflow-y-hidden no-scrollbar  flex-row snap-mandatory flex-nowrap'>
+                                            {
+                                              selectedFiles.map((file:File,index:number)=>(
+                                                <div className={`snap-start stretch ${selectedFiles.length===1 ? "w-full" :"w-[50%]"} h-full bg-[hsl(var(--accent))] border-[hsl(var(--border-color))] shrink-0 border rounded-lg`} onClick={()=>setSelectedFiles(selectedFiles.filter((it2:any)=>it2!==file))}></div>
+                                              ))
+                                            }
+                                          </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> :<></>}
+                        </>
                       </div>
                     </div>
+                    
                   </div>
                 </div>
               </div>
@@ -273,7 +317,7 @@ export default function CreatePostDialog({post,setPost}:Prop) {
 
                     </button>
                     
-                    <button className="p-2 rounded-full hover:bg-[hsl(var(--accent))] transition-all">
+                    <label htmlFor="file" className="p-2 rounded-full hover:bg-[hsl(var(--accent))] transition-all">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width={20}
@@ -284,14 +328,13 @@ export default function CreatePostDialog({post,setPost}:Prop) {
                         strokeWidth={2}
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        className="lucide lucide-image"
                       >
                         <rect width={18} height={18} x={3} y={3} rx={2} ry={2} />
                         <circle cx={9} cy={9} r={2} />
                         <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
                       </svg>
-
-                    </button>
+                      <input id='file' onChange={handleFileChange} type='file' className='file-selector sr-only' accept='image/jpeg,image/png,image/webp,image/gif,video/mp4,' multiple/>
+                    </label>
                     <button className="p-2 rounded-full hover:bg-[hsl(var(--accent))] transition-all">
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="size-5">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />

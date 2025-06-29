@@ -88,10 +88,10 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
                   </div>
                 </div>
                 <nav className="flex items-center gap-0.5">
-                  <div className="h-9 w-9 rounded-full overflow-hidden border border-dashed border-[hsl(var(--border-color))]">
+                  <div className="h-9 w-9 rounded-full overflow-hidden border border-[hsl(var(--border-color))]" onClick={()=>console.log(userObj?.user)}>
                      <img
                           alt={""}
-                          src={"https://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png"}
+                          src={userObj?.user?.profileImage ?userObj.user.profileImage : "https://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png"}
                           className="h-full w-full object-cover object-center rounded-full"
                       />
                     <span className="sr-only">Profile</span>

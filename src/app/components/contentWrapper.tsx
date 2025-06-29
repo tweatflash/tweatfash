@@ -32,7 +32,7 @@ export default function ContentWrapper({param}:Prop) {
                             {
                                 total[0].url?.endsWith('.mp4') || total[0].url?.endsWith('.webm') ?
                                     <div className='w-full h-full relative '>
-                                        <video src={total[0].url} className='object-cover object-center w-full h-full sm:max-h-[450px] max-h-[410px] min-h-full '/> 
+                                        <video src={total[0].url} className='object-cover object-center w-full h-full sm:max-h-[450px] max-h-[410px] min-h-full invisible'/> 
                                             <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>
                                                 <button className='text-[--color] p-3 rounded-full bg-[hsl(var(--accent)/.7)] backdrop-blur-sm border border-[hsl(var(--border-color))] '>
                                                     <svg
@@ -56,7 +56,7 @@ export default function ContentWrapper({param}:Prop) {
                                             </div>
                                         </div>
                                     :
-                                    <img src={total[0].url} className={`max-h-[410px] sm:max-h-[450px] max-w-full  min-w-64  object-cover object-center w-auto h-auto ` } />
+                                    <img src={total[0].url} className={`max-h-[410px] sm:max-h-[450px] max-w-full  min-w-64  object-cover object-center w-auto h-auto invisible` } />
                             }
                         </div>
                     
@@ -70,7 +70,7 @@ export default function ContentWrapper({param}:Prop) {
                                 {
                                     file.url.endsWith('.mp4') || file.url.endsWith('.webm') ?
                                         <div className='w-full h-full relative '>
-                                            <video src={file.url} className='object-cover object-center w-full h-full max-h-full min-h-full '/> 
+                                            <video src={file.url} className='invisible object-cover object-center w-full h-full max-h-full min-h-full '/> 
                                             <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>
                                                 <button className='text-[--color] p-3 rounded-full bg-[hsl(var(--accent)/.7)] backdrop-blur-sm border border-[hsl(var(--border-color))] '>
                                                     <svg
@@ -94,7 +94,7 @@ export default function ContentWrapper({param}:Prop) {
                                             </div>
                                         </div>
                                         :
-                                        <img src={file.url} className=' object-cover object-center w-full h-full max-h-full min-h-full ' />
+                                        <img src={file.url} className='invisible object-cover object-center w-full h-full max-h-full min-h-full ' />
                                 }
                                 
                                  {/* {param.img.length >4 && index==3? <div className='overflow-txt'>

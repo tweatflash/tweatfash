@@ -171,15 +171,15 @@ export default function Comments({commentObj}:Prop) {
                     <div className="gap-2 flex justify-between">
                         <div className="flex gap-[15px]">
                             <span className="flex ml-[-8px] ">
-                                <button className="flex gap-[6px] px-2 h-8 items-center hover:bg-[hsl(var(--accent))] rounded-[20px]">
-                                    <svg viewBox="0 0 20 20" stroke="#727272" fill="none" className="h-5 w-5 stroke-[1.5]"><path d="M5.00002 2.54822C8.00003 2.09722 9.58337 4.93428 10 5.87387C10.4167 4.93428 12 2.09722 15 2.54822C18 2.99923 18.75 5.66154 18.75 7.05826C18.75 9.28572 18.1249 10.9821 16.2499 13.244C14.3749 15.506 10 18.3333 10 18.3333C10 18.3333 5.62498 15.506 3.74999 13.244C1.875 10.9821 1.25 9.28572 1.25 7.05826C1.25 5.66154 2 2.99923 5.00002 2.54822Z"></path></svg>
-                                        {commentObj.likes.length? <span className="text-sm text-[#727272]">{commentObj.likes.length}</span>:<></>}
+                                <button className="flex gap-[6px] px-2 h-8 text-[#727272] hover:text-[--color] items-center hover:bg-[hsl(var(--accent))] rounded-[20px]">
+                                    <svg viewBox="0 0 20 20" stroke="currentColor" fill="none" className="h-5 w-5 stroke-[1.5]"><path d="M5.00002 2.54822C8.00003 2.09722 9.58337 4.93428 10 5.87387C10.4167 4.93428 12 2.09722 15 2.54822C18 2.99923 18.75 5.66154 18.75 7.05826C18.75 9.28572 18.1249 10.9821 16.2499 13.244C14.3749 15.506 10 18.3333 10 18.3333C10 18.3333 5.62498 15.506 3.74999 13.244C1.875 10.9821 1.25 9.28572 1.25 7.05826C1.25 5.66154 2 2.99923 5.00002 2.54822Z"></path></svg>
+                                        {commentObj.likes.length? <span className="text-sm">{commentObj.likes.length}</span>:<></>}
                                 </button>
                             </span>
                             <span className="flex ml-[-8px] ">
-                                <button className="flex gap-[6px] px-2 h-8 items-center hover:bg-[hsl(var(--accent))] rounded-[20px]">
-                                <svg role="img" width="20" height="20" viewBox="0 0 20 20" fill="none" strokeWidth="1.5" stroke="#727272" strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5"><g><title></title><path d="M18.7502 11V7.50097C18.7502 4.73917 16.5131 2.50033 13.7513 2.50042L6.25021 2.50044C3.48848 2.5004 1.25017 4.73875 1.2502 7.50048L1.25021 10.9971C1.2502 13.749 3.47395 15.9836 6.22586 15.9971L6.82888 16V19.0182L12.1067 16H13.7502C16.5116 16 18.7502 13.7614 18.7502 11Z"></path></g></svg>
-                                    {commentObj.replies.length? <span className="text-sm text-[#727272]">{commentObj.replies.length}</span>:<></>}
+                                <button className="flex gap-[6px] text-[#727272] hover:text-[--color] px-2 h-8 items-center hover:bg-[hsl(var(--accent))] rounded-[20px]">
+                                    <svg viewBox="0 0 24 24" className="size-5 fill-current" aria-hidden="true"><g><path d="M1.751 10c0-4.42 3.584-8 8.005-8h4.366c4.49 0 8.129 3.64 8.129 8.13 0 2.96-1.607 5.68-4.196 7.11l-8.054 4.46v-3.69h-.067c-4.49.1-8.183-3.51-8.183-8.01zm8.005-6c-3.317 0-6.005 2.69-6.005 6 0 3.37 2.77 6.08 6.138 6.01l.351-.01h1.761v2.3l5.087-2.81c1.951-1.08 3.163-3.13 3.163-5.36 0-3.39-2.744-6.13-6.129-6.13H9.756z"></path></g></svg>
+                                    {commentObj.replies.length? <span className="text-sm">{commentObj.replies.length}</span>:<></>}
                                 </button>
                             </span>
                             <span className="flex ml-[-8px] ">

@@ -13,7 +13,7 @@ export async function generateMetadata({ params: { postId } }: Props) {
   const data=  (await userProfile)?.posts
   const result:undefined | SinglePost[]=data
   
-  if (result.length){
+  if (result?.length){
     return {
       title:` ${result[0].user.name} on Tweatflash : "${result[0].text?result[0].text:""}"`,
       description:`${result[0].user.name} on Tweatflash "${result[0].text?result[0].text:""}"`,
@@ -85,7 +85,7 @@ export default async function page({params:{postId}}:Props) {
     return {longDate,longTime} 
      // Output: Sunday, April 13, 2025, 5:53:47 PM UTC
   }
-  if (result===undefined || result.length ==0) return <h1>Error Page no user found</h1>
+  if (result===undefined || result?.length ==0) return <h1>Error Page no user found</h1>
   return (
     <div className="w-full h-auto"> 
       <div className="flex flex-col justify-center relative">
@@ -205,8 +205,8 @@ export default async function page({params:{postId}}:Props) {
                                 </button>
                             </span>
                             <span className="flex ml-[-8px] ">
-                                <button className="flex gap-[6px] stroke-[#727272] hover:stroke-[--color] text-[#727272] hover:text-[--color] px-2 h-8 items-center hover:bg-[hsl(var(--accent))] rounded-[20px]">
-                                <svg role="img" width="20" height="20" viewBox="0 0 20 20" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5"><g><title></title><path d="M18.7502 11V7.50097C18.7502 4.73917 16.5131 2.50033 13.7513 2.50042L6.25021 2.50044C3.48848 2.5004 1.25017 4.73875 1.2502 7.50048L1.25021 10.9971C1.2502 13.749 3.47395 15.9836 6.22586 15.9971L6.82888 16V19.0182L12.1067 16H13.7502C16.5116 16 18.7502 13.7614 18.7502 11Z"></path></g></svg>
+                                <button className="flex gap-[6px] fill-[#727272] hover:fill-[--color] text-[#727272] hover:text-[--color] px-2 h-8 items-center hover:bg-[hsl(var(--accent))] rounded-[20px]">
+                                <svg viewBox="0 0 24 24" className="size-5" aria-hidden="true"><g><path d="M1.751 10c0-4.42 3.584-8 8.005-8h4.366c4.49 0 8.129 3.64 8.129 8.13 0 2.96-1.607 5.68-4.196 7.11l-8.054 4.46v-3.69h-.067c-4.49.1-8.183-3.51-8.183-8.01zm8.005-6c-3.317 0-6.005 2.69-6.005 6 0 3.37 2.77 6.08 6.138 6.01l.351-.01h1.761v2.3l5.087-2.81c1.951-1.08 3.163-3.13 3.163-5.36 0-3.39-2.744-6.13-6.129-6.13H9.756z"></path></g></svg>
                                 {result[0].commentCount? <span className="text-sm">{result[0].commentCount}</span>:<></>}
                                 </button>
                             </span>
