@@ -44,28 +44,28 @@ export default function Login({clientId}:Prop) {
             console.log(error)
         }
     }
-    const login:any = useGoogleLogin({
+    // const login:any = useGoogleLogin({
         
-        onSuccess: async (response) =>{
-            setIsPending(true)
-            try {
-                const res =await fetch("https://www.googleapis.com/oauth2/v3/userinfo",{
-                    headers:{
-                        Authorization:`Bearer ${response.access_token}`,
-                    },
-                })
-                const dat=await res.json()
+    //     onSuccess: async (response) =>{
+    //         setIsPending(true)
+    //         try {
+    //             const res =await fetch("https://www.googleapis.com/oauth2/v3/userinfo",{
+    //                 headers:{
+    //                     Authorization:`Bearer ${response.access_token}`,
+    //                 },
+    //             })
+    //             const dat=await res.json()
                 
-                console.log(dat)
-              // 
-            } catch (error) {
-                console.log(error)
-            }
-        },
-        onError:()=>{
-            setIsPending(false)
-        }
-    });
+    //             console.log(dat)
+    //           // 
+    //         } catch (error) {
+    //             console.log(error)
+    //         }
+    //     },
+    //     onError:()=>{
+    //         setIsPending(false)
+    //     }
+    // });
     const handleSubmit = async (e:FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setIsPending(true)
@@ -128,7 +128,7 @@ export default function Login({clientId}:Prop) {
                 </p>
             </div>
             <div className="grid gap-6">
-                <label htmlFor="sign-in-email" className="rounded-xl bg-[rgba(0,0,0,.07)] dark:bg-[rgba(225,225,225,.051)] border border-transparent has-[input:focus]:border-[#4070f4] has-[input:focus]:bg-[hsl(var(--background))] px-[20px] py-[10px] flex flex-col gap-1">
+                <label htmlFor="sign-in-email" className="rounded-xl transition-all bg-black/5 dark:bg-white/5 border-2 border-transparent dark:has-[input:focus]:border-white/25 has-[input:focus]:border-black/25 px-[20px] py-[10px] flex flex-col gap-1">
                     <p className='text-[12px] text-[#727272]'>Email</p>
                     <input
                         type="email"
@@ -143,7 +143,7 @@ export default function Login({clientId}:Prop) {
                     />
                 
                 </label>
-                <label htmlFor="sign-in-password" className="relative rounded-xl border bg-[rgba(0,0,0,.07)] dark:bg-[rgba(225,225,225,.051)] border-transparent has-[input:focus]:border-[#4070f4] has-[input:focus]:bg-[hsl(var(--background))] px-[20px] py-[10px] flex flex-col gap-1">
+                <label htmlFor="sign-in-password" className="relative rounded-xl border-2 transition-all bg-black/5 dark:bg-white/5 border-transparent dark:has-[input:focus]:border-white/25 has-[input:focus]:border-black/25  px-[20px] py-[10px] flex flex-col gap-1">
                     <div className="flex justify-between text-[12px] dark:text-white w-full">
                         <p className='text-[#727272]'>Password</p>
                         {/* <Link href={""}>Forgot password</Link> */}
@@ -167,6 +167,7 @@ export default function Login({clientId}:Prop) {
                 <button
                     data-slot="button"
                     className={`w-full px-6 mt-3 py-2 ${validEmail===false || password.length==0 || isPending ? "opacity-40 pointer-events-none cursor-not-allowed" :""} flex justify-center bg-black text-white rounded-lg outline-none dark:bg-[#E5E5E5] dark:text-black`}
+
                     disabled={validEmail===false || password.length==0 || isPending? true :false}
                     type="submit"
                 >
@@ -203,22 +204,22 @@ export default function Login({clientId}:Prop) {
             </form>
                 <button
                     data-slot="button"
-                    className="inline-flex my-3 items-center justify-between gap-4 whitespace-nowrap rounded-md transition-all disabled:pointer-events-none disabled:cursor-not-allowed hover:opacity-70 disabled:opacity-40 [&_svg]:pointer-events-none [&img:not([class*='size-'])]:size-4 shrink-0 [&img]:shrink-0 outline-none shadow-xs hover:bg-[accent]  px-6 py-4  w-full bg-gray-900 text-white dark:bg-[rgba(225,225,225,.051)] text-[16px] tracking-wide"
+                    className="inline-flex my-3 items-center justify-between gap-4 whitespace-nowrap rounded-md transition-all disabled:pointer-events-none disabled:cursor-not-allowed hover:opacity-70 disabled:opacity-40 [&_svg]:pointer-events-none [&img:not([class*='size-'])]:size-4 shrink-0 [&img]:shrink-0 outline-none shadow-xs hover:bg-[accent]  px-6 py-4  w-full bg-black/5 text-[--color] dark:bg-white/5 border border-[hsl(var(--border-color))] text-[16px] tracking-wide"
                     onClick={()=>{
-                        login()
-                        setIsPending(true)
+                        // login()
+                        // setIsPending(true)
                     }}
                     disabled={isPending}
                 >
                     <img src="/google.svg" className="size-6" alt="google"/>
                     <span className="flex w-full dark:text-white ">Continue with Google</span>
                     <svg
-                        width={21}
+                        width={20}
                         height={20}
                         viewBox="0 0 21 20"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
-                        className="arrow-right"
+                        stroke="currentColor"
                         >
                         <path
                             d="M4.66667 10H16.3333"

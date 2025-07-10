@@ -1,3 +1,4 @@
+"use client"
 import { Lexend } from "next/font/google";
 import "./glo.css"
 import Link from "next/link";
@@ -27,9 +28,11 @@ const stats = [
   { id: 2, name: "Assets under holding", value: "200k+" },
   { id: 3, name: "New users annually", value: "50+" },
 ];
+type dtt ={
+  data:string
+}
 
-
-export default function IntroLayout() {
+export default function IntroLayout({data}:dtt) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (

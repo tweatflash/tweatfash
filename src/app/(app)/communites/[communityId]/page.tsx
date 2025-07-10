@@ -42,30 +42,36 @@ export default async function EachCommunity({ params: { communityId } }: Props) 
               <div className="flex flex-col border-b border-[hsl(var(--border-color))]">
                   <div className="flex-col relative overflow-hidden max-h-40">
                     <div className='pb-[30.3333%] '></div>
-                    <div className="absolute feedMax:rounded-lg w-full h-full bg-[hsl(var(--accent))] top-0"></div>
+                    <div className="absolute overflow-hidden feedMax:rounded-lg w-full h-full bg-[hsl(var(--accent))] top-0">
+                      {
+                        data.coverImage ? <img src={data.coverImage} alt="community banner" className="h-full w-full object-cover object-center "/>:<></>
+                      }
+                    </div>
 
                   </div>
                   <div className='flex flex-col gap-3 mb-4 p-4 pt-0 mobile:pl-0 mobile:pr-0'>
-                    <div className="flex flex-wrap justify-between mobile:pl-4 mobile:pr-4">
-                      {/* <div className='min-w-[48px] relative mt-[-10%] w-[20%]'>
+                    <div className="flex flex-wrap gap-2 mobile:pl-4 mobile:pr-4">
+                      <div className='min-w-[48px] relative mt-[-10%] w-[20%]'>
                         <div className='pb-[100%]'></div>
                         <div className="absolute top-0  w-full h-full rounded-full bg-[hsl(var(--background))] p-1 flex overflow-hidden">
                           <div className="bg-[hsl(var(--accent))] w-full h-full rounded-full overflow-hidden flex items-center justify-center">
                             <img src={data.profileImage? data.profileImage : 'https://abs.twimg.com/sticky/default_profile_images/default_profile_200x200.png'} className='object-cover object-center w-full h-full' alt='profile image'/>
                           </div>
                         </div>
-                      </div> */}
-                      <div>
-                      {/* <Link className="rounded-full bg-gray-950 px-2.5 py-0.5 text-sm/6 font-medium text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-950" href="/plus#pricing">Get full access</Link> */}
+                      </div>
+                      <div className="flex items-center">
+                        <h3 className='text-2xl dark:text-[rgb(225,225,225)]'>{data.name}</h3>
                       </div>
                     </div>
 
                     <div className="flex flex-col gap-2">
-                      <h3 className='text-2xl font-bold dark:text-[rgb(225,225,225)]'>{data.name}</h3>
+                      
                       
                       <div className=''>
                         <span className="dark:text-[rgb(225,225,225)] text-[15px] ">
-                          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolore neque non perferendis. 
+                          
+                          {data.bio? data.bio :""}
+                        
                         </span>
                       </div>
                       <div className="flex-1">

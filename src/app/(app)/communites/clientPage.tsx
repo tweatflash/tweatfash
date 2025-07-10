@@ -1,5 +1,6 @@
 "use client"
 import SuggestedCommunityPost from '@/app/components/communityPosts/suggestedcommunityPost';
+import CreateCommunityModal from '@/app/components/createCommunity';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 
@@ -31,6 +32,10 @@ export default function Page() {
 
     },[])
     const [activeTab,setActiveTab]=useState(1)
+    const [open,setOpen]=useState(true)
+    const onEnd=()=>{
+        setOpen(false)
+    }
     return (
         <div className="w-full h-auto"> 
             <div className="flex flex-col justify-center relative">
@@ -152,7 +157,7 @@ export default function Page() {
                      {/* <div className="lg:flex hidden w-full max-w-[400px] bg-[hsl(var(--accent))] mt-5 rounded-lg h-[300px] sticky top-[85px]">
 
                      </div> */}
-                    
+                    <CreateCommunityModal isOpen={open} onClose={onEnd}/>
                 </div>
             </div>
         </div>

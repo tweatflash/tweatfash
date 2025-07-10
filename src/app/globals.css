@@ -60,8 +60,8 @@ body {
 }
 @font-face {
   font-family: famil;
-  /* src: url(../../public/fonts/Whipsmart\ Bold.ttf); */
-  src: url(../../public/fonts/Cooljazz.ttf);
+  src: url(../../public/fonts/Whipsmart\ Bold.ttf);
+  /* src: url(../../public/fonts/Cooljazz.ttf); */
   
 
 }
@@ -106,6 +106,7 @@ body {
 .loader_holder{
   background-color:transparent;
   /* background-color: red; */
+  height: auto;
   width:  100%;
   position: absolute;
   

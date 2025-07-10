@@ -143,7 +143,7 @@ export default async function page({params:{postId}}:Props) {
                               href="/@oyinosikoya?"
                               className=""
                           >
-                              @{result[0].user.username}
+                              {result[0].user.username}
                           </Link>
                       </span>
                     </div>

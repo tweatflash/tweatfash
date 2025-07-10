@@ -1,6 +1,6 @@
 "use client"
 import localFont from "next/font/local";
-import { Poppins} from 'next/font/google';
+import { Figtree} from 'next/font/google';
 import './globals.css'
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { AuthProvider } from "./context/Authcontext";
@@ -8,7 +8,7 @@ import { AuthProvider } from "./context/Authcontext";
     src: "../../public/fonts/segoe-ui-emoji.ttf",      
     fallback:["sans-serif","Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"]                                                                                                                                                                                                              
   });
-  const Outfitfont = Poppins(
+  const Outfitfont = Figtree(
     {
       subsets: ['latin'],
       weight: ['300', '400', '700', ],
@@ -23,17 +23,16 @@ import { AuthProvider } from "./context/Authcontext";
     const clientId =process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!
     return (
       <GoogleOAuthProvider clientId={clientId}>
-        <AuthProvider>
+        
           <html lang="en" className='' data-theme='dark'>
               {/* <link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet"/> */}
               <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"></meta>
-              <body className={`w-full bg-[hsl(var(--background))]`}>
-                  
+              <body className={ ` w-full bg-[hsl(var(--background))]`}>
+                  <AuthProvider>
                     {children}
-                  
+                  </AuthProvider>
               </body>
           </html>
-        </AuthProvider>
       </GoogleOAuthProvider>
   )
    

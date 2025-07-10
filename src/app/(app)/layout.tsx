@@ -1,40 +1,49 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-
 import { AuthContext, AuthProvider } from "../context/Authcontext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import CommandPalette from "../components/search/command";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 // import Generate from "./explore/[searchTerm]/add";
 import CreatePostDialog from "../components/addPost/S";
+import Menu from "../components/list";
+import EditProfile from "../components/editProfile/edit";
+import Sidebar from "../components/posts/sideBar";
+import CommentModal from "../components/comment/modal";
+import CreateCommunityModal from "../components/createCommunity";
 // import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 const HomeLayout = ({ children }: { children: React.ReactNode }) => {
-  const {userObj , post ,setPost , setOpenSearch}: any = useContext(AuthContext)
+  const {userObj , post ,setPost , setOpenSearch,setIsMobileOpen,isMobileOpen,commentOpen,setCommentOpen,commentFeed}: any = useContext(AuthContext)
   const pathname = usePathname();
+  const [currentPage, setCurrentPage] = useState<string>('home');
+  const router=useRouter()
   const mainpathname =  pathname.split('/')[1];
+  const handleNavigation = (page: string) => {
+    setCurrentPage(page);
+  };
   return (
     <div className="main-handler min-h-screen grid absolute t-0 l-0 r-0 b-0 w-full bg-[hsl(var(--background))]">
       <div className="flex flex-col border-r border-solid sticky top-0 left-0 w-full h-full border-[hsl(var(--border-color))] un-b p-3">
          <Link href="/" className="relative size-10 rounded-full overflow-hidden flex justify-center items-center ">
             <img
-              className="size-full hidden z-30 mobile:flex absolute bg-white rounded-full border-[#4070f4]"
+              className="size-full hidden z-30 mobile:flex absolute  rounded-full"
               alt="tweatflash logo"
               title="tweatflash"
-              src="/tweatflash2.svg"
+              src="/tweatflash.svg"
             />
           </Link>
       </div>
 
       {/* header */}
-      <div className="flex flex-col w-full h-full border-b sticky  border-solid border-[hsl(var(--border-color))] top-0 z-20 bg-[hsl(var(--background)/.6)] backdrop-blur-md">
+      <div className="flex flex-col w-full h-full border-b sticky  border-solid border-[hsl(var(--border-color))] top-0 z-[1] bg-[hsl(var(--background)/.6)] backdrop-blur-md">
         
         <div className="fixed top-0 w-full px-4">
           <div className="container-wrapper">
             <div className="w-full flex h-14 mobile:h-16 items-center gap-2 md:gap-4">
               
               <div className="flex mobile:hidden items-center justify-between gap-1 w-full">
-                <div className="p-2 hover:bg-[hsl(var(--accent))] rounded-full cursor-pointer">
+                <div className="p-2 hover:bg-[hsl(var(--accent))] rounded-full cursor-pointer" onClick={()=>setIsMobileOpen(!isMobileOpen)}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -51,12 +60,12 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
                 </div>
                 <div className="h-10 flex w-full items-center justify-between rounded-md">
                   <div className="h-full aspect-square p-1 ">
-                    <Link href="/" className="w-full bg-white rounded-full h-full flex justify-center items-center">
+                    <Link href="/" className="w-full rounded-full h-full flex justify-center items-center">
                       <img
                         className="h-full w-full rounded-full "
                         alt="tweatflash logo"
                         title="tweatflash"
-                        src="/tweatflash2.svg"
+                        src="/tweatflash.svg"
                       />
                     </Link>
                   </div>
@@ -64,8 +73,11 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
                     <button className="h-full aspect-square hover:bg-[hsl(var(--accent))] rounded-full flex justify-center items-center" onClick={()=>setOpenSearch(true)}>
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="stroke-black dark:stroke-white"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
                     </button>
-                    <button className="h-full aspect-square hover:bg-[hsl(var(--accent))] rounded-full flex justify-center items-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"className="stroke-black dark:stroke-white"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg>
+                    <button className="h-full aspect-square relative hover:bg-[hsl(var(--accent))] rounded-full flex justify-center items-center" onClick={()=>router.push("/notifications")}>
+                      <div className="relative">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"className="stroke-black dark:stroke-white"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg>
+                        {userObj?.notificationsCount ? <div className="size-3 rounded-full absolute bg-red-400 -top-1 right-0 border-2 border-[hsl(var(--background))]"> </div> :<></>}
+                      </div>
                     </button>
                     
                   </div>
@@ -88,7 +100,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
                   </div>
                 </div>
                 <nav className="flex items-center gap-0.5">
-                  <div className="h-9 w-9 rounded-full overflow-hidden border border-[hsl(var(--border-color))]" onClick={()=>console.log(userObj?.user)}>
+                  <div className="h-9 w-9 rounded-full overflow-hidden border border-[hsl(var(--border-color))]" onClick={()=>console.log(userObj)}>
                      <img
                           alt={""}
                           src={userObj?.user?.profileImage ?userObj.user.profileImage : "https://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png"}
@@ -157,27 +169,37 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
                     </span>
                     <span>
                       <Link href={"/notifications"}>
-                        <div className="p-4 flex items-center rounded-full hover:bg-[hsl(var(--accent))]">
-                         {mainpathname==="notifications"?
-                          <svg
-                            viewBox="0 0 24 24"
-                            aria-hidden="true"
-                            className="dark:fill-white"
-                          >
-                            <g>
-                              <path d="M11.996 2c-4.062 0-7.49 3.021-7.999 7.051L2.866 18H7.1c.463 2.282 2.481 4 4.9 4s4.437-1.718 4.9-4h4.236l-1.143-8.958C19.48 5.017 16.054 2 11.996 2zM9.171 18h5.658c-.412 1.165-1.523 2-2.829 2s-2.417-.835-2.829-2z" />
-                            </g>
-                          </svg>:
+                        <div className="p-4 flex items-center rounded-full hover:bg-[hsl(var(--accent))] relative">
+                          <div className="relative size-[23px]">
+                            {mainpathname==="notifications"?
+                            <svg
+                              viewBox="0 0 24 24"
+                              aria-hidden="true"
+                              className="dark:fill-white"
+                            >
+                              <g>
+                                <path d="M11.996 2c-4.062 0-7.49 3.021-7.999 7.051L2.866 18H7.1c.463 2.282 2.481 4 4.9 4s4.437-1.718 4.9-4h4.236l-1.143-8.958C19.48 5.017 16.054 2 11.996 2zM9.171 18h5.658c-.412 1.165-1.523 2-2.829 2s-2.417-.835-2.829-2z" />
+                              </g>
+                            </svg>:
 
-                          <svg
-                            viewBox="0 0 24 24"
-                            aria-hidden="true"
-                            className="dark:fill-white fill-black"
-                          >
-                            <g>
-                              <path d="M19.993 9.042C19.48 5.017 16.054 2 11.996 2s-7.49 3.021-7.999 7.051L2.866 18H7.1c.463 2.282 2.481 4 4.9 4s4.437-1.718 4.9-4h4.236l-1.143-8.958zM12 20c-1.306 0-2.417-.835-2.829-2h5.658c-.412 1.165-1.523 2-2.829 2zm-6.866-4l.847-6.698C6.364 6.272 8.941 4 11.996 4s5.627 2.268 6.013 5.295L18.864 16H5.134z"></path>
-                            </g>
-                          </svg>}
+                            <svg
+                              viewBox="0 0 24 24"
+                              aria-hidden="true"
+                              className="dark:fill-white fill-black"
+                            >
+                              <g>
+                                <path d="M19.993 9.042C19.48 5.017 16.054 2 11.996 2s-7.49 3.021-7.999 7.051L2.866 18H7.1c.463 2.282 2.481 4 4.9 4s4.437-1.718 4.9-4h4.236l-1.143-8.958zM12 20c-1.306 0-2.417-.835-2.829-2h5.658c-.412 1.165-1.523 2-2.829 2zm-6.866-4l.847-6.698C6.364 6.272 8.941 4 11.996 4s5.627 2.268 6.013 5.295L18.864 16H5.134z"></path>
+                              </g>
+                            </svg>}
+                              {userObj?.notificationsCount ?
+                                <div className="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-[hsl(var(--background))] rounded-full -top-[10px] -end-[10px]">
+                                  {userObj.notificationsCount}
+                                </div>:
+                                <></>
+                              }
+                          </div>
+                          
+                         
                         </div>
                       </Link>
                     </span>
@@ -257,7 +279,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
                       </Link>
                     </span>
                     <span className="flex justify-center cursor-pointer" onClick={()=>setPost(true)}>
-                        <div className="size-12 flex items-center justify-center rounded-full text-white bg-[#4070f4] ">
+                        <div className="size-12 flex items-center justify-center rounded-xl text-white bg-[#4070f4] ">
                           
                           <svg
 
@@ -278,7 +300,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
                   </div>
                 </div>
                 <div className="w-full p-3 h-[72px] border-t border-solid border-[hsl(var(--border-color))]">
-                  <div className="w-full h-full hover:bg-[hsl(var(--accent))] rounded-8">
+                  <div className="w-full h-full hover:bg-[hsl(var(--accent))] rounded-full border border-[hsl(var(--border-color))]">
                     {userObj?.user ? (
                       userObj.user.profileImage ? (
                         <Image
@@ -290,10 +312,18 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
                           priority
                         />
                       ) : (
-                        <h1 className="text-white">P</h1>
+                        <img
+                          alt={""}
+                          src={"https://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png"}
+                          className="h-full w-full object-cover object-center rounded-full"
+                        />
                       )
                     ) : (
-                      <p className="text-white">L</p>
+                        <img
+                          alt={""}
+                          src={"https://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png"}
+                          className="h-full w-full object-cover object-center rounded-full"
+                        />
                     )}
                   </div>
                 </div>
@@ -303,29 +333,43 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
         </div>
       </div>
       {/* main outlet */}
-      <div className="relative flex flex-col justify-center un-b w-full min-h-full">
+      <div className=" flex flex-col justify-center un-b w-full min-h-full">
         <div className=" w-full flex flex-col pb-14 min-h-full">
           {/* <div className="h-[60px] w-full"></div> */}
-          <AuthProvider>{children}</AuthProvider>
+          {/* <AuthProvider> */}
+            {children}
+            <CommandPalette />
+            <CreatePostDialog />
+            <EditProfile/>
+            <Sidebar currentPage={currentPage} onNavigate={handleNavigation} />
+            <CommentModal
+              isOpen={commentOpen}
+              onClose={() => setCommentOpen(false)}
+              post={commentFeed}
+            />
+            {/* <CreateCommunityModal isOpen={false} onClose={setPost}/> */}
+          
+          {/* </AuthProvider> */}
         </div>
-          <button onClick={()=> {
-              setPost(true)
-              
-            }} tabIndex={2} className={`fixed justify-center items-center flex ${mainpathname==="home" ?"mobile:hidden":"hidden"}  size-[50px] rounded-xl text-white right-5 bg-[#4070f4] bottom-16`} type="button">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width={24}
-                height={24}
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={2}
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M5 12h14M12 5v14" />
-              </svg>
-            </button>
+        <button onClick={()=> {
+            setPost(true)
+            
+          }} tabIndex={2} className={`fixed justify-center items-center flex ${mainpathname==="home" ?"mobile:hidden":"hidden"}  size-[50px] rounded-xl text-white right-5 bg-[#4070f4] bottom-16`} type="button">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width={24}
+              height={24}
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M5 12h14M12 5v14" />
+            </svg>
+        </button>
+          <Menu />
       </div>
 
       {/* buttom nav */}
@@ -434,8 +478,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
           </Link>
         </span>
       </nav>
-      <CommandPalette />
-      <CreatePostDialog post={post} setPost={setPost} />
+      
     </div>
   );
 };

@@ -2,9 +2,11 @@
 import Link from "next/link";
 import React from "react";
 import { useRouter } from "next/navigation";
+import Example from "./list";
 type daveA={
     dave:CommunityPost
 }
+
 export default function CommunityFeed({dave}: daveA) {
     const router=useRouter()
     function time(date: string): string {

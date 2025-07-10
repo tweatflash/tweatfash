@@ -6,7 +6,9 @@ import SavedPosts from "../../components/posts/savedPosts"
 import FollowingPosts from "../../components/posts/followingPosts"
 import LikedPosts from "../../components/posts/likedPosts"
 import PostedByYou from "../../components/posts/postedByYou"
+
 import { AuthContext } from "@/app/context/Authcontext"
+import Example from "@/app/components/list"
 export default function HomePage() {
   const [activeTab,setActiveTab]=useState(0)
   const {userObj ,openSearch,post,setPost,setOpenSearch}=useContext<any>(AuthContext)
@@ -41,12 +43,12 @@ export default function HomePage() {
           <div className="flex justify-center min-h-full"> 
             <div className="w-full max-w-[568px] min-h-full">
               <div className="w-full min-h-full">
-                
+                <Example/>
                 {/* { results?.map(item=><Feed dave={item} key={item._id}/>)} */}
                 {activeTab === 0 && <SuggestedPost/>} 
                 {activeTab === 1 && <FollowingPosts/>}
                 {activeTab === 2 && <NewestPosts/>}
-                {activeTab === 3 && <SavedPosts data="dave"/>}
+                {activeTab === 3 && <SavedPosts/>}
                 {userObj?.user && (activeTab === 4 && <PostedByYou username={userObj.user.username}/>)}
                 {activeTab === 5 && <LikedPosts/>}
               </div>

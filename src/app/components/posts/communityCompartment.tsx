@@ -5,7 +5,7 @@ type param={
     communityId:string
 }
 
-export default function CommunityCompartment({communityId}:param) {
+export default function     CommunityCompartment({communityId}:param) {
     const tabs= ["Posts","About","People"]
     const [activeTab,setActiveTab]=useState(0)
     return (

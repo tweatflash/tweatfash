@@ -1,0 +1,27 @@
+// const aa={
+//     [
+//     'https://images.pexels.com/photos/1109541/pexels-photo-1109541.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
+//     'https://images.pexels.com/photos/1486974/pexels-photo-1486974.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
+//     'https://images.pexels.com/photos/1370704/pexels-photo-1370704.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
+//     'https://images.pexels.com/photos/1212487/pexels-photo-1212487.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop'
+//     ],
+//     0,
+//     'Emma Rodriguez',
+//     'Amazing day exploring the city! Found some incredible street art and architecture. The creativity in this place is inspiring ✨'
+    
+// }
+// const handleImageClick = (images: string[], index: number, author: string, content: string) => {
+//     setSelectedImages(images);
+//     setSelectedImageIndex(index);
+//     setSelectedPostAuthor(author);
+//     setSelectedPostContent(content);
+//     setIsImageSliderOpen(true);
+//   };
+//   <ImageSliderModal
+//         isOpen={isImageSliderOpen}
+//         onClose={() => setIsImageSliderOpen(false)}
+//         images={selectedImages}
+//         initialIndex={selectedImageIndex}
+//         postAuthor={selectedPostAuthor}
+//         postContent={selectedPostContent}
+//       />

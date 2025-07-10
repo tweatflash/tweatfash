@@ -730,3 +730,24 @@ type User ={
 type LikedPost ={
   _id: string
 }
+
+type Notifications= {
+  _id: string
+  from: NotificationFrom
+  profileImage: string
+  name: string
+  username: string
+  to: string
+  postId: string
+  type: string
+  read: boolean
+  createdAt: string
+  updatedAt: string
+  __v: number
+}
+type NotificationFrom ={
+  _id: string
+  username: string
+  profileImage: string
+  pricingPlanDuration: string
+}

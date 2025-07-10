@@ -1,0 +1,43 @@
+import React, { useState, useEffect } from 'react';
+
+const notificationsData = [/* your array goes here */];
+
+const NotificationComponent = () => {
+  const [groupedNotifs, setGroupedNotifs] = useState([]);
+
+  useEffect(() => {
+    // Group notifications by postId + type
+    const groupMap = {};
+
+    notificationsData.forEach((notif) => {
+      const key = `${notif.postId}-${notif.type}`;
+      if (!groupMap[key]) {
+        groupMap[key] = {
+          type: notif.type,
+          postId: notif.postId,
+          names: [notif.name],
+        };
+      } else {
+        groupMap[key].names.push(notif.name);
+      }
+    });
+
+    // Convert object to array for rendering
+    const groupedArray = Object.values(groupMap);
+    setGroupedNotifs(groupedArray);
+  }, []);
+
+  return (
+    <div>
+      <h2>🛎 Notifications</h2>
+      {groupedNotifs.map((group, index) => (
+        <div key={index} style={{ marginBottom: '1rem', borderBottom: '1px solid #ccc' }}>
+          <strong>{group.type.toUpperCase()}</strong> on <code>{group.postId}</code>
+          <p>{group.names.join(', ')}</p>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default NotificationComponent;

@@ -11,11 +11,11 @@ export default function SuggestedPost() {
     const rf :string | undefined=cook?.refreshTkn
     const ac:string | undefined=cook?.accessTkn
     const [posts,setPosts]=useState<HomeFeed[] | null>(null)
-    let postId :string[] | undefined=forYou?.map((item:HomeFeed)=>{
+    var postId :string[] | []=forYou?.length ? forYou.map((item:HomeFeed)=>{
         if (item._id){
             return item._id
         }
-    })
+    }):[]
     let dataA :string[]=[]
     async function petch(){
         const data : Promise<Post>=await getPosts(postId,"posts/all",rf,ac) 
@@ -28,16 +28,16 @@ export default function SuggestedPost() {
         petch()
     },[])
     useEffect(()=>{
-        postId=forYou?.map((item:HomeFeed)=>{
-            if (item._id){
-                return item._id
-            }
-      })
+        postId=forYou?.length ? forYou.map((item:HomeFeed)=>{
+        if (item._id){
+            return item._id
+        }
+    }):[]
     //   console.log(postId)
     },[forYou])
     return (
         <div className="flex flex-col">  
-            {userObj?.user&& forYou?.map((item:HomeFeed,index:number)=><Feed dave={item} key={index}/>)}
+            {userObj?.user&& forYou?.map((item:HomeFeed,index:number)=><Feed dave={item} key={item._id}/>)}
 
             <div className="mx-auto w-full max-w-[568px] p-4 border-b border-solid border-[hsl(var(--border-color))] last:border-none last:border-b-0" onClick={()=>petch()}>
                 <div className="flex animate-pulse space-x-4">
