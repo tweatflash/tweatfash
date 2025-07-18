@@ -91,11 +91,11 @@ type HomeFeed={
         "username": string,
         "profileImage": string,
         "coverImage": string,
-        "pricingPlanDuration": string
+        "pricingPlanDuration": string | null
     },
-    "type": string,
+    "type": string | null,
     "pollId": (number | string)[],
-    "text": string,
+    "text": string | null,
     "img"?: any,
     "video": any,
     "audio": string[],
@@ -117,7 +117,7 @@ type HomeFeed={
     "quotes": string[],
     "flagged": string[],
     "taggedFriends": string[],
-    "impressions": null
+    "impressions": null | any
 }
 type Post={
     loggedIn:boolean,

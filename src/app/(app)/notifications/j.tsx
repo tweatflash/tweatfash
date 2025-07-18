@@ -3,6 +3,8 @@ import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
 import { useState ,useEffect} from 'react'
 import getNotification from '../../../../lib/getNotifications'
 import Link from 'next/link'
+import CommentSkeleton from '@/app/components/comment/CommentSkeleton'
+
 const categories = [
   {
     name: 'All',
@@ -139,7 +141,7 @@ export default function Example() {
                     {categories.map(({ name},index) => (
                     <Tab
                         key={name}
-                        className={`rounded-full px-3 py-1 text-sm/6 font-semibold text-[--color] focus:not-data-focus:outline-none data-focus:outline data-focus:outline-white dark:hover:bg-white/5 hover:bg-black/5 ${index==activeTab && "bg-[hsl(var(--accent))]"} data-selected:data-hover:bg-white/10`}
+                        className={`rounded-full px-3 py-1 text-sm/6  text-[--color] focus:not-data-focus:outline-none data-focus:outline data-focus:outline-white dark:hover:bg-white/5 hover:bg-black/5 ${index==activeTab && "bg-[hsl(var(--accent))]"} data-selected:data-hover:bg-white/10`}
                         onClick={()=>setActiveTab(index)}
                     >
                         {name}
@@ -160,7 +162,7 @@ export default function Example() {
                                 </div>
                             </div>
                             <div className='flex-1'>
-                                <div className="font-semibold text-[--color] flex flex-col gap-3">
+                                <div className=" text-[--color] flex flex-col gap-3">
                                     <div className="flex -space-x-2">
                                         <Link href={""}>
                                             <img
@@ -202,7 +204,9 @@ export default function Example() {
                             </div>
                             </li>
                         ))}
+
                         </ul>
+                        <CommentSkeleton onVisible={()=>petch()}/>
                     </TabPanel>
                     
                 </TabPanels>

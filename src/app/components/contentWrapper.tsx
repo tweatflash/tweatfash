@@ -10,24 +10,71 @@ type Img={
 }
 
 type Prop={
-    param:HomeFeed | SinglePost
+    param:HomeFeed | SinglePost 
 }
 
 export default function ContentWrapper({param}:Prop) {
     const [img,setImg]=useState<Img[] | []>(param.img ? param.img : [])
     const [video,setVideo]=useState<Img[] | []>(param.video ? param.video : [])
     const [total,setTotal]=useState<Img[]>([...img,...video])
+    const [aspectRatio,setAspectRatio]=useState<{aspect:number,width:number,height:number}>({"aspect":0,"width":0,"height":0})
     const {imageSlider,
           setImageSlider,
           sliderObject,
+          mobile,
           setSliderObject}:any=useContext(AuthContext)
+    const getAspectRatio = (element: {type:string,url:string}) => {
+        if (element.type==="image"){
+            const img: any = new Image();
+            img.src = element.url;
+
+            img.onload = () => {
+                var hgh = img.naturalWidth / img.naturalHeight;
+                
+                setAspectRatio({"aspect":hgh,"width":img.naturalWidth,"height":img.naturalHeight});
+            };
+        }else{
+            const video = document.createElement('video');
+            video.src = element.url // 'element' is your File object
+            video.preload = 'metadata';
+
+            video.onloadedmetadata = () => {
+                const videoWidth = video.videoWidth;
+                const videoHeight = video.videoHeight;
+
+                const aspectratio = videoWidth / videoHeight;
+                setAspectRatio({"aspect":aspectratio,"width":videoWidth,"height":videoHeight});
+            };
+        }
+    }  
+    useEffect(()=>{
+        if(total.length ) {
+            if(total[0].url?.endsWith('.mp4') || total[0].url?.endsWith('.webm')){
+                getAspectRatio({type:"video",url:total[0].url})
+            }else{
+                getAspectRatio({type:"image",url:total[0].url})
+            }
+        }
+    },[total])
     return (
        total.length > 0 ?(
             total.length ===1? 
-                <div className="block overflow-hidden w-full cursor-wait">
-                          <div draggable="false" tabIndex={2} className={`cursor-not-allowed flex bg-[hsl(var(--accent))] object-cover bg-center w-fit bg-cover  h-auto overflow-hidden min-w-20 rounded-xl relative border border-[hsl(var(--border-color))] border-solid `}>
-                            
-                            {
+                <div className="block relative w-full cursor-wait" onClick={(e) => {e.stopPropagation();}}>
+                        <div
+                            draggable="false"
+                            tabIndex={2}
+                            className={` h-full flex  object-cover bg-center bg-cover overflow-hidden rounded-xl relative  border-solid`}
+                            style={{
+                                // 
+                                paddingBottom:`${(aspectRatio.height / aspectRatio.width)  * 100 >98.55 && !mobile ?98.55 :(aspectRatio.height / aspectRatio.width)  * 100 >133 && mobile?133 : (aspectRatio.height / aspectRatio.width)  * 100}%`,
+                                // width: aspectRatio.width,
+                                height:"auto",
+                                
+                                       
+                            }}
+                        >
+                               
+                         {/* {
                                 total[0].url?.endsWith('.mp4') || total[0].url?.endsWith('.webm') ?
                                     <div className='w-full h-full relative '>
                                         <video src={total[0].url} className='invisible1 object-cover object-center w-full h-full sm:max-h-[450px] max-h-[410px] min-h-full '/> 
@@ -55,12 +102,25 @@ export default function ContentWrapper({param}:Prop) {
                                         </div>
                                     :
                                     <img src={total[0].url} className={`invisible1 max-h-[410px] sm:max-h-[450px] max-w-full  min-w-64  object-cover object-center w-auto h-auto ` } />
-                            }
+                        }  */}
+                        </div>
+                        <div className='absolute max-w-full xs:w-full bg-[hsl(var(--accent))] object-cover bg-center bg-cover bg-no-repeat rounded-xl top-0 border border-[hsl(var(--border-color))]'
+                            style={{
+                                aspectRatio: aspectRatio.aspect, 
+                                height:(aspectRatio.height / aspectRatio.width)  * 100 >130 && !mobile ? "512.5px": (aspectRatio.height / aspectRatio.width)  * 100 >130 && mobile ?"100%":"100%",
+                                backgroundImage:
+                                    total[0].url && (total[0].url.endsWith('.mp4') || total[0].url.endsWith('.webm'))
+                                        ? `url('${total[0].url}')`:
+                                        `url('${total[0].url}')`,
+                                width:(aspectRatio.height / aspectRatio.width)  * 100 >130 && !mobile ? "380px": (aspectRatio.height / aspectRatio.width)  * 100 >130 && mobile ?"100%":"auto"
+                            }}
+                        >
+
                         </div>
                     
                 </div>
                 :
-                <div className='w-full aspect-[1.6/1] flex relative overflow-hidden'>
+                <div className='w-full aspect-[1.6/1] flex relative overflow-hidden' onClick={(e) => {e.stopPropagation();}}>
                  <div className='size-full relative overflow-hidden '>
                     <div className={`grid h-full grid-cols-2 gap-[2px] img-gallery`}>
                          {total.slice(0,4).map((file ,index)=>(

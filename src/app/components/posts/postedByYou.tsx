@@ -1,77 +1,54 @@
-import Feed from "../feed"
+import Feed from "../feed";
 // import { cookies } from "next/headers";
 import getPostSkipCount from "../../../../lib/posts/getPostSkipCount";
 import { useContext, useEffect, useState } from "react";
-type Param={
-    username:string
-}
-export default function PostedByYou({username}:Param) {
-    const [myPosts,setMyPosts]=useState<HomeFeed[] | null>(null) 
-    let SkipCount :number=myPosts?.length || 0
-    async function petch(){
-        const data : Promise<Post>=await getPostSkipCount(SkipCount,`user/${username}`,"rf","ac") 
-        const results: HomeFeed[] | undefined = await (await data)?.posts;
-        if (results ){
-            setMyPosts([...(myPosts || []) ,...results])
-            
-        }
-        
-    }
-    useEffect(()=>{
-        petch()   
-    },[])
-    useEffect(()=>{
-      SkipCount=myPosts?.length || 0
-  },[myPosts])
-    return (
-        <div className="flex flex-col">  
-            { myPosts?.map((item:HomeFeed)=><Feed dave={item} key={item._id}/>)}
+import { SquarePen } from "lucide-react";
+import CommentSkeleton from "../comment/CommentSkeleton";
 
-            <div className="mx-auto w-full max-w-[568px] p-4 border-b border-solid border-[hsl(var(--border-color))] last:border-none last:border-b-0" onClick={()=>petch()}>
-                <div className="flex animate-pulse space-x-4">
-                    <div className="size-10 rounded-full bg-gray-300 dark:bg-gray-700"></div>
-                    <div className="flex-1 space-y-6 py-1">
-                    <div className="h-4 max-w-full w-32 rounded-xl bg-gray-300 dark:bg-gray-700"></div>
-                    <div className="space-y-3">
-                        <div className="grid grid-rows-2 gap-y-3">
-                            <div className="row-span-2 h-4 rounded-xl w-[50%] bg-gray-300 dark:bg-gray-700"></div>
-                            <div className="row-span-1 h-4 rounded-xl w-[70%] bg-gray-300 dark:bg-gray-700"></div>
-                        </div>
-                        <div className="h-4 rounded-xl bg-gray-300 dark:bg-gray-700"></div>
-                    </div>
-                    </div>
-                </div>
-            </div>
-            <div className="mx-auto w-full max-w-[568px] p-4 border-b border-solid border-[hsl(var(--border-color))] last:border-none last:border-b-0">
-                <div className="flex animate-pulse space-x-4">
-                    <div className="size-10 rounded-full bg-gray-300 dark:bg-gray-700"></div>
-                    <div className="flex-1 space-y-6 py-1">
-                    <div className="h-4 max-w-full w-32 rounded-xl bg-gray-300 dark:bg-gray-700"></div>
-                    <div className="space-y-3">
-                        <div className="grid grid-rows-2 gap-y-3">
-                            <div className="row-span-2 h-4 rounded-xl w-[50%] bg-gray-300 dark:bg-gray-700"></div>
-                            <div className="row-span-1 h-4 rounded-xl w-[70%] bg-gray-300 dark:bg-gray-700"></div>
-                        </div>
-                        <div className="h-4 rounded-xl bg-gray-300 dark:bg-gray-700"></div>
-                    </div>
-                    </div>
-                </div>
-            </div>
-            <div className="mx-auto w-full max-w-[568px] p-4 border-b border-solid border-[hsl(var(--border-color))] last:border-none last:border-b-0">
-                <div className="flex animate-pulse space-x-4">
-                    <div className="size-10 rounded-full bg-gray-300 dark:bg-gray-700"></div>
-                    <div className="flex-1 space-y-6 py-1">
-                    <div className="h-4 max-w-full w-32 rounded-xl bg-gray-300 dark:bg-gray-700"></div>
-                    <div className="space-y-3">
-                        <div className="grid grid-rows-2 gap-y-3">
-                            <div className="row-span-2 h-4 rounded-xl w-[50%] bg-gray-300 dark:bg-gray-700"></div>
-                            <div className="row-span-1 h-4 rounded-xl w-[70%] bg-gray-300 dark:bg-gray-700"></div>
-                        </div>
-                        <div className="h-4 rounded-xl bg-gray-300 dark:bg-gray-700"></div>
-                    </div>
-                    </div>
-                </div>
-            </div>
+type Param = {
+  username: string;
+};
+export default function PostedByYou({ username }: Param) {
+  const [myPosts, setMyPosts] = useState<HomeFeed[] | null>(null);
+  const [empty, setEmpty] = useState(false);
+  let SkipCount: number = myPosts?.length || 0;
+  async function petch() {
+    const data: Promise<Post> = await getPostSkipCount(
+      SkipCount,
+      `user/${username}`,
+      "rf",
+      "ac"
+    );
+    const results: HomeFeed[] | undefined = await (await data)?.posts;
+    if (results) {
+      setMyPosts([...(myPosts || []), ...results]);
+    }
+    if (results?.length === 0) setEmpty(true);
+  }
+  useEffect(() => {
+    petch();
+  }, []);
+  useEffect(() => {
+    SkipCount = myPosts?.length || 0;
+  }, [myPosts]);
+  return (
+    <div className="flex flex-col">
+      {myPosts?.map((item: HomeFeed) => (
+        <Feed dave={item} key={item._id} />
+      ))}
+      {empty ? (
+        <div className="p-8 text-center text-gray-500">
+          <SquarePen size={48} className="mx-auto mb-4 opacity-50" />
+          <p className="text-lg font-medium">
+            You haven’t published any notes yet.
+          </p>
+          <p className="text-sm">Once you do, you’ll see them here.!</p>
         </div>
-    )
+      ) : (
+        <>
+          <CommentSkeleton onVisible={() => petch()}/>
+        </>
+      )}
+    </div>
+  );
 }

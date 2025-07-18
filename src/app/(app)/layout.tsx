@@ -12,6 +12,7 @@ import EditProfile from "../components/editProfile/edit";
 import Sidebar from "../components/posts/sideBar";
 import CommentModal from "../components/comment/modal";
 import CreateCommunityModal from "../components/createCommunity";
+import { ThemeProvider } from "next-themes";
 // import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 const HomeLayout = ({ children }: { children: React.ReactNode }) => {
   const {userObj , post ,setPost , setOpenSearch,setIsMobileOpen,isMobileOpen,commentOpen,setCommentOpen,commentFeed}: any = useContext(AuthContext)
@@ -22,7 +23,9 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
   const handleNavigation = (page: string) => {
     setCurrentPage(page);
   };
+  
   return (
+    <ThemeProvider attribute="class">
     <div className="main-handler min-h-screen grid absolute t-0 l-0 r-0 b-0 w-full bg-[hsl(var(--background))]">
       <div className="flex flex-col border-r border-solid sticky top-0 left-0 w-full h-full border-[hsl(var(--border-color))] un-b p-3">
          <Link href="/" className="relative size-10 rounded-full overflow-hidden flex justify-center items-center ">
@@ -36,7 +39,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
       </div>
 
       {/* header */}
-      <div className="flex flex-col w-full h-full border-b sticky  border-solid border-[hsl(var(--border-color))] top-0 z-[1] bg-[hsl(var(--background)/.6)] backdrop-blur-md">
+      <div className="flex flex-col w-full h-full border-b sticky  border-solid border-[hsl(var(--border-color))] top-0 z-[1] bg-[hsl(var(--background)/.9)] backdrop-blur-md">
         
         <div className="fixed top-0 w-full px-4">
           <div className="container-wrapper">
@@ -346,6 +349,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
               isOpen={commentOpen}
               onClose={() => setCommentOpen(false)}
               post={commentFeed}
+              
             />
             {/* <CreateCommunityModal isOpen={false} onClose={setPost}/> */}
           
@@ -373,7 +377,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
       </div>
 
       {/* buttom nav */}
-      <nav className="fixed mobile:hidden bottom-0 w-full h-[55px] border-t border-[hsl(var(--border-color))] border-solid z-10 bg-[hsl(var(--background)/.6)] backdrop-blur-md flex flex-1 gap-2 px-2">
+      <nav className="fixed mobile:hidden bottom-0 w-full h-[55px] border-t border-[hsl(var(--border-color))] border-solid z-10 bg-[hsl(var(--background)/.9)] backdrop-blur-md flex flex-1 gap-2 px-2">
         <span className="w-full py-2">
           <Link href={"/home"} className="h-full">
             <div className={`flex items-center justify-center rounded-full ${mainpathname ==="home" && "bg-[hsl(var(--accent))] border border-[hsl(var(--border-color))]"} h-full`}>
@@ -480,6 +484,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
       </nav>
       
     </div>
+    </ThemeProvider>
   );
 };
 

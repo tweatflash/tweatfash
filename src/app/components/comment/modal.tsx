@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import { X, Heart, MessageCircle, Share, MoreHorizontal, ExternalLink } from 'lucide-react';
 // import { Comment, Post } from '../types/comment';
 import CommentForm from './CommentForm';
@@ -7,6 +7,7 @@ import CommentForm from './CommentForm';
 import Comments from '../comments/Comments';
 import Feed from '../feed';
 import CommentFeed from './commentItem';
+import { AuthContext } from '@/app/context/Authcontext';
 interface CommentModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -31,7 +32,15 @@ const CommentModal: React.FC<CommentModalProps> = ({
   const [comments, setComments] = useState<Comment[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [hasLoaded, setHasLoaded] = useState(false);
-
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const {setCommentRoute,commentRoute}:any=useContext(AuthContext)
+   useEffect(() => {
+    if (!isOpen) {
+      setIsUploading(false);
+      setUploadProgress(0);
+    }
+  }, [isOpen]);
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -93,6 +102,7 @@ const CommentModal: React.FC<CommentModalProps> = ({
   // Show only first 3 comments in modal
   const displayedComments = comments.slice(0, 3);
   const hasMoreComments = comments.length > 3;
+  
 
   return (
     <div
@@ -104,25 +114,44 @@ const CommentModal: React.FC<CommentModalProps> = ({
         className="bg-[hsl(var(--background))] no-scrollbar overflow-y-scroll overflow-x-hidden mobile:rounded-2xl mobile:border border-[hsl(var(--border-color))] w-full mobile:max-w-xl mobile:h-auto h-full mobile:max-h-[90vh] flex flex-col mobile:mx-4 shadow-2xl animate-in fade-in-0 zoom-in-95 duration-200"
       >
         {/* Fixed Header */}
-        <div className="flex items-center justify-between p-4 py-2 border-b border-[hsl(var(--border-color))] flex-shrink-0">
-          <h2 className="text-xl text-[--color]">Reply {"("+ post.commentCount +" "+"Replies" +")"}</h2>
-          <div className='h-full flex gap-2'>
+        <div className="flex items-center sticky top-0 z-[30] bg-[hsl(var(--background))] justify-between p-4 py-2 border-b border-[hsl(var(--border-color))] flex-shrink-0">
+          <h2 className="text-xl text-[--color]" >Reply</h2>
+
+          <div className='h-full items-center flex gap-2'>
+            {isUploading && (
+            <div className="px-3 sm:px-4 pb-2">
+              <div className="bg-[hsl(var(--accent))] rounded-full h-1 overflow-hidden">
+                <div 
+                  className="bg-blue-600 h-full transition-all duration-300 ease-out"
+                  style={{ width: `${uploadProgress}%` }}
+                />
+              </div>
+              <div className="flex justify-between items-center gap-2 mt-1">
+                <span className="text-xs text-[#727272]">
+                  {uploadProgress < 100 ? 'Uploading post...' : 'Processing...'}
+                </span>
+                <span className="text-xs text-[#727272]">{uploadProgress}%</span>
+              </div>
+            </div>
+          )}
             <button
             onClick={onClose}
             className="p-2 rounded-full hover:bg-gray-100 transition-colors"
-          >
+            >
             <X size={20} className="text-gray-500" />
-          </button>
+            </button>
           </div>
+          
         </div>
-
+        
         {/* Scrollable Content Area */}
         <div className="h-auto">
           {/* Post Content */}
           <div className='py-4 w-full border-[hsl(var(--border-color))]'>
             <CommentFeed dave={post} />
-          </div>
 
+          </div>
+          
           {/* Comments List */}
           {/* <div className="divide-y divide-gray-100">
             {isLoading ? (
@@ -172,9 +201,11 @@ const CommentModal: React.FC<CommentModalProps> = ({
         {/* Fixed Comment Form */}
         <div className="px-4  border-[hsl(var(--border-color))] bg-[hsl(var(--background))] ">
           <CommentForm
-            onSubmit={handleAddComment}
             placeholder="Write a comment..."
             buttonText="Comment"
+            setIsUploading={setIsUploading}
+            setUploadProgress={setUploadProgress}
+            isUploading={isUploading}
           />
         </div>
       </div>

@@ -7,6 +7,7 @@ import { AuthContext } from "@/app/context/Authcontext";
 import likePost from "../../../lib/likePost"
 import ContentWrapper from "./contentWrapper";
 import savePost from "../../../lib/savePost"
+import HighlightText from "./highlightedText";
 type daveA={
     dave:HomeFeed
 }
@@ -14,15 +15,7 @@ type daveA={
 export default function Feed({dave}: daveA) {
     const router=useRouter()
     const iconRef = useRef<any>(null);
- const {userObj,visible,
-          setVisible,
-          onClose,
-          position,
-          setPosition,anchorEl,openMenu, setAnchorEl,setCommentFeed,setCommentOpen}:any=useContext(AuthContext)
-    
-    
-
-
+    const {userObj,visible,setVisible,onClose,position,setPosition,anchorEl,openMenu, setAnchorEl,setCommentFeed,setCommentOpen,commentRoute,setCommentRoute}:any=useContext(AuthContext)
     function time(date: string): string {
         const now = new Date();
         const past = new Date(date);
@@ -71,7 +64,7 @@ export default function Feed({dave}: daveA) {
     }
     const handleChild=(event:React.MouseEvent):void=>{
         event.stopPropagation();
-        console.log("child")
+        
     }
 
    
@@ -115,10 +108,15 @@ export default function Feed({dave}: daveA) {
         
     }
     return (
-        <div className="flex flex-col relative border-b border-solid border-[hsl(var(--border-color))] last:border-none last:border-b-0" onClick={()=>console.log(dave)}>
+        <div className="flex cursor-pointer flex-col relative border-b border-solid border-[hsl(var(--border-color))] last:border-none last:border-b-0" onClick={()=>handleParent(dave._id ,dave.user.username)}>
         <div className="flex flex-col py-5 w-full"  role="article">
             <div className="gap-3 flex item-start w-full px-4 lg:px-0">
-            <Link href={""}>
+            <Link href={"/"+ dave.user.username} className="h-fit" tabIndex={0} 
+                onClick={(e) => {
+                    e.stopPropagation();
+                // Logic to view image or open image viewer
+                }}
+            >
                 <div className="w-9 h-9 rounded-[50%] border border-[hsl(var(--border-color))] bg-[hsl(var(--accent))]">
                     <img
                         alt={dave.user.name}
@@ -141,6 +139,10 @@ export default function Feed({dave}: daveA) {
                                                     <Link
                                                         href={"/"+ dave.user.username}
                                                         className="hover:underline decoration-0 truncate"
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                        // Logic to view image or open image viewer
+                                                        }}
                                                     >
                                                         {dave.user.name}
                                                     </Link>
@@ -152,7 +154,10 @@ export default function Feed({dave}: daveA) {
                                                         title={longFormatTime(dave.createdAt).longDate +" "+longFormatTime(dave.createdAt).longTime }
                                                         href={"/"+ dave.user.username}
                                                         className=""
-                                                        
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                        // Logic to view image or open image viewer
+                                                        }}
                                                     >
                                                         
                                                         {time(dave.createdAt)}
@@ -184,8 +189,12 @@ export default function Feed({dave}: daveA) {
                                         type="button"
                                         aria-label="More options"
                                         ref={iconRef}
-                                        onClick={() => openMenu(iconRef.current)}
-
+                                        
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            openMenu(iconRef.current)
+                                        // Logic to view image or open image viewer
+                                        }}                                                            
                                         className="hover:bg-[hsl(var(--accent))] h-full flex items-center aspect-square rounded-lg justify-center"
                                     >
                                         <svg
@@ -218,35 +227,43 @@ export default function Feed({dave}: daveA) {
                                 </Link>
                             </span> */}
                         </div>
-                        <div className="flex" onClick={()=>handleParent(dave._id ,dave.user.username)}>
-                            <div className="flex">
+                        {dave.text && <div className="flex" >
                                 <div className="flex">
-                                    <p className={`text-[--color] break-all break-words font-[400] opacity-80 text-[15px] whitespace-pre-wrap tracking-wide decoration-0`}>
-                                        {dave.text && dave.text}
-                                    </p>
+                                    <div className="flex">
+                                        <p className={`text-[--color] break-all break-words font-[400] opacity-80 text-[15px] whitespace-pre-wrap tracking-wide decoration-0`}>
+                                            <HighlightText text={dave.text}/>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        }
                     </div>
                     <ContentWrapper param={dave} />
                     <div className="gap-2 flex justify-between">
                         <div className="flex gap-[15px]">
                             <span className="flex ml-[-8px] ">
                                 <button  
-                                    onClick={()=>likeAPost(dave._id)}
+                                    
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        likeAPost(dave._id)
+                                    // Logic to view image or open image viewer
+                                    }} 
                                     className={`
                                         flex gap-[6px] px-2 h-8 items-center rounded-[20px] 
-                                        ${liked ? "hover:bg-[rgba(235,87,87,.2)] text-[#eb5757]" : "hover:bg-[hsl(var(--accent))] text-[#727272] hover:text-[--color]"}
+                                        ${liked ? "hover:bg-[rgba(235,87,87,.2)] bg-[rgba(235,87,87,.2)] text-[#eb5757]" : "hover:bg-[hsl(var(--accent))] text-[#727272] hover:text-[--color]"}
                                     `}>
                                     <svg viewBox="0 0 20 20" stroke={"currentColor"} fill={liked ? "#eb5757" :"none"} className="h-5 w-5 stroke-[1.5]"><path d="M5.00002 2.54822C8.00003 2.09722 9.58337 4.93428 10 5.87387C10.4167 4.93428 12 2.09722 15 2.54822C18 2.99923 18.75 5.66154 18.75 7.05826C18.75 9.28572 18.1249 10.9821 16.2499 13.244C14.3749 15.506 10 18.3333 10 18.3333C10 18.3333 5.62498 15.506 3.74999 13.244C1.875 10.9821 1.25 9.28572 1.25 7.05826C1.25 5.66154 2 2.99923 5.00002 2.54822Z"></path></svg>
                                         {dave.likes.length? <span className={`text-sm `}>{dave.likes.length}</span>:<></>}
                                 </button>
                             </span>
                             <span className="flex ml-[-8px] ">
-                                <button className="flex gap-[6px] px-2 h-8 items-center hover:bg-[hsl(var(--accent))] fill-[#727272] hover:fill-[--color] rounded-[20px]"onClick={()=>{
+                                <button className="flex gap-[6px] px-2 h-8 items-center hover:bg-[hsl(var(--accent))] fill-[#727272] hover:fill-[--color] rounded-[20px]"onClick={(e)=>{
                                     // handleParent(dave._id ,dave.user.username)
+                                     e.stopPropagation();
                                     setCommentFeed(dave)
-                                    setCommentOpen(true)
+                                    setCommentOpen(true,)
+                                    setCommentRoute(`posts/commentOrReply/${dave._id}`)
                                 }} >
                                 
                                     <svg viewBox="0 0 24 24" className="size-5" aria-hidden="true"><g><path d="M1.751 10c0-4.42 3.584-8 8.005-8h4.366c4.49 0 8.129 3.64 8.129 8.13 0 2.96-1.607 5.68-4.196 7.11l-8.054 4.46v-3.69h-.067c-4.49.1-8.183-3.51-8.183-8.01zm8.005-6c-3.317 0-6.005 2.69-6.005 6 0 3.37 2.77 6.08 6.138 6.01l.351-.01h1.761v2.3l5.087-2.81c1.951-1.08 3.163-3.13 3.163-5.36 0-3.39-2.744-6.13-6.129-6.13H9.756z"></path></g></svg>
@@ -254,7 +271,11 @@ export default function Feed({dave}: daveA) {
                                 </button>
                             </span>
                             <span className="flex ml-[-8px] ">
-                                <button className="flex gap-[6px] px-2 h-8 stroke-[#727272] hover:stroke-[--color] items-center hover:bg-[hsl(var(--accent))] rounded-[20px]">
+                                <button className="flex gap-[6px] px-2 h-8 stroke-[#727272] hover:stroke-[--color] items-center hover:bg-[hsl(var(--accent))] rounded-[20px]" onClick={(e) => {
+                                        e.stopPropagation();
+                                        
+                                    // Logic to view image or open image viewer
+                                    }} >
                                     <svg role="img" width="20" height="20" viewBox="0 0 20 20" fill="none" strokeWidth="1.5"  strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5"><g><title></title><path d="M2.53001 7.81595C3.49179 4.73911 6.43281 2.5 9.91173 2.5C13.1684 2.5 15.9537 4.46214 17.0852 7.23684L17.6179 8.67647M17.6179 8.67647L18.5002 4.26471M17.6179 8.67647L13.6473 6.91176M17.4995 12.1841C16.5378 15.2609 13.5967 17.5 10.1178 17.5C6.86118 17.5 4.07589 15.5379 2.94432 12.7632L2.41165 11.3235M2.41165 11.3235L1.5293 15.7353M2.41165 11.3235L6.38224 13.0882"></path></g></svg>
                                     {dave.reposts.length? <span className="text-sm text-[#727272]">{dave.reposts.length}</span>:<></>}
                                 </button>
@@ -263,7 +284,14 @@ export default function Feed({dave}: daveA) {
                         </div>
                         <div className="flex flex-row gap-3">
                            <span className="flex ml-[-8px] ">
-                                <button className="text-[#727272] hover:text-[--color] flex gap-[6px] px-2 h-8 items-center hover:bg-[hsl(var(--accent))] rounded-[20px]" onClick={()=>saveAPost(dave._id)}>
+                                <button className="text-[#727272] hover:text-[--color] flex gap-[6px] px-2 h-8 items-center hover:bg-[hsl(var(--accent))] rounded-[20px]" 
+                                
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        saveAPost(dave._id)
+                                    // Logic to view image or open image viewer
+                                    }} 
+                                >
                                   {
                                     saved ?<svg
                                         viewBox="0 0 24 24"
@@ -293,7 +321,12 @@ export default function Feed({dave}: daveA) {
                                 </button>
                             </span>
                             <span className="flex ml-[-8px] ">
-                                <button className="flex gap-[6px] stroke-[#727272] hover:stroke-[--color] px-2 h-8 items-center hover:bg-[hsl(var(--accent))] rounded-[20px]">
+                                <button className="flex gap-[6px] stroke-[#727272] hover:stroke-[--color] px-2 h-8 items-center hover:bg-[hsl(var(--accent))] rounded-[20px]"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                    // Logic to view image or open image viewer
+                                    }}
+                                >
                                     <svg
                                       role="img"
                                       className="size-5"

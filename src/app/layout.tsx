@@ -4,6 +4,8 @@ import { Figtree} from 'next/font/google';
 import './globals.css'
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { AuthProvider } from "./context/Authcontext";
+import { ThemeProvider } from "next-themes";
+
   const bricolage = localFont({
     src: "../../public/fonts/segoe-ui-emoji.ttf",      
     fallback:["sans-serif","Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"]                                                                                                                                                                                                              
@@ -24,15 +26,16 @@ import { AuthProvider } from "./context/Authcontext";
     return (
       <GoogleOAuthProvider clientId={clientId}>
         
-          <html lang="en" className='' data-theme='dark'>
+          <html lang="en">
               {/* <link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet"/> */}
               <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"></meta>
-              <body className={ ` w-full bg-[hsl(var(--background))]`}>
+              <body className={ `h-full w-full bg-[hsl(var(--background))]`}>
                   <AuthProvider>
                     {children}
                   </AuthProvider>
               </body>
           </html>
+        
       </GoogleOAuthProvider>
   )
    

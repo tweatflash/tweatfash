@@ -556,7 +556,7 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({ isOpen, onC
         <h4 className="text-[15px] text-gray-900 mb-3">Preview</h4>
         <div className="bg-white rounded-xl p-4 border border-gray-200">
           <div className="flex items-center space-x-3">
-            <div className="w-12 h-12 rounded-full bg-gray-200 overflow-hidden">
+            <div className="w-12 h-12 rounded-full border-black/5 bg-gray-200 overflow-hidden">
               {community.profileImage ? (
                 <img src={community.profileImage} alt="Profile" className="w-full h-full object-cover" />
               ) : (
@@ -625,9 +625,9 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({ isOpen, onC
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden mobile:rounded-2xl min-h-full bg-white shadow-xl transition-all">
+              <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden mobile:rounded-2xl max-h-full min-h-screen mobile:min-h-full bg-white shadow-xl transition-all">
                 {/* Header */}
-                <div className="flex items-center justify-between p-6 border-b border-gray-200">
+                <div className="flex sticky top-0 items-center justify-between px-4 py-3 border-b border-gray-200">
                   <div className="flex items-center space-x-4">
                     <button
                       type="button"
@@ -637,7 +637,7 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({ isOpen, onC
                       <X size={20} className="text-gray-700" />
                     </button>
                     <div>
-                      <h2 className="text-xl text-gray-900">Create Community</h2>
+                      {/* <h2 className="text-xl text-gray-900">Create Community</h2> */}
                       <p className="text-[13px] text-gray-500">Step {step} of 3</p>
                     </div>
                   </div>
@@ -662,14 +662,14 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({ isOpen, onC
                 </div>
 
                 {/* Content */}
-                <div className="p-6 max-h-[70vh] overflow-y-auto">
+                <div className="p-6  mobile:max-h-[70vh] h-auto overflow-y-auto">
                   {step === 1 && renderStep1()}
                   {step === 2 && renderStep2()}
                   {step === 3 && renderStep3()}
                 </div>
 
                 {/* Footer */}
-                <div className="flex items-center justify-between p-6 border-t border-gray-200">
+                <div className="flex items-center justify-between p-4 border-t border-gray-200">
                   <button
                     type="button"
                     onClick={step === 1 ? onClose : handleBack}

@@ -1,196 +1,188 @@
-import React, { useState, useEffect } from 'react';
-import { X, ChevronLeft, ChevronRight, Play, Pause, Volume2, VolumeX } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
+import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 
-
-interface MediaModalProps {
-  media: any[];
-  currentIndex: number;
-  onClose: () => void;
+interface MediaItem {
+  id: string;
+  type: 'image' | 'video';
+  src: string;
+  alt?: string;
+  poster?: string; // For video poster
 }
 
-const MediaModal: React.FC<MediaModalProps> = ({ media, currentIndex, onClose }) => {
-  const [currentIdx, setCurrentIdx] = useState(currentIndex);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isMuted, setIsMuted] = useState(true);
-  const [videoRef, setVideoRef] = useState<HTMLVideoElement | null>(null);
+interface MediaSliderProps {
+  isOpen: boolean;
+  onClose: () => void;
+  mediaItems: MediaItem[];
+  initialIndex?: number;
+}
 
-  const currentMedia = media[currentIdx];
+export default function MediaSlider({ 
+  isOpen, 
+  onClose, 
+  mediaItems, 
+  initialIndex = 0 
+}: MediaSliderProps) {
+  const [currentIndex, setCurrentIndex] = useState(initialIndex);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    setCurrentIndex(initialIndex);
+  }, [initialIndex]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      if (!isOpen) return;
+      
       switch (e.key) {
-        case 'Escape':
-          onClose();
-          break;
         case 'ArrowLeft':
-          if (currentIdx > 0) {
-            setCurrentIdx(currentIdx - 1);
-          }
+          goToPrevious();
           break;
         case 'ArrowRight':
-          if (currentIdx < media.length - 1) {
-            setCurrentIdx(currentIdx + 1);
-          }
+          goToNext();
           break;
-        case ' ':
-          e.preventDefault();
-          if (currentMedia.type === 'video' && videoRef) {
-            if (isPlaying) {
-              videoRef.pause();
-            } else {
-              videoRef.play();
-            }
-            setIsPlaying(!isPlaying);
-          }
+        case 'Escape':
+          onClose();
           break;
       }
     };
 
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [currentIdx, media.length, onClose, isPlaying, videoRef, currentMedia.type]);
-
-  useEffect(() => {
-    setIsPlaying(false);
-  }, [currentIdx]);
-
-  const goToPrevious = () => {
-    if (currentIdx > 0) {
-      setCurrentIdx(currentIdx - 1);
-    }
-  };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, currentIndex]);
 
   const goToNext = () => {
-    if (currentIdx < media.length - 1) {
-      setCurrentIdx(currentIdx + 1);
-    }
+    setCurrentIndex((prev) => (prev + 1) % mediaItems.length);
   };
 
-  const togglePlayPause = () => {
-    if (videoRef) {
-      if (isPlaying) {
-        videoRef.pause();
-      } else {
-        videoRef.play();
-      }
-      setIsPlaying(!isPlaying);
-    }
+  const goToPrevious = () => {
+    setCurrentIndex((prev) => (prev - 1 + mediaItems.length) % mediaItems.length);
   };
 
-  const toggleMute = () => {
-    if (videoRef) {
-      videoRef.muted = !isMuted;
-      setIsMuted(!isMuted);
-    }
+  const goToSlide = (index: number) => {
+    setCurrentIndex(index);
   };
 
-  const handleVideoRef = (ref: HTMLVideoElement | null) => {
-    setVideoRef(ref);
-    if (ref) {
-      ref.muted = isMuted;
-      ref.addEventListener('play', () => setIsPlaying(true));
-      ref.addEventListener('pause', () => setIsPlaying(false));
-    }
-  };
+  const currentMedia = mediaItems[currentIndex];
 
   return (
-    <div className="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 flex items-center justify-center">
-      {/* Close button */}
-      <button
-        onClick={onClose}
-        className="absolute top-4 left-4 z-10 p-2 bg-black/60 rounded-full hover:bg-black/80 transition-colors"
-      >
-        <X className="w-6 h-6 text-white" />
-      </button>
-
-      {/* Media counter */}
-      <div className="absolute top-4 right-4 z-10 px-3 py-1 bg-black/60 rounded-full text-white text-sm">
-        {currentIdx + 1} / {media.length}
-      </div>
-
-      {/* Previous button */}
-      {currentIdx > 0 && (
-        <button
-          onClick={goToPrevious}
-          className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 p-3 bg-black/60 rounded-full hover:bg-black/80 transition-colors"
+    <Transition appear show={isOpen} as={React.Fragment}>
+      <Dialog as="div" className="relative z-50" onClose={onClose}>
+        <Transition.Child
+          as={React.Fragment}
+          enter="ease-out duration-300"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in duration-200"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
         >
-          <ChevronLeft className="w-8 h-8 text-white" />
-        </button>
-      )}
+          <div className="fixed inset-0 bg-black bg-opacity-95" />
+        </Transition.Child>
 
-      {/* Next button */}
-      {currentIdx < media.length - 1 && (
-        <button
-          onClick={goToNext}
-          className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 p-3 bg-black/60 rounded-full hover:bg-black/80 transition-colors"
-        >
-          <ChevronRight className="w-8 h-8 text-white" />
-        </button>
-      )}
+        <div className="fixed inset-0 overflow-hidden">
+          <div className="flex min-h-full items-center justify-center">
+            <Transition.Child
+              as={React.Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 scale-95"
+              enterTo="opacity-100 scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 scale-100"
+              leaveTo="opacity-0 scale-95"
+            >
+              <Dialog.Panel className="w-full h-screen flex flex-col bg-black">
+                {/* Header with close button */}
+                <div className="absolute top-0 left-0 right-0 z-10 flex justify-between items-center p-6">
+                  <div className="flex-1" />
+                  <button
+                    onClick={onClose}
+                    className="text-white hover:text-gray-300 transition-colors duration-200 p-2 rounded-full hover:bg-white/10"
+                  >
+                    <X size={24} />
+                  </button>
+                </div>
 
-      {/* Media content */}
-      <div className="relative max-w-4xl max-h-[90vh] w-full h-full flex items-center justify-center p-4">
-        {currentMedia.type === 'image' ? (
-          <img
-            src={currentMedia.url}
-            alt={currentMedia.alt}
-            className="max-w-full max-h-full object-contain rounded-lg"
-          />
-        ) : (
-          <div className="relative">
-            <video
-              ref={handleVideoRef}
-              src={currentMedia.url}
-              className="max-w-full max-h-full object-contain rounded-lg"
-              loop
-              controls={false}
-              onClick={togglePlayPause}
-            />
-            
-            {/* Video controls */}
-            <div className="absolute bottom-4 left-4 flex items-center space-x-2">
-              <button
-                onClick={togglePlayPause}
-                className="p-2 bg-black/60 rounded-full hover:bg-black/80 transition-colors"
-              >
-                {isPlaying ? (
-                  <Pause className="w-5 h-5 text-white" />
-                ) : (
-                  <Play className="w-5 h-5 text-white" />
+                {/* Main content area */}
+                <div className="flex-1 flex items-center justify-center relative overflow-hidden">
+                  {/* Navigation arrows */}
+                  {mediaItems.length > 1 && (
+                    <>
+                      <button
+                        onClick={goToPrevious}
+                        className="absolute left-6 top-1/2 -translate-y-1/2 z-10 text-white hover:text-gray-300 transition-colors duration-200 p-3 rounded-full hover:bg-white/10"
+                      >
+                        <ChevronLeft size={32} />
+                      </button>
+                      <button
+                        onClick={goToNext}
+                        className="absolute right-6 top-1/2 -translate-y-1/2 z-10 text-white hover:text-gray-300 transition-colors duration-200 p-3 rounded-full hover:bg-white/10"
+                      >
+                        <ChevronRight size={32} />
+                      </button>
+                    </>
+                  )}
+
+                  {/* Media container */}
+                  <div className="w-full h-full flex items-center justify-center px-20">
+                    <div className="relative w-full h-full max-w-7xl max-h-full">
+                      <Transition
+                        key={currentIndex}
+                        show={true}
+                        enter="transition-all duration-500 ease-out"
+                        enterFrom="opacity-0 transform scale-95"
+                        enterTo="opacity-100 transform scale-100"
+                        leave="transition-all duration-300 ease-in"
+                        leaveFrom="opacity-100 transform scale-100"
+                        leaveTo="opacity-0 transform scale-95"
+                      >
+                        {currentMedia?.type === 'image' ? (
+                          <img
+                            src={currentMedia.src}
+                            alt={currentMedia.alt || `Media ${currentIndex + 1}`}
+                            className="w-full h-full object-contain"
+                          />
+                        ) : (
+                          <video
+                            ref={videoRef}
+                            src={currentMedia?.src}
+                            poster={currentMedia?.poster}
+                            controls
+                            className="w-full h-full object-contain"
+                            autoPlay
+                          />
+                        )}
+                      </Transition>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Carousel indicators */}
+                {mediaItems.length > 1 && (
+                  <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex space-x-3">
+                    {mediaItems.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => goToSlide(index)}
+                        className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                          index === currentIndex
+                            ? 'bg-white scale-110'
+                            : 'bg-white/50 hover:bg-white/75'
+                        }`}
+                      />
+                    ))}
+                  </div>
                 )}
-              </button>
-              
-              <button
-                onClick={toggleMute}
-                className="p-2 bg-black/60 rounded-full hover:bg-black/80 transition-colors"
-              >
-                {isMuted ? (
-                  <VolumeX className="w-5 h-5 text-white" />
-                ) : (
-                  <Volume2 className="w-5 h-5 text-white" />
-                )}
-              </button>
-            </div>
+
+                {/* Media counter */}
+                <div className="absolute bottom-8 right-8 text-white text-sm font-medium">
+                  {currentIndex + 1} / {mediaItems.length}
+                </div>
+              </Dialog.Panel>
+            </Transition.Child>
           </div>
-        )}
-      </div>
-
-      {/* Bottom navigation dots */}
-      {media.length > 1 && (
-        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-          {media.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentIdx(index)}
-              className={`w-2 h-2 rounded-full transition-colors ${
-                index === currentIdx ? 'bg-white' : 'bg-white/40'
-              }`}
-            />
-          ))}
         </div>
-      )}
-    </div>
+      </Dialog>
+    </Transition>
   );
-};
-
-export default MediaModal;
+}

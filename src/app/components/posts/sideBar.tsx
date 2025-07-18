@@ -17,6 +17,7 @@ import {
   X
 } from 'lucide-react';
 import { AuthContext } from '@/app/context/Authcontext';
+import { useRouter } from 'next/navigation';
 
 interface SidebarProps {
   currentPage: string;
@@ -35,14 +36,14 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => {
     { id: 'communities', label: 'Communities', icon: Users },
     { id: 'premium', label: 'Premium', icon: Zap },
     { id: 'profile', label: 'Profile', icon: User },
-    { id: 'more', label: 'More', icon: MoreHorizontal }
+    { id: 'settings', label: 'Settings', icon: Settings }
   ];
 
   const handleMobileNavigation = (page: string) => {
     onNavigate(page);
     setIsMobileOpen(false);
   };
-
+  const router=useRouter()
   const NavItem: React.FC<{
     item: typeof navigationItems[0];
     isCompact?: boolean;
@@ -52,11 +53,14 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => {
     
     return (
       <button
-        onClick={() => isMobile ? handleMobileNavigation(item.id) : onNavigate(item.id)}
+        onClick={() => {
+          isMobile ? handleMobileNavigation(item.id) : onNavigate(item.id)
+          router.push("/"+ item.id)
+        }}
         className={`
-          group relative w-full flex items-center space-x-4 px-3 py-3 rounded-full transition-all duration-200
+          group relative w-full text-lg flex items-center space-x-4 px-3 py-2 rounded-lg transition-all duration-200
           ${isActive 
-            ? 'bg-[hsl(var(--accent))] text-[--color] font-semibold'
+            ? 'bg-[hsl(var(--accent))] text-[--color]'
             : 'text-[#727272] hover:bg-[hsl(var(--accent))] hover:text-[--color]'
           }
           ${isCompact ? 'justify-center' : 'justify-start'}
@@ -67,14 +71,10 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => {
             size={24} 
             className={`${isActive ? 'stroke-2' : 'stroke-1.5'}`}
           />
-          {item.badge && (
-            <div className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-medium">
-              {item.badge}
-            </div>
-          )}
+         
         </div>
         {!isCompact && (
-          <span className={`text-xl ${isActive ? 'font-semibold' : 'font-normal'}`}>
+          <span className={` ${isActive ? '' : 'font-normal'}`}>
             {item.label}
           </span>
         )}
@@ -85,6 +85,11 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => {
             {item.label}
           </div>
         )}
+         {item.badge && (
+            <div className="absolute  right-4 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-medium">
+              {item.badge}
+            </div>
+          )}
       </button>
     );
   };
@@ -104,16 +109,21 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => {
 
       {/* Mobile Sidebar */}
       <div className={`
-        mobile:hidden fixed top-0 left-0 h-full w-80 z-50 transform transition-transform duration-300 ease-in-out
-        ${isMobileOpen ? 'translate-x-0' : '-translate-x-full'}
+        mobile:hidden fixed top-0 left-0 h-full max-w-80 w-full z-50 transform transition-transform duration-300 ease-in-out
+        ${isMobileOpen ? 'translate-x-0 ' : '-translate-x-full'}
         bg-[hsl(var(--background))] border-[hsl(var(--border-color))] border-r
       `}>
         <div className="flex flex-col h-full">
           {/* Mobile Sidebar Header */}
           <div className="p-4 border-b border-[hsl(var(--border-color))]">
             <div className="flex items-center justify-between">
-              <div className="w-8 h-8 rounded-full flex items-center justify-center bg-blue-500 text-white">
-                <Hash size={20} className="font-bold" />
+              <div className="w-8 h-8 rounded-full flex items-center justify-center">
+                <img
+                  className="size-full rounded-full"
+                  alt="tweatflash logo"
+                  title="tweatflash"
+                  src="/tweatflash.svg"
+                />
               </div>
               <button
                 onClick={() => setIsMobileOpen(false)}
@@ -133,7 +143,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => {
 
           {/* Mobile Post Button */}
           <div className="p-4 border-t border-[hsl(var(--border-color))]">
-            <button className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-full transition-colors duration-200">
+            <button className="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 px-6 rounded-full transition-colors duration-200">
               Post
             </button>
           </div>
@@ -141,8 +151,8 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => {
           {/* Mobile User Profile */}
           <div className="p-4">
             <button 
-              onClick={() => handleMobileNavigation('editProfile')}
-              className="w-full flex items-center space-x-3 p-3 rounded-full transition-colors duration-200 hover:bg-gray-100"
+             
+              className="w-full flex items-center space-x-3 p-3 rounded-full transition-colors duration-200 hover:bg-[hsl(var(--accent))]"
             >
               <img
                 src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop"
@@ -150,14 +160,14 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => {
                 className="w-10 h-10 rounded-full"
               />
               <div className="flex-1 text-left">
-                <div className="font-semibold text-gray-900">
+                <div className="text-[--color]">
                   John Doe
                 </div>
-                <div className="text-sm text-gray-500">
+                <div className="text-sm text-[#727272]">
                   @johndoe
                 </div>
               </div>
-              <MoreHorizontal size={20} className="text-gray-500" />
+              <MoreHorizontal size={20} className="text-[#727272]" />
             </button>
           </div>
         </div>

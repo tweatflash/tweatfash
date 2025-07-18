@@ -8,13 +8,13 @@ export default function Menu() {
 
     return (
         <>
-            <div className="absolute inset-0  w-full h-full z-20"  onClick={onClose}/>
+            <div className="absolute mobile:bg-transparent  bg-black/5 inset-0  w-full h-full z-20"  onClick={onClose}/>
             <div
-            className="absolute flex flex-col gap-1 z-50 text-[--color] bg-[hsl(var(--background))] dark:bg-[rgb(27,28,29)] border-[hsl(var(--border-color))] shadow-md border rounded-[15px] p-2 w-[240px]"
+            className={`absolute flex flex-col gap-1 z-50 text-[--color] bg-[hsl(var(--background))] dark:bg-[rgb(27,28,29)] border-[hsl(var(--border-color))] shadow-md border rounded-[15px] p-2 w-[240px] ${mobile && "rounded-bl-none rounded-br-none pt-5 px-4 bdy-hn"}`}
             style={mobile ? { position:"fixed", bottom:0,width:"100%",left:0}: { top: position.top, left: position.left }}
             >
             <button
-                className="text-[--color] flex w-full justify-between text-[15px] items-center gap-2 rounded-lg px-3 py-2 hover:dark:bg-[rgba(225,225,225,.05)]"
+                className="text-[--color] flex w-full justify-between text-[15px] items-center gap-2 rounded-lg px-3 py-2 hover:bg-[hsl(var(--accent))]"
                 id="headlessui-menu-item-:r0:"
                 role="menuitem"
                 tabIndex={-1}
@@ -34,7 +34,7 @@ export default function Menu() {
                 </kbd>
             </button>
             <button
-                className="text-[--color] flex w-full justify-between text-[15px] items-center gap-2 rounded-lg px-3 py-2 hover:dark:bg-[rgba(225,225,225,.05)]"
+                className="text-[--color] flex w-full justify-between text-[15px] items-center gap-2 rounded-lg px-3 py-2 hover:bg-[hsl(var(--accent))]"
                 id="headlessui-menu-item-:r0:"
                 role="menuitem"
                 tabIndex={-1}
@@ -53,7 +53,7 @@ export default function Menu() {
                 </kbd>
             </button>
             <button
-                className="text-[--color] flex w-full justify-between text-[15px] items-center gap-2 rounded-lg px-3 py-2 hover:dark:bg-[rgba(225,225,225,.05)]"
+                className="text-[--color] flex w-full justify-between text-[15px] items-center gap-2 rounded-lg px-3 py-2 hover:bg-[hsl(var(--accent))]"
                 id="headlessui-menu-item-:r0:"
                 role="menuitem"
                 tabIndex={-1}
@@ -73,7 +73,7 @@ export default function Menu() {
             </button>
             <div className="my-1 h-px bg-[hsl(var(--border-color))]" role="none" />
             <button
-                className="text-[--color] flex w-full justify-between text-[15px] items-center gap-2 rounded-lg px-3 py-2 hover:dark:bg-[rgba(225,225,225,.05)]"
+                className="text-[--color] flex w-full justify-between text-[15px] items-center gap-2 rounded-lg px-3 py-2 hover:bg-[hsl(var(--accent))]"
                 id="headlessui-menu-item-:r0:"
                 role="menuitem"
                 tabIndex={-1}
@@ -93,7 +93,7 @@ export default function Menu() {
                 </kbd>
             </button>
             <button
-                className="text-red-400 flex w-full justify-between text-[15px] items-center gap-2 rounded-lg px-3 py-2 hover:dark:bg-[rgba(225,225,225,.05)]"
+                className="text-red-400 flex w-full justify-between text-[15px] items-center gap-2 rounded-lg px-3 py-2 hover:bg-[hsl(var(--accent))]"
                 id="headlessui-menu-item-:r0:"
                 role="menuitem"
                 tabIndex={-1}
@@ -112,7 +112,7 @@ export default function Menu() {
                 </kbd>
             </button>
             <button
-                className="text-red-400 flex w-full justify-between text-[15px] items-center gap-2 rounded-lg px-3 py-2 hover:dark:bg-[rgba(225,225,225,.05)]"
+                className="text-red-400 flex w-full justify-between text-[15px] items-center gap-2 rounded-lg px-3 py-2 hover:bg-[hsl(var(--accent))]"
                 id="headlessui-menu-item-:r0:"
                 role="menuitem"
                 tabIndex={-1}

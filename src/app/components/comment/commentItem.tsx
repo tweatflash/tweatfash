@@ -151,7 +151,9 @@ export default function CommentFeed({dave}: daveA) {
                     </div>
                     <ContentWrapper param={dave} />
                     <div className="gap-2 flex justify-between">
-                        
+                        <p className=" text-[#727272] text-sm">
+            Replying to <span className="text-blue-500">@{dave.user.username}</span>
+          </p>
                     </div>
                 </div>
             </div>

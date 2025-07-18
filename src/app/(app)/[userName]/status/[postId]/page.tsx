@@ -2,6 +2,7 @@ import Link from "next/link";
 import getSinglePost from "../../../../../../lib/posts/getSinglePost";
 import PostsComments from "@/app/components/posts/postsComments";
 import ContentWrapper from "@/app/components/contentWrapper";
+import HighlightText from "@/app/components/highlightedText";
 
 type Props = {
   params: {
@@ -188,9 +189,10 @@ export default async function page({params:{postId}}:Props) {
                     <div className="flex">
                         <div className="flex">
                             <div className="flex">
-                                <p className={`text-black dark:text-[#EEEEEE] font-[400] text-[15px] whitespace-pre-wrap tracking-wide decoration-0`}>
+                                <HighlightText text={result[0].text}/>
+                                {/* <p className={`text-black dark:text-[#EEEEEE] font-[400] text-[15px] whitespace-pre-wrap tracking-wide decoration-0`}>
                                     {result[0].text}
-                                </p>
+                                </p> */}
                             </div>
                         </div>
                     </div>
