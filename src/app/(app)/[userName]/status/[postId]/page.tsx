@@ -92,13 +92,13 @@ export default async function page({params:{postId}}:Props) {
       <div className="flex flex-col justify-center relative">
         <div className="flex justify-center"> 
           <div className="w-full max-w-[568px]">
-            <div className="w-full pt-4 text-[--color] flex flex-col gap-5">
+            <div className="w-full text-[--color] flex flex-col gap-5">
               <div className="w-full mobile:px-0 px-4 ">
                 <div className="pt-4 w-full gap-3 flex flex-col">
                   <div className="h-auto flex flex-row gap-3 justify-between w-full items-center">
                     <Link href={"/"+result[0].user.username} className="flex">
                       <div className="flex w-auto">
-                        <div className="size-[40px] bg-[hsl(var(--accent))] rounded-full">
+                        <div className="size-[40px] border border-[hsl(var(--border-color))] bg-[hsl(var(--accent))] rounded-full">
                           <img
                               alt={result[0].user.name}
                               src={result[0].user.profileImage ? result[0].user.profileImage:"https://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png"}

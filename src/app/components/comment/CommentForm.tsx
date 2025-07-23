@@ -35,6 +35,8 @@ const CommentForm: React.FC<CommentFormProps> = ({
   });
   const [textLength, setTextLength] = useState(0);
   const contentEditableRef = useRef<HTMLDivElement>(null);
+  const [ima,setIma]=useState(false)
+
   const { userObj, setCommentRoute, commentRoute }: any =
     useContext(AuthContext);
 
@@ -391,6 +393,13 @@ const CommentForm: React.FC<CommentFormProps> = ({
       }
     }
   };
+  useEffect(()=>{
+    if (mediaList.length > 0){
+      setIma(true)
+    }else{
+      setIma(false)
+    }
+  },[mediaList,selectedFiles])
   return (
     <div className="flex flex-col pb-3 gap-4">
       <form onSubmit={handleSubmit} className="space-y-3">
@@ -465,7 +474,7 @@ const CommentForm: React.FC<CommentFormProps> = ({
                 onInput={handleInput}
                 onKeyDown={handleKeyDown}
                 onPaste={handlePaste}
-                className="w-full min-h-fit text-base sm:text-lg text-[--color] outline-none resize-none overflow-y-auto max-h-60"
+                className="w-full  break-all break-words whitespace-pre-wrap min-h-fit text-base sm:text-lg text-[--color] outline-none resize-none overflow-y-auto max-h-60"
                 style={{
                   wordWrap: "break-word",
                   whiteSpace: "pre-wrap",
@@ -563,10 +572,10 @@ const CommentForm: React.FC<CommentFormProps> = ({
             )}
             <button
               type="submit"
-              disabled={!content.trim() || isOverLimit  || isUploading}
+              disabled={!content.trim() && isOverLimit && mediaList.length ===0 || isUploading|| isOverLimit ? true :false}
               onClick={handleSubmit}
               className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
-                !content.trim() || isOverLimit  || isUploading
+                !content.trim()&& mediaList.length ===0 || isOverLimit || isUploading
                   ? "bg-[hsl(var(--accent))] text-gray-400 cursor-not-allowed"
                   : "bg-blue-500 text-white hover:bg-blue-600 hover:shadow-md"
               }`}

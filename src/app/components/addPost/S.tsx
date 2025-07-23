@@ -23,7 +23,11 @@ type Prop = {
   post: boolean;
   setPost: React.Dispatch<React.SetStateAction<boolean>>;
 };
-
+interface CreatePost {
+  isOpen: boolean;
+  onClose: () => void;
+  post: HomeFeed;
+}
 type File = {
   lastModified: number;
   lastModifiedDate: any;

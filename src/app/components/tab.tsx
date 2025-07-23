@@ -1,40 +1,96 @@
 "use client"
-import { useState } from "react";
-
-const Tabs = () => {
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useEffect, useRef, useState } from "react";
+const Tabs = ({
+  tabs,
+  state,
+  setState
+}:{tabs:string[],state:any,setState:any}) => {
   const [activeTab, setActiveTab] = useState(0);
 
-  const tabs = ["Suggested for you","From Following","Newest Tweats" ,"Saved Tweats" ,"Posted by you" ,"Liked Posts"];
+  
+  const [showOverflow, setShowOverflow] = useState({ left: false, right: false });
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const checkOverflow = () => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const { scrollLeft, scrollWidth, clientWidth } = container;
+    
+    setShowOverflow({
+      left: scrollLeft > 0,
+      right: scrollLeft < scrollWidth - clientWidth - 1
+    });
+  };
+
+  const scrollTabs = (direction: 'left' | 'right') => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const scrollAmount = 200;
+    const newScrollLeft = direction === 'left' 
+      ? container.scrollLeft - scrollAmount
+      : container.scrollLeft + scrollAmount;
+
+    container.scrollTo({
+      left: newScrollLeft,
+      behavior: 'smooth'
+    });
+  };
+
+  useEffect(() => {
+    checkOverflow();
+    window.addEventListener('resize', checkOverflow);
+    return () => window.removeEventListener('resize', checkOverflow);
+  }, []);
 
   return (
-    <div className="flex flex-col justify-center relative py-2 px-0 mobile:pl-20 mobile:pr-12 mobile:py-4 overflow-x-hidden resize-none">
-      {/* Tab Buttons */}
-      <div className="w-full relative overflow-x-auto flex flex-col h-12 no-scrollbar p-2">
-        
-        <div className="flex min-w-full justify-center absolute m-auto w-fit gap-2 px-2">
-            {tabs.map((tab, index) => (
-                <button
-                    key={index}
-                    className={`text-center text-sm text-nowrap h-8 rounded-lg px-3 bg-[hsl(var(--accent))] ${
-                    activeTab === index ? "bg-black text-white dark:bg-white dark:text-black" : "text-[#777777]"
-                    }`}
-                    onClick={() => setActiveTab(index)}
-                >
-                    {tab}
-                </button>
-            ))}
-        </div> 
-            
-            
-      </div>
+    <div className="flex sticky top-0 mt-4 flex-col justify-start items-center  overflow-x-hidden resize-none">
+          {/* Left scroll button */}
+          {showOverflow.left && (
+            <button
+              onClick={() => scrollTabs('left')}
+              className="absolute left-0 z-20 h-10 w-14 bg-gradient-to-r from-[hsl(var(--background))] to-transparent flex items-center justify-start hover:from-[hsl(var(--accent))] transition-colors"
+              aria-label="Scroll tabs left"
+            >
+              <ChevronLeft size={20} className="text-[--color] ms-2" />
+            </button>
+          )}
 
-      {/* Tab Content */}
-      {/* <div className="p-4">
-        {activeTab === 0 && <p>Welcome to the Home tab!</p>}
-        {activeTab === 1 && <p>This is your Profile section.</p>}
-        {activeTab === 2 && <p>Here are your Settings.</p>}
-      </div> */}
-    </div>
+          <div 
+            ref={scrollContainerRef}
+            className="w-full border-b border-[hsl(var(--border-color))] relative overflow-x-auto flex flex-col h-10 no-scrollbar"
+            onScroll={checkOverflow}
+          >
+            <div className="flex min-w-full h-full justify-start absolute m-auto w-fit">
+              {tabs.map((tab, index) => (
+                <button
+                  key={index}
+                  onClick={() => setState(index)}
+                  className={`flex-1 ms-3 relative rounded-md before:content-[''] z-10 whitespace-nowrap text-center text-sm text-nowrap py-1 px-3 h-fit ${
+                    state === index
+                      ? "text-[--color]  bg-[hsl(var(--accent))] "
+                      : "text-[#777777] border-transparent"
+                  }`}
+                >
+                  {state === index && <div className='w-full absolute -bottom-[12px] h-[2px] bg-black dark:bg-white left-0' />}
+                  {tab}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Right scroll button */}
+          {showOverflow.right && (
+            <button
+              onClick={() => scrollTabs('right')}
+              className="absolute z-20 right-0 h-10 w-14 bg-gradient-to-r hover:from-[hsl(var(--accent)) from-transparent to-[hsl(var(--background))] flex items-center justify-end transition-colors"
+              aria-label="Scroll tabs right"
+            >
+              <ChevronRight size={20} className=" me-2 text-[--color]" />
+            </button>
+          )}
+        </div>
   );
 };
 

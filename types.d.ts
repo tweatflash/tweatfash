@@ -751,3 +751,151 @@ type NotificationFrom ={
   profileImage: string
   pricingPlanDuration: string
 }
+
+
+
+
+type Auth= {
+  user: UserAuth
+  communities: AuthCommunity[]
+  notificationsCount: number
+  messagesCount: number
+  postCount: number
+}
+
+type UserAuth= {
+  _id: string
+  name: string
+  username: string
+  email: string
+  dateOfBirth: string
+  followers: AuthFollower[]
+  following: AuthFollowing[]
+  friends: any[]
+  googleId: string
+  homeTown: string
+  relationshipStatus: string
+  placesLived: string
+  pricingPlan: string
+  role: string
+  profileImage: string
+  coverImage: string
+  bio: string
+  link: string
+  likedPosts: AuthLikedPost[]
+  likedComments: any[]
+  likedreplies: any[]
+  pinnedPosts: any[]
+  mutePosts: any[]
+  accountViews: string[]
+  interests: string[]
+  blockedUsers: any[]
+  muteUsers: any[]
+  reposts: any[]
+  quotes: any[]
+  location: string
+  language: string
+  isVerified: boolean
+  wallet: number
+  tweatcoins: number
+  pricingPlanDuration: string
+  verificationToken: string
+  suspended: boolean
+  createdAt: string
+  updatedAt: string
+  __v: number
+  verified: string
+  gender: string
+  flags: string[]
+  aura: number
+  resetPasswordExpire: string
+  resetPasswordToken: string
+}
+
+type AuthFollower= {
+  _id: string
+  name: string
+  username: string
+  profileImage: string
+  coverImage: string
+}
+
+type AuthFollowing= {
+  _id: string
+  name: string
+  username: string
+  profileImage: string
+  coverImage: string
+}
+
+type AuthLikedPost= {
+  _id: string
+}
+
+type AuthCommunity ={
+  status: any[]
+  _id: string
+  name: string
+  bio: string
+  profileImage: string
+  coverImage: string
+  createdBy: AuthCreatedBy
+  admin: string[]
+  followers: string[]
+  quotes: any[]
+  accountViews: any[]
+  isCommunityVerified?: boolean
+  createdAt: string
+  updatedAt: string
+  __v: number
+  categories: string[]
+}
+
+type AuthCreatedBy ={
+  _id: string
+  name: string
+  username: string
+  email: string
+  dateOfBirth: string
+  followers: string[]
+  following: string[]
+  friends: any[]
+  googleId: string
+  homeTown: string
+  relationshipStatus: string
+  placesLived: string
+  pricingPlan: string
+  role: string
+  profileImage: string
+  coverImage: string
+  bio: string
+  link: string
+  likedPosts: string[]
+  likedComments: any[]
+  likedreplies: any[]
+  pinnedPosts: any[]
+  mutePosts: any[]
+  accountViews: string[]
+  interests: string[]
+  blockedUsers: any[]
+  muteUsers: any[]
+  reposts: string[]
+  quotes: any[]
+  location: string
+  language: string
+  isVerified: boolean
+  wallet: number
+  tweatcoins: number
+  pricingPlanDuration: string
+  verificationToken: string
+  suspended: boolean
+  createdAt: string
+  updatedAt: string
+  __v: number
+  verified: string
+  gender: string
+  flags: string[]
+  aura: number
+  resetPasswordExpire: string
+  resetPasswordToken: string
+}

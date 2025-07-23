@@ -197,7 +197,7 @@ body {
 .img-gallery > :last-child:nth-child(4) {
   border-radius:0px 0px 12px 0px;
 }
-p.contenteditable{
+/* p.contenteditable{
   outline: none;
   padding: 0.5rem 0;
   min-height: 8rem;
@@ -206,7 +206,7 @@ p.contenteditable{
   word-break: break-word;
   position: relative;
   color: var(--color);
-}
+} */
 body:has(.bdy-hn) {
   overflow-y: hidden !important;
 }

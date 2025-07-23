@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { AuthContext, AuthProvider } from "../context/Authcontext";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import CommandPalette from "../components/search/command";
 import { usePathname, useRouter } from "next/navigation";
 // import Generate from "./explore/[searchTerm]/add";
@@ -13,6 +13,7 @@ import Sidebar from "../components/posts/sideBar";
 import CommentModal from "../components/comment/modal";
 import CreateCommunityModal from "../components/createCommunity";
 import { ThemeProvider } from "next-themes";
+import Toast from "../components/toast";
 // import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 const HomeLayout = ({ children }: { children: React.ReactNode }) => {
   const {userObj , post ,setPost , setOpenSearch,setIsMobileOpen,isMobileOpen,commentOpen,setCommentOpen,commentFeed}: any = useContext(AuthContext)
@@ -20,10 +21,11 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
   const [currentPage, setCurrentPage] = useState<string>('home');
   const router=useRouter()
   const mainpathname =  pathname.split('/')[1];
+  
   const handleNavigation = (page: string) => {
     setCurrentPage(page);
   };
-  
+   
   return (
     <ThemeProvider attribute="class">
     <div className="main-handler min-h-screen grid absolute t-0 l-0 r-0 b-0 w-full bg-[hsl(var(--background))]">
@@ -39,7 +41,13 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
       </div>
 
       {/* header */}
-      <div className="flex flex-col w-full h-full border-b sticky  border-solid border-[hsl(var(--border-color))] top-0 z-[1] bg-[hsl(var(--background)/.9)] backdrop-blur-md">
+      <div className={`
+        flex flex-col w-full h-full border-b sticky  border-solid border-[hsl(var(--border-color))] top-0 z-[1] bg-[hsl(var(--background)/.9)] backdrop-blur-md transition-transform duration-300
+        ${
+          // isVisible ? 'translate-y-0' : '-translate-y-full'
+          ""
+        }
+      `}>
         
         <div className="fixed top-0 w-full px-4">
           <div className="container-wrapper">
@@ -336,7 +344,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
         </div>
       </div>
       {/* main outlet */}
-      <div className=" flex flex-col justify-center un-b w-full min-h-full">
+      <div className=" flex flex-row justify-around un-b w-full min-h-full">
         <div className=" w-full flex flex-col pb-14 min-h-full">
           {/* <div className="h-[60px] w-full"></div> */}
           {/* <AuthProvider> */}
@@ -351,10 +359,12 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
               post={commentFeed}
               
             />
+            <Toast/>
             {/* <CreateCommunityModal isOpen={false} onClose={setPost}/> */}
           
           {/* </AuthProvider> */}
         </div>
+        {/* <div className="w-full max-w-[368px] h-full border-l "></div> */}
         <button onClick={()=> {
             setPost(true)
             
@@ -374,10 +384,11 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
             </svg>
         </button>
           <Menu />
+        
       </div>
 
       {/* buttom nav */}
-      <nav className="fixed mobile:hidden bottom-0 w-full h-[55px] border-t border-[hsl(var(--border-color))] border-solid z-10 bg-[hsl(var(--background)/.9)] backdrop-blur-md flex flex-1 gap-2 px-2">
+      <nav className="fixed mobile:hidden bottom-0 w-full h-[55px] border-t border-[hsl(var(--border-color))] border-solid z-20 bg-[hsl(var(--background)/.9)] backdrop-blur-md flex flex-1 gap-2 px-2">
         <span className="w-full py-2">
           <Link href={"/home"} className="h-full">
             <div className={`flex items-center justify-center rounded-full ${mainpathname ==="home" && "bg-[hsl(var(--accent))] border border-[hsl(var(--border-color))]"} h-full`}>

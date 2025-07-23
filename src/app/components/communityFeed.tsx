@@ -191,28 +191,89 @@ export default function CommunityFeed({dave}: daveA) {
                     <div className="gap-2 flex justify-between">
                         <div className="flex gap-[15px]">
                             <span className="flex ml-[-8px] ">
-                                <button className="flex gap-[6px] px-2 h-8 items-center hover:bg-[hsl(var(--accent))] rounded-[20px]">
-                                    <svg viewBox="0 0 20 20" stroke="#727272" fill="none" className="h-5 w-5 stroke-[1.5]"><path d="M5.00002 2.54822C8.00003 2.09722 9.58337 4.93428 10 5.87387C10.4167 4.93428 12 2.09722 15 2.54822C18 2.99923 18.75 5.66154 18.75 7.05826C18.75 9.28572 18.1249 10.9821 16.2499 13.244C14.3749 15.506 10 18.3333 10 18.3333C10 18.3333 5.62498 15.506 3.74999 13.244C1.875 10.9821 1.25 9.28572 1.25 7.05826C1.25 5.66154 2 2.99923 5.00002 2.54822Z"></path></svg>
-                                        {dave.likes.length? <span className="text-sm text-[#727272]">{dave.likes.length}</span>:<></>}
+                                <button  
+                                    
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        
+                                    // Logic to view image or open image viewer
+                                    }} 
+                                    className={`
+                                        flex gap-[6px] px-2 h-8 items-center rounded-[20px] 
+                                        hover:bg-[hsl(var(--accent))] text-[#727272] hover:text-[--color]
+                                    `}>
+                                    <svg viewBox="0 0 20 20" stroke={"currentColor"} fill={"none"} className="h-5 w-5 stroke-[1.5]"><path d="M5.00002 2.54822C8.00003 2.09722 9.58337 4.93428 10 5.87387C10.4167 4.93428 12 2.09722 15 2.54822C18 2.99923 18.75 5.66154 18.75 7.05826C18.75 9.28572 18.1249 10.9821 16.2499 13.244C14.3749 15.506 10 18.3333 10 18.3333C10 18.3333 5.62498 15.506 3.74999 13.244C1.875 10.9821 1.25 9.28572 1.25 7.05826C1.25 5.66154 2 2.99923 5.00002 2.54822Z"></path></svg>
+                                        {dave.likes.length? <span className={`text-sm `}>{dave.likes.length}</span>:<></>}
                                 </button>
                             </span>
                             <span className="flex ml-[-8px] ">
-                                <button className="flex gap-[6px] px-2 h-8 items-center hover:bg-[hsl(var(--accent))] rounded-[20px]">
-                                <svg role="img" width="20" height="20" viewBox="0 0 20 20" fill="none" strokeWidth="1.5" stroke="#727272" strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5"><g><title></title><path d="M18.7502 11V7.50097C18.7502 4.73917 16.5131 2.50033 13.7513 2.50042L6.25021 2.50044C3.48848 2.5004 1.25017 4.73875 1.2502 7.50048L1.25021 10.9971C1.2502 13.749 3.47395 15.9836 6.22586 15.9971L6.82888 16V19.0182L12.1067 16H13.7502C16.5116 16 18.7502 13.7614 18.7502 11Z"></path></g></svg>
+                                <button className="flex gap-[6px] px-2 h-8 items-center hover:bg-[hsl(var(--accent))] fill-[#727272] hover:fill-[--color] rounded-[20px]"onClick={(e)=>{
+                                    // handleParent(dave._id ,dave.user.username)
+                                     e.stopPropagation();
+                                    
+                                }} >
+                                
+                                    <svg viewBox="0 0 24 24" className="size-5" aria-hidden="true"><g><path d="M1.751 10c0-4.42 3.584-8 8.005-8h4.366c4.49 0 8.129 3.64 8.129 8.13 0 2.96-1.607 5.68-4.196 7.11l-8.054 4.46v-3.69h-.067c-4.49.1-8.183-3.51-8.183-8.01zm8.005-6c-3.317 0-6.005 2.69-6.005 6 0 3.37 2.77 6.08 6.138 6.01l.351-.01h1.761v2.3l5.087-2.81c1.951-1.08 3.163-3.13 3.163-5.36 0-3.39-2.744-6.13-6.129-6.13H9.756z"></path></g></svg>
                                     {dave.comments.length? <span className="text-sm text-[#727272]">{dave.comments.length}</span>:<></>}
                                 </button>
                             </span>
                             <span className="flex ml-[-8px] ">
-                                <button className="flex gap-[6px] px-2 h-8 items-center hover:bg-[hsl(var(--accent))] rounded-[20px]">
-                                    <svg role="img" width="20" height="20" viewBox="0 0 20 20" fill="none" strokeWidth="1.5" stroke="#727272" strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5"><g><title></title><path d="M2.53001 7.81595C3.49179 4.73911 6.43281 2.5 9.91173 2.5C13.1684 2.5 15.9537 4.46214 17.0852 7.23684L17.6179 8.67647M17.6179 8.67647L18.5002 4.26471M17.6179 8.67647L13.6473 6.91176M17.4995 12.1841C16.5378 15.2609 13.5967 17.5 10.1178 17.5C6.86118 17.5 4.07589 15.5379 2.94432 12.7632L2.41165 11.3235M2.41165 11.3235L1.5293 15.7353M2.41165 11.3235L6.38224 13.0882"></path></g></svg>
-                                    {dave.replies.length? <span className="text-sm text-[#727272]">{dave.replies.length}</span>:<></>}
+                                <button className="flex gap-[6px] px-2 h-8 stroke-[#727272] hover:stroke-[--color] items-center hover:bg-[hsl(var(--accent))] rounded-[20px]" onClick={(e) => {
+                                        e.stopPropagation();
+                                        
+                                    // Logic to view image or open image viewer
+                                    }} >
+                                    <svg role="img" width="20" height="20" viewBox="0 0 20 20" fill="none" strokeWidth="1.5"  strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5"><g><title></title><path d="M2.53001 7.81595C3.49179 4.73911 6.43281 2.5 9.91173 2.5C13.1684 2.5 15.9537 4.46214 17.0852 7.23684L17.6179 8.67647M17.6179 8.67647L18.5002 4.26471M17.6179 8.67647L13.6473 6.91176M17.4995 12.1841C16.5378 15.2609 13.5967 17.5 10.1178 17.5C6.86118 17.5 4.07589 15.5379 2.94432 12.7632L2.41165 11.3235M2.41165 11.3235L1.5293 15.7353M2.41165 11.3235L6.38224 13.0882"></path></g></svg>
+                                    {dave.quotes.length? <span className="text-sm text-[#727272]">{dave.quotes.length}</span>:<></>}
                                 </button>
                             </span>
                         
                         </div>
-                        <div>
-                            <span></span>
-                            <span></span>
+                        <div className="flex flex-row gap-3">
+                           <span className="flex ml-[-8px] ">
+                                <button className="text-[#727272] hover:text-[--color] flex gap-[6px] px-2 h-8 items-center hover:bg-[hsl(var(--accent))] rounded-[20px]" 
+                                
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        
+                                    // Logic to view image or open image viewer
+                                    }} 
+                                >
+                                  <svg
+                                        viewBox="0 0 24 24"
+                                        aria-hidden="true"
+                                        className="size-5"
+                                        fill="currentColor"
+                                    >
+                                    <g>
+                                        <path d="M4 4.5C4 3.12 5.119 2 6.5 2h11C18.881 2 20 3.12 20 4.5v18.44l-8-5.71-8 5.71V4.5z" />
+                                    </g>
+                                    </svg>                                    
+                                </button>
+                            </span>
+                            <span className="flex ml-[-8px] ">
+                                <button className="flex gap-[6px] stroke-[#727272] hover:stroke-[--color] px-2 h-8 items-center hover:bg-[hsl(var(--accent))] rounded-[20px]"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                    // Logic to view image or open image viewer
+                                    }}
+                                >
+                                    <svg
+                                      role="img"
+                                      className="size-5"
+                                      viewBox="0 0 20 20" 
+                                      fill="none" 
+                                      strokeWidth="1.5" 
+                                      strokeLinecap="round" 
+                                      strokeLinejoin="round" 
+                                      xmlns="http://www.w3.org/2000/svg">
+                                        <g>
+                                          <title></title>
+                                          <path d="M10.2171 2.2793L10.2171 12.9745M10.2171 2.2793L13.333 4.99984M10.2171 2.2793L7.08301 4.99984M2.49967 10.9925L2.49967 14.1592C2.49967 16.011 4.00084 17.5121 5.85261 17.5121L14.9801 17.5121C16.8318 17.5121 18.333 16.011 18.333 14.1592L18.333 10.9925"></path>
+                                      </g>
+                                    </svg>
+                                </button>
+                            </span>
                         </div>
                     </div>
                 </div>
