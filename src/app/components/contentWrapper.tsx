@@ -11,7 +11,7 @@ type Img={
 }
 
 type Prop={
-    param:HomeFeed | SinglePost 
+    param:HomeFeed | SinglePost  | CommunityFeed
 }
 
 export default function ContentWrapper({param}:Prop) {

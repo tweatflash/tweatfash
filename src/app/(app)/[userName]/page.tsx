@@ -14,8 +14,8 @@ export async function generateMetadata({ params: { userName } }: Props) {
   const displayTerm = userName.replace("%20", " ");
   if (!data) {
     return {
-      title: 'No results for'+""+ userName,
-      description: 'No results for '+""+ userName +""+'found',
+      title: 'No results for'+" "+ userName,
+      description: 'No results for '+""+ userName +" "+'found',
     };
   }
   return {

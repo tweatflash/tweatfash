@@ -335,8 +335,10 @@ type Person= {
   username: string
   profileImage: string
   coverImage: string
-  pricingPlanDuration: string
-  impressions: number
+  pricingPlanDuration: string | null
+  impressions: number,
+  bio?:string,
+  following?:boolean
 }
 
 type CommPostRes={
@@ -852,6 +854,105 @@ type AuthCommunity ={
 }
 
 type AuthCreatedBy ={
+  _id: string
+  name: string
+  username: string
+  email: string
+  dateOfBirth: string
+  followers: string[]
+  following: string[]
+  friends: any[]
+  googleId: string
+  homeTown: string
+  relationshipStatus: string
+  placesLived: string
+  pricingPlan: string
+  role: string
+  profileImage: string
+  coverImage: string
+  bio: string
+  link: string
+  likedPosts: string[]
+  likedComments: any[]
+  likedreplies: any[]
+  pinnedPosts: any[]
+  mutePosts: any[]
+  accountViews: string[]
+  interests: string[]
+  blockedUsers: any[]
+  muteUsers: any[]
+  reposts: string[]
+  quotes: any[]
+  location: string
+  language: string
+  isVerified: boolean
+  wallet: number
+  tweatcoins: number
+  pricingPlanDuration: string
+  verificationToken: string
+  suspended: boolean
+  createdAt: string
+  updatedAt: string
+  __v: number
+  verified: string
+  gender: string
+  flags: string[]
+  aura: number
+  resetPasswordExpire: string
+  resetPasswordToken: string
+}
+
+type CommunityFeed= {
+  _id: string
+  communityId: string
+  user: CommunityFeedUser
+  type: string
+  text: string
+  img: string[]
+  video: any[]
+  audio: any[]
+  visibility: string
+  likes: any[]
+  views: any[]
+  quotes: any[]
+  taggedFriends: any[]
+  tweatstars: number
+  comments: any[]
+  replies: any[]
+  createdAt: string
+  updatedAt: string
+  __v: number
+}
+
+type CommunityFeedUser ={
+  _id: string
+  name: string
+  username: string
+  profileImage: string
+  coverImage: string
+}
+
+
+type AuthCommunity= {
+  status: any[]
+  _id: string
+  name: string
+  bio: string
+  profileImage: string
+  coverImage: string
+  createdBy: AuthComCreatedBy
+  admin: string[]
+  followers: string[]
+  quotes: any[]
+  accountViews: any[]
+  isCommunityVerified: boolean
+  createdAt: string
+  updatedAt: string
+  __v: number
+  categories: string[]
+}
+
+type AuthComCreatedBy ={
   _id: string
   name: string
   username: string

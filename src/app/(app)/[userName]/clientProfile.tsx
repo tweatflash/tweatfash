@@ -7,8 +7,29 @@ type Prop={
 import PostCompartment from "@/app/components/posts/postCompartment";
 import { AuthContext } from '@/app/context/Authcontext'
 import ProfileLoader from './profileLoader'
+import { Calendar, MapPin } from 'lucide-react'
 export default function ClientProfile({result}:Prop) {
     const {loggedIn,userObj,setEditProfile}:any=useContext(AuthContext)
+   
+    const convertIsodate=(isdate:string)=>{
+    const isoDate = isdate
+    const date = new Date(isoDate);
+    const monthIndex = date.getUTCMonth()
+    const shortMonths = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", 
+                       "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const monthLabel = shortMonths[monthIndex];
+
+
+    // Format to Day-Month-Year
+    const day = date.getUTCDate().toString().padStart(2, '0');
+    const month = (date.getUTCMonth() + 1).toString().padStart(2, '0'); // Months are 0-indexed
+    const year = date.getUTCFullYear();
+
+    return {
+      day,month,year,monthLabel
+    }
+
+  }
     useEffect(()=>{
         console.log(loggedIn)
         
@@ -49,15 +70,28 @@ export default function ClientProfile({result}:Prop) {
 
                                             <div className="flex flex-col">
                                             <h3 className='text-2xl font-bold dark:text-[rgb(225,225,225)]'>{result.name}</h3>
-                                            <div>
+                                            <div className='mb-3'>
                                                 <span className="text-[#727272] text-[15px] ">
                                                 @{result.username}
                                                 </span>
                                             </div>
-                                            <div className='mb-3'>
+                                            {result.bio && <div className='mb-3'>
                                                 <span className="dark:text-[rgb(225,225,225)] text-[15px] ">
-                                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati eaque voluptate beatae totam.
+                                                {result.bio}
                                                 </span>
+                                            </div>}
+                                            <div className='mb-3 flex gap-2 text-[#727272]'>
+                                                <span className=" text-[15px] inline-flex gap-1 items-center">
+                                                    <Calendar size={16}/> 
+                                                    Joined { convertIsodate(result.createdAt).monthLabel }
+                                                    {" " + convertIsodate(result.createdAt).year}
+                                                </span>
+                                                {
+                                                    result.location && <span className="dark:text-[rgb(225,225,225)] text-[15px] inline-flex gap-1 items-center">
+                                                    <MapPin size={16}/> 
+                                                    {result.location}
+                                                </span>
+                                                }
                                             </div>
                                             <div className="flex flex-row gap-4">
                                                 <Link href={"#"} className="text-[14px] text-[#727272] hover:underline">
@@ -73,10 +107,10 @@ export default function ClientProfile({result}:Prop) {
                                             </div>
                                             <div className="flex flex-row flex-grow gap-2 justify-end">
                                                 <div className="flex-1 flex-col">
-                                                    <button type="button" className="px-4 w-full h-full bg-[#4070f4] rounded-lg font-[500] text-white text-[15px]" onClick={()=>console.log(result._id)}>{loggedIn.loggedIn && userObj.user._id=== result._id ?"New Post":(loggedIn.loggedIn && userObj.user.following.forEach((item:any)=>item._id===result._id) ?"Following":"Follow")}</button>
+                                                    <button type="button" className="px-4 w-full h-full bg-[#4070f4] rounded-lg font-[500] text-white text-[15px]" onClick={()=>console.log(result._id)}>{userObj.user._id=== result._id ?"New Post":(userObj.user.following.forEach((item:any)=>item._id===result._id) ?"Following":"Follow")}</button>
                                                 </div>
                                                 <div className="flex-1 flex-col">
-                                                    <button type="button" className=" w-full h-full bg-[hsl(var(--accent))] rounded-lg text-black dark:text-white text-[15px]" onClick={()=>loggedIn.loggedIn && userObj.user._id=== result._id && setEditProfile(true)}>{loggedIn.loggedIn && userObj.user._id=== result._id ?"Edit Profile":"Add Friend"}</button>
+                                                    <button type="button" className=" w-full h-full bg-[hsl(var(--accent))] rounded-lg text-black dark:text-white text-[15px]" onClick={()=>userObj.user._id=== result._id && setEditProfile(true)}>{userObj.user._id=== result._id ?"Edit Profile":"Add Friend"}</button>
                                                 </div>
                                                 <div className="flex flex-col">
                                                     <button type="button" className="bg-[hsl(var(--accent))] flex justify-center items-center rounded-lg w-10 aspect-square">

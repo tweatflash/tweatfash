@@ -103,33 +103,33 @@ export default function CommandPalette() {
         }} className="fixed bg-black/60 inset-0 z-50">
             {/* backdrop */}
             <Transition.Child
-            as={Fragment}
-            enter="duration-150 ease-out"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="duration-100 ease-in"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
+                as={Fragment}
+                enter="duration-150 ease-out"
+                enterFrom="opacity-0"
+                enterTo="opacity-100"
+                leave="duration-100 ease-in"
+                leaveFrom="opacity-100"
+                leaveTo="opacity-0"
             >
             <div className="absolute inset-0 hidden bg-black/60" />
             </Transition.Child>
 
             {/* panel */}
             <Transition.Child
-            as={Fragment}
-            enter="duration-150 ease-out"
-            enterFrom="opacity-50 scale-95"
-            enterTo="opacity-100 scale-100"
-            leave="duration-100 ease-in"
-            leaveFrom="opacity-100 scale-100"
-            leaveTo="opacity-50 scale-95"
+                as={Fragment}
+                enter="duration-150 ease-out"
+                enterFrom="opacity-50 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="duration-100 ease-in"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-50 scale-95"
             >
-            <Dialog.Panel className="mx-auto mt-0 mobile:bg-transparent bg-[hsl(var(--background))] mobile:mt-[55px] w-full mobile:max-w-[600px] max-w-full mobile:px-4 min-h-full mobile:min-h-fit">
+            <Dialog.Panel className="mx-auto mt-0 mobile:bg-transparent bg-[hsl(var(--background))] mobile:max-h-90vh w-full mobile:max-w-[600px] max-w-full mobile:px-4 h-screen mobile:py-10">
                 <Command
-                    className="overflow-hidden mobile:rounded-xl mobile:border mobile:border-[hsl(var(--border-color))] mobile:shadow-2xl mobile:bg-[hsl(var(--background))]"
+                    className="mobile:rounded-xl mobile:border max-h-full overflow-y-auto mobile:border-[hsl(var(--border-color))] mobile:shadow-2xl mobile:bg-[hsl(var(--background))]"
                 >
                 {/* search input */}
-                <div className="border-b relative border-zinc-200 dark:border-zinc-700 h-[55px] flex flex-row gap-1">
+                <div className="border-b sticky top-0 bg-[hsl(var(--background))] z-10 border-zinc-200 dark:border-zinc-700 h-[55px] flex flex-row gap-1">
                     <div className='aspect-square h-[55px] p-2'>
                         <button className="h-full aspect-square hover:bg-[hsl(var(--accent))] rounded-full flex justify-center items-center"
                             onClick={()=>setOpenSearch(false)}
@@ -164,7 +164,7 @@ export default function CommandPalette() {
                 </div>
 
                 {/* results */}
-                <Command.List className="h-fit overflow-y-auto p-2 flex flex-col">
+                <Command.List className="h-fit  p-2 flex flex-col">
                     {query && results && <Command.Item tabIndex={-1} className='flex-1 aria-selected:bg-[hsl(var(--accent))] flex px-2 py-2 cursor-pointer rounded-lg'>
                         <div className='w-full flex-1 h-10 rounded-xl flex flex-row ' onClick={()=>handlePush(`/explore/${query}`)}>
                             <div className='h-full aspect-square flex justify-center items-center'>

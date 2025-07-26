@@ -1,11 +1,12 @@
 "use client"
 import React, { useState } from 'react'
 import PostedByYou from './postedByYou'
+import CommunityPost from './eachCommunity'
 type param={
     communityId:string
 }
 
-export default function     CommunityCompartment({communityId}:param) {
+export default function  CommunityCompartment({communityId}:param) {
     const tabs= ["Posts","About","People"]
     const [activeTab,setActiveTab]=useState(0)
     return (
@@ -26,7 +27,7 @@ export default function     CommunityCompartment({communityId}:param) {
                 </ul>
             </div>
             <div className="flex flex-col">
-                <PostedByYou username={communityId}/>
+                <CommunityPost communityId={communityId}/>
             </div>
         </>
     )

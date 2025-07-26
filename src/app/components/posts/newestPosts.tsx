@@ -1,12 +1,13 @@
 import Feed from "../feed"
 // import { cookies } from "next/headers";
 import getPosts from "../../../../lib/posts/getPosts";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "@/app/context/Authcontext";
 import CommentSkeleton from "../comment/CommentSkeleton";
 
 export default function NewestPosts() {
     const {cook} :any=useContext(AuthContext)
+    
     const rf :string | undefined=cook.refreshTkn
     const ac:string | undefined=cook.accessTkn
     const [newest,setNewest]=useState<HomeFeed[] | null>([])
@@ -19,9 +20,7 @@ export default function NewestPosts() {
             setNewest([...(newest || []) ,...results])
         }
     }
-    useEffect(()=>{
-        petch()
-    },[])
+   
     return (
         <div className="flex flex-col">  
             { newest?.map((item:HomeFeed)=><Feed dave={item} key={item._id}/>)}

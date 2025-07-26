@@ -3,16 +3,18 @@ import getPosts from "../../../../lib/posts/getPosts";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "@/app/context/Authcontext";
 import CommentSkeleton from "../comment/CommentSkeleton";
+import PersonalCommunityFeed from "../personalCommunityFeed";
 
-type stri={
-    _id:string,
+type Prop={
+    communityId:string,
     
 }
-export default function SuggestedPost() {
+export default function CommunityPost({communityId}:Prop) {
     const {cook,forYou,setForYou ,userObj} :any=useContext(AuthContext)
     const rf :string | undefined=cook?.refreshTkn
     const ac:string | undefined=cook?.accessTkn
-    const [posts,setPosts]=useState<HomeFeed[] | null>(null)
+    const [posts,setPosts]=useState<CommunityFeed[] | null>(null)
+    
     var postId :string[] | []=forYou?.length ? forYou.map((item:HomeFeed)=>{
         if (item._id){
             return item._id
@@ -20,24 +22,23 @@ export default function SuggestedPost() {
     }):[]
     let dataA :string[]=[]
     async function petch(){
-        const data : Promise<Post>=await getPosts(postId,"posts/all",rf,ac) 
-        const results: HomeFeed[] | undefined = await (await data)?.posts;
-        if (results?.length ){
-            setForYou([...(forYou || []) ,...results])
+        const data :  CommunityFeed[] | undefined=await getPosts("",`communityPosts/all/${communityId}`,rf,ac) 
+        // const results: CommunityFeed[] | undefined = await (await data)?.posts;
+        if (data?.length ){
+            setPosts([...(posts || []) ,...data])
         }
+        console.log(data)
     }
     
     useEffect(()=>{
-        postId=forYou?.length ? forYou.map((item:HomeFeed)=>{
-        if (item._id){
-            return item._id
-        }
-    }):[]
-    //   console.log(postId)
-    },[forYou])
+        setPosts([])
+        petch()
+        
+    },[communityId])
+    
     return (
         <div className="flex flex-col">  
-            {userObj?.user&& forYou?.map((item:HomeFeed,index:number)=><Feed dave={item} key={item._id+index}/>)}
+            {posts?.map((item:CommunityFeed,index:number)=><PersonalCommunityFeed dave={item} key={item._id+index}/>)}
 
             <CommentSkeleton onVisible={() => petch()}/>
         </div> 

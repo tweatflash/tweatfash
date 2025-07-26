@@ -19,6 +19,7 @@ import { AuthContext } from "@/app/context/Authcontext";
 import Example from "../list";
 import BlobImages from "../blobImages";
 import CommentForm from "../comment/CommentForm";
+import { X, Image, Smile, ChevronDown, Users, Globe, Check, Sparkles, Heart, Zap } from 'lucide-react';
 type Prop = {
   post: boolean;
   setPost: React.Dispatch<React.SetStateAction<boolean>>;
@@ -36,6 +37,13 @@ type File = {
   type: string;
   webkitRelativePath: string;
 };
+interface Community {
+  id: string;
+  name: string;
+  color: string;
+  memberCount: number;
+  isActive?: boolean;
+}
 export default function CreatePostDialog() {
   const editableRef = useRef<HTMLDivElement>(null);
   const [text, setText] = useState("");
@@ -164,6 +172,59 @@ export default function CreatePostDialog() {
       console.log(response);
     }
   };
+  const [postContent, setPostContent] = useState('');
+    const [selectedOption, setSelectedOption] = useState<string>('everyone');
+    const [replyPermission, setReplyPermission] = useState('everyone');
+    const [showAudienceDropdown, setShowAudienceDropdown] = useState(false);
+    const [showReplyDropdown, setShowReplyDropdown] = useState(false);
+    const [communities,setCommunities]=useState<Community[] | []>([...userObj.communities.map((item:any,index:number)=>{
+        return {
+          id: item._id,
+          name: item.name,
+          icon: Users,
+          color: 'from-blue-500 to-cyan-500',
+          description: item.bio,
+          memberCount: item.followers.length,
+          isSpecial: true
+      }
+})])
+      const [h,setH]=useState(true)
+    // Create audience options with Everyone first, then communities
+    const audienceOptions = [
+      {
+        id: 'everyone',
+        name: 'Everyone',
+        icon: Globe,
+        color: 'from-blue-500 to-cyan-500',
+        description: 'Anyone on the platform can see this post',
+        memberCount: 0,
+        isSpecial: true
+      },
+      ...communities.map(community => ({
+        ...community,
+        icon: Users,
+        description: `${community.memberCount} members`,
+        isSpecial: false
+      }))
+    ];
+  
+    const handleOptionSelect = (optionId: string) => {
+      setSelectedOption(optionId);
+      setShowAudienceDropdown(false);
+    };
+  
+    const getAudienceText = () => {
+      if (selectedOption === 'everyone') {
+        return 'Everyone';
+      }
+      const selectedCommunity = communities.find((c:Community )=> c.id === selectedOption);
+      return selectedCommunity ? selectedCommunity.name : 'Select audience';
+    };
+  
+    const getAudienceIcon = () => {
+      return selectedOption === 'everyone' ? Globe : Users;
+    };
+  
   return (
     <Transition show={post} as={Fragment}>
       <Dialog
@@ -184,7 +245,7 @@ export default function CreatePostDialog() {
           leaveTo="opacity-0 scale-95"
         >
           <Dialog.Panel className="mx-auto mt-0 mobile:py-10 h-full mobile:bg-transparent bg-[hsl(var(--background))] w-full mobile:max-w-[600px] max-w-full mobile:px-4 min-h-full mobile:min-h-fit z-10 ">
-            <Dialog.Panel className="mobile:rounded-2xl overflow-x-hidden relative max-h-full flex flex-col gap-4 pb-4 mobile:bg-[hsl(var(--background))]">
+            <Dialog.Panel className="mobile:rounded-2xl relative max-h-full flex flex-col gap-4 pb-4 mobile:bg-[hsl(var(--background))]">
               <div className="text-lg flex flex-col sticky top-0 border-b border-[hsl(var(--border-color))]">
                 <div className=" h-[55px] flex flex-row justify-between  gap-1">
                   <div className="aspect-square h-[55px] p-2">
@@ -241,7 +302,7 @@ export default function CreatePostDialog() {
                       
                       <div className="relative h-auto flex-1 flex flex-col gap-3">
                         <CommentForm
-                          placeholder="Aything for the world 😎 ..."
+                          placeholder="what is on your mind"
                           buttonText="Post"
                           setIsUploading={setIsUploading}
                           setUploadProgress={setUploadProgress}
@@ -253,116 +314,137 @@ export default function CreatePostDialog() {
                 </div>
               </div>
 
-              <div className="w-full sticky bottom-0">
-                <div className="w-full  flex px-4">
-                  <div className="css-175oi2r r-xoduu5 r-eqz5dr">
-                    <div className="css-175oi2r r-xoduu5 r-18u37iz r-kzbkwu">
-                      <div className="pb-4 flex flex-col gap-2">
-                        
-                          <div
-                            dir="ltr"
-                            className="flex gap-2 items-center text-[#727272] text-sm"
-                          >
-                            <Listbox value={selected} onChange={setSelected}>
-                            {/* <Label className="block text-sm/6 font-medium text-gray-900">Assigned to</Label> */}
-                            <div className="relative">
-                              <ListboxButton className="flex outline-none items-center justify-between gap-5 w-fit cursor-default rounded-lg bg-[hsl(var(--accent))]  text-left sm:text-sm px-2 h-[34px] text-[#727272] ">
-                                <span className="col-start-1 row-start-1 flex items-center gap-3 ">
-                                  {/* <img alt="" src={selected.avatar} className="size-5 shrink-0 rounded-full" /> */}
-                                  <span className="block truncate text-sm">
-                                    {selected.name}
-                                  </span>
-                                </span>
-                                <span className="size-4 flex items-center ">
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth={1.5}
-                                    stroke="currentColor"
-                                    className="size-5"
-                                  >
-                                    <path
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      d="m19.5 8.25-7.5 7.5-7.5-7.5"
-                                    />
-                                  </svg>
-                                </span>
-                              </ListboxButton>
+             
 
-                              <ListboxOptions
-                                transition
-                                className=" z-[2000] mt-1 py-3 w-fit overflow-auto rounded-md bg-[hsl(var(--background))] text-base shadow-lg ring-1 ring-[hsl(var(--border-color))] focus:outline-hidden data-leave:transition data-leave:duration-100 data-leave:ease-in data-closed:data-leave:opacity-0 sm:text-sm"
+      {/* Privacy Controls */}
+      <div className="w-full sticky bottom-0 backdrop-blur-sm">
+        <div className="w-full flex px-4">
+          <div className="w-full">
+            <div className="pb-4 flex flex-col gap-3">
+              
+              {/* Audience Selector */}
+              <div className="flex gap-3 items-center text-[#727272] text-sm">
+                <span className="text-sm font-medium flex items-center gap-1">
+                  <Users className="size-4 text-purple-500" />
+                  Post to:
+                </span>
+                <div className="relative">
+                  {/* Current Selection Button */}
+                  <button
+                    className="flex outline-none items-center justify-between gap-3 w-fit cursor-pointer rounded-xl bg-gradient-to-r bg-[hsl(var(--accent))] text-left sm:text-sm px-4 h-[38px] text-[#727272] transition-all duration-200 min-w-[160px] shadow-sm hover:shadow-md border border-[hsl(var(--border-color))]"
+                    onClick={() => setShowAudienceDropdown(!showAudienceDropdown)}
+                  >
+                    <span className="flex items-center gap-2">
+                      {selectedOption === 'everyone' ? (
+                        <Globe className="size-4 text-blue-500" />
+                      ) : (
+                        <div className={`size-4 rounded-full bg-gradient-to-br `} />
+                      )}
+                      <span className="block truncate text-sm font-medium">{getAudienceText()}</span>
+                    </span>
+                    <ChevronDown className={`size-4 transition-transform duration-200 ${showAudienceDropdown ? 'rotate-180' : ''}`} />
+                  </button>
+
+                  {/* Dropdown Menu */}
+                  {showAudienceDropdown && (
+                    <div className="absolute top-full mb-2 left-0 w-80 bg-white border border-gray-200 rounded-2xl shadow-2xl z-50 overflow-auto max-h-96 backdrop-blur-sm">
+                      <div className="p-3">
+                        <div className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3 px-2">Choose your audience</div>
+                        <div className="space-y-1">
+                          {audienceOptions.map((option) => {
+                            const isSelected = selectedOption === option.id;
+                            const IconComponent = option.icon;
+                            
+                            return (
+                              <button
+                                key={option.id}
+                                className={`w-full flex items-center gap-3 p-3 rounded-xl transition-all duration-200 hover:scale-[1.02] ${
+                                  isSelected 
+                                    ? 'bg-gradient-to-r from-blue-50 to-purple-50 border-2 border-blue-200 shadow-md' 
+                                    : 'hover:bg-gray-50 border-2 border-transparent'
+                                }`}
+                                onClick={() => handleOptionSelect(option.id)}
                               >
-                                <div className="px-5">
-                                  <h2 className="text-[--color] text-lg">
-                                    Choose your Audience
-                                  </h2>
+                                {option.isSpecial ? (
+                                  <div className="size-8 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center shadow-lg">
+                                    <IconComponent className="size-4 text-[--color]" />
+                                  </div>
+                                ) : (
+                                  <div className={`size-8 rounded-full bg-gradient-to-br flex items-center justify-center text-white text-sm font-bold shadow-lg`}>
+                                    <IconComponent className="size-4 text-[--color]" />
+                                  </div>
+                                )}
+                                <div className="flex-1 text-left">
+                                  <div className="text-sm font-semibold text-gray-800">{option.name}</div>
+                                  <div className="text-xs text-gray-500">{option.description}</div>
                                 </div>
-                                {people.map((person) => (
-                                  <ListboxOption
-                                    key={person.id}
-                                    value={person}
-                                    className={`group hover:bg-[hsl(var(--accent))] select-none flex gap-4 justify-between relative cursor-default py-3  px-4 text-[--color] `}
-                                  >
-                                    <div className="flex items-center gap-3">
-                                      {person.id === 1 ? (
-                                        <></>
-                                      ) : (
-                                        <img
-                                          alt=""
-                                          src={person.avatar}
-                                          className="size-10 shrink-0 rounded-lg"
-                                        />
-                                      )}
-
-                                      <div className="flex flex-col truncate font-normal group-data-selected:font-semibold">
-                                        <span className="truncate">
-                                          {person.name}
-                                        </span>
-                                        <span className="text-sm text-gray-500 dark:text-gray-400">
-                                          {person.id === 1
-                                            ? "Public"
-                                            : "Community"}
-                                        </span>
-                                      </div>
-                                    </div>
-
-                                    <span
-                                      className={`${
-                                        selected.id === person.id
-                                          ? ""
-                                          : "invisible"
-                                      } flex items-center text-indigo-600 group-not-data-selected:hidden group-data-focus:text-white`}
-                                    >
-                                      <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        strokeWidth={1.5}
-                                        stroke="currentColor"
-                                        className="size-5"
-                                      >
-                                        <path
-                                          strokeLinecap="round"
-                                          strokeLinejoin="round"
-                                          d="m4.5 12.75 6 6 9-13.5"
-                                        />
-                                      </svg>
-                                    </span>
-                                  </ListboxOption>
-                                ))}
-                              </ListboxOptions>
-                            </div>
-                          </Listbox>
-                          </div>
+                                {isSelected && (
+                                  <div className="size-6 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center shadow-lg">
+                                    <Check className="size-3 text-white" />
+                                  </div>
+                                )}
+                                {option.isActive && !isSelected && (
+                                  <div className="size-2 rounded-full bg-green-400 shadow-sm" />
+                                )}
+                              </button>
+                            );
+                          })}
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  )}
                 </div>
-                
               </div>
+
+              {/* Reply Permission Selector */}
+              <div className="flex gap-3 items-center text-[#727272] text-sm">
+                <span className="text-sm font-medium  flex items-center gap-1">
+                  <Smile className="size-4 text-green-500" />
+                  Who can reply:
+                </span>
+                <div className="relative">
+                  <button
+                    className="flex outline-none items-center justify-between gap-3 w-fit cursor-pointer rounded-xl bg-[hsl(var(--accent))] text-left sm:text-sm px-4 h-[38px]  transition-all duration-200 shadow-sm hover:shadow-md border border-[hsl(var(--border-color))]"
+                    onClick={() => setShowReplyDropdown(!showReplyDropdown)}
+                  >
+                    <span className="block truncate text-sm font-medium">
+                      {replyPermission === 'everyone' ? 'Everyone can reply' : 
+                       replyPermission === 'following' ? 'People you follow' : 
+                       'Mentioned only'}
+                    </span>
+                    <ChevronDown className={`size-4 transition-transform duration-200 ${showReplyDropdown ? 'rotate-180' : ''}`} />
+                  </button>
+
+                  {showReplyDropdown && (
+                    <div className="absolute bottom-full mb-2 left-0 w-56 bg-[hsl(var(--background))] border border-[hsl(var(--border-color))] rounded-2xl shadow-2xl z-50 overflow-hidden">
+                      <div className="p-2">
+                        {['everyone', 'following', 'mentioned'].map((option) => (
+                          <button
+                            key={option}
+                            className={`w-full text-left px-4 py-3 text-sm rounded-xl dark:hover:bg-white/5 hover:bg-black/5 transition-all duration-200 ${
+                              replyPermission === option ? 'dark:hover:bg-white/5 bg-black/5 dark:bg-white/5 border border-[hsl(var(--border-color))]' : 'border border-transparent'
+                            }`}
+                            onClick={() => {
+                              setReplyPermission(option);
+                              setShowReplyDropdown(false);
+                            }}
+                          >
+                            <div className="font-medium text-[--color]">
+                              {option === 'everyone' ? 'Everyone can reply' :
+                               option === 'following' ? 'People you follow' :
+                               'Mentioned only'}
+                            </div>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
             </Dialog.Panel>
           </Dialog.Panel>
         </Transition.Child>

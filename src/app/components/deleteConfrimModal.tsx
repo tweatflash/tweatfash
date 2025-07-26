@@ -7,13 +7,19 @@ interface DeleteConfirmModalProps {
   onClose: () => void;
   onConfirm: () => void;
   postContent: string;
+  msg:{
+    title:string,
+    des:string,
+    action:string
+  }
 }
 
 export const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({
   isOpen,
   onClose,
   onConfirm,
-  postContent
+  postContent,
+  msg
 }) => {
   const [isDeleting, setIsDeleting] = useState(false);
 
@@ -58,7 +64,7 @@ export const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({
                       <AlertTriangle className="h-5 w-5 text-red-600" />
                     </div>
                     <Dialog.Title as="h3" className="text-lg font-semibold text-gray-900">
-                      Delete Post
+                      {msg.title}
                     </Dialog.Title>
                   </div>
                   <button
@@ -71,7 +77,7 @@ export const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({
 
                 <div className="mb-6">
                   <p className="text-gray-600 mb-4">
-                    Are you sure you want to delete this post? This action cannot be undone.
+                    {msg.des}
                   </p>
                   <div className="bg-gray-50 rounded-lg p-4 border-l-4 border-gray-300">
                     <p className="text-sm text-gray-700 line-clamp-3">
@@ -94,7 +100,10 @@ export const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({
                     className="flex-1 px-4 py-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center space-x-2"
                   >
                     <Trash2 className="h-4 w-4" />
-                    <span>{isDeleting ? 'Deleting...' : 'Delete Post'}</span>
+                    <span>
+                      {/* {isDeleting ? 'Deleting...' : 'Delete Post'} */}
+                      {msg.action}
+                    </span>
                   </button>
                 </div>
               </Dialog.Panel>

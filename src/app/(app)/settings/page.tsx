@@ -37,7 +37,9 @@ import {
   LogOut
 } from 'lucide-react';
 import { useTheme } from 'next-themes';
-
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/navigation';
+import { DeleteConfirmModal } from '@/app/components/deleteConfrimModal';
 interface SettingsState {
   profile: {
     displayName: string;
@@ -105,6 +107,8 @@ const SettingsPage: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [mounted, setMounted] = useState(false)
   const { theme, setTheme } = useTheme()
+  const [logout,setLogOut]=useState(false)
+  const router=useRouter()
   const [settings, setSettings] = useState<SettingsState>({
     profile: {
       displayName: 'John Doe',
@@ -160,7 +164,8 @@ const SettingsPage: React.FC = () => {
       reducedMotion: false,
       increaseContrast: false
     }
-  });
+  })
+
   useEffect(() => setMounted(true), [])
   const sidebarItems = [
     { id: 'account', label: 'Your account', icon: User },
@@ -218,7 +223,12 @@ const SettingsPage: React.FC = () => {
     setShowSuccess(true);
     setTimeout(() => setShowSuccess(false), 2000);
   };
-
+  const logOutAccount =()=>{
+    Cookies.remove('RFTFL');
+    Cookies.remove("ACTFL");
+    router.push('/')
+  }
+  
   const openModal = (modalType: string, currentValue?: string) => {
     setActiveModal(modalType);
     // setTempValue('');
@@ -276,7 +286,7 @@ const SettingsPage: React.FC = () => {
   };
 
   const handleLogout = () => {
-    
+    setLogOut(true)
   };
   const downloadData = () => {
     
@@ -1265,6 +1275,7 @@ const SettingsPage: React.FC = () => {
           </div>
         </Modal>
       )}
+      <DeleteConfirmModal isOpen={logout} onClose={()=>setLogOut(false)} postContent='' onConfirm={()=>logOutAccount()} msg={{title:"Log out of Tweatflash?",des:"You can always log back in at any time. If you just want to switch accounts, you can do that by adding an existing account. ",action:"Log out"}}/>
     </div>
   );
 };

@@ -77,35 +77,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, [visible, anchorEl]);
-
-  
-  useEffect(()=>{
-    if(document.cookie.includes("RFTFL")){
-       const rf:string | undefined=Cookies.get("RFTFL")
-       const ac:string| undefined=Cookies.get("ACTFL")
-       setCook({
-        refreshTkn:rf ?rf :"",
-        accessTkn:ac ? ac :"" 
-       })
-       if (typeof(ac)!==undefined && typeof(rf)!==undefined){
-        const fire=async ()=>{
-          const data= await checkLoggedinStatus(rf,ac)
-          setUserObj(data?.request)
-          setAuthLoader(false)
-          if(data?.valid){
-            setLoggedIn({"loding":false,"loggedIn":true})
-          }else{
-             setLoggedIn({"loding":false,"loggedIn":false})
-          }
-          
-        }
-        fire()
-       }
-      setLoggedIn({"loding":false,"loggedIn":false})
-    }else{
-      setLoggedIn({"loding":false,"loggedIn":false})
-    }
-  },[])
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   useEffect(() => {
@@ -131,6 +102,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       value={
         {
           userObj,
+          setUserObj,
           auth,
           setAuth,
           authLoader,

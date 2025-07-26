@@ -6,28 +6,33 @@ type Props = {
 
 const CommentSkeleton: React.FC<Props> = ({ onVisible }) => {
   const skeletonRef = useRef<HTMLDivElement>(null);
-
+  const ranOnce = useRef(false);
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          onVisible(); // Run your function when visible
+     if (!ranOnce.current) {
+      
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            ranOnce.current = true;
+            onVisible(); // Run your function when visible
+          }
+        },
+        {
+          threshold: 0.1, // 10% visible triggers it
         }
-      },
-      {
-        threshold: 0.1, // 10% visible triggers it
-      }
-    );
+      );
 
-    if (skeletonRef.current) {
-      observer.observe(skeletonRef.current);
-    }
-
-    return () => {
       if (skeletonRef.current) {
-        observer.unobserve(skeletonRef.current);
+        observer.observe(skeletonRef.current);
       }
-    };
+
+      return () => {
+        if (skeletonRef.current) {
+          observer.unobserve(skeletonRef.current);
+        }
+      };
+      
+    }
   }, [onVisible]);
 
   const loaderarray = [1, 2, 3, 4, 5];

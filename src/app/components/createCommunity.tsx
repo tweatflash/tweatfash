@@ -19,6 +19,157 @@ import {
   AlertCircle
 } from 'lucide-react';
 
+const InputField: React.FC<{
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  placeholder?: string;
+  maxLength?: number;
+  multiline?: boolean;
+  rows?: number;
+  icon?: React.ReactNode;
+  error?: string;
+  required?: boolean;
+}> = ({ label, value, onChange, placeholder, maxLength, multiline = false, rows = 3, icon, error, required = false }) => (
+  <div className="space-y-2">
+    <label className="block text-[15px] font-medium text-gray-900">
+      {label} {required && <span className="text-red-500">*</span>}
+    </label>
+    <div className="relative">
+      {icon && (
+        <div className="absolute left-3 top-3 text-gray-500 pointer-events-none">
+          {icon}
+        </div>
+      )}
+      {multiline ? (
+        <textarea
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder={placeholder}
+          maxLength={maxLength}
+          rows={rows}
+          className={`w-full ${icon ? 'pl-10' : 'pl-3'} pr-3 py-3 rounded-xl border ${
+            error ? 'border-red-300 focus:border-red-500 focus:ring-red-500' : 'border-gray-300 focus:border-blue-500 focus:ring-blue-500'
+          } text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-opacity-20 transition-colors resize-none bg-white`}
+        />
+      ) : (
+        <input
+          type="text"
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder={placeholder}
+          maxLength={maxLength}
+          className={`w-full ${icon ? 'pl-10' : 'pl-3'} pr-3 py-3 rounded-xl border ${
+            error ? 'border-red-300 focus:border-red-500 focus:ring-red-500' : 'border-gray-300 focus:border-blue-500 focus:ring-blue-500'
+          } text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-opacity-20 transition-colors bg-white`}
+        />
+      )}
+      {maxLength && (
+        <div className="absolute right-3 top-3 text-[13px] text-gray-500 pointer-events-none">
+          {value.length}/{maxLength}
+        </div>
+      )}
+    </div>
+    {error && (
+      <div className="flex items-center space-x-1 text-red-500 text-[13px]">
+        <AlertCircle size={14} />
+        <span>{error}</span>
+      </div>
+    )}
+  </div>
+);
+
+const CategorySelector: React.FC<{
+  label: string;
+  categories: string[];
+  selectedCategories: string[];
+  onToggle: (category: string) => void;
+  error?: string;
+  required?: boolean;
+}> = ({ label, categories, selectedCategories, onToggle, error, required = false }) => (
+  <div className="space-y-2">
+    <label className="block text-[15px] font-medium text-gray-900">
+      {label} {required && <span className="text-red-500">*</span>}
+    </label>
+    <div className={`border rounded-xl p-4 ${error ? 'border-red-300' : 'border-gray-300'} bg-white`}>
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-2 max-h-48 overflow-y-auto">
+        {categories.map((category) => (
+          <button
+            key={category}
+            type="button"
+            onClick={() => onToggle(category)}
+            className={`flex items-center space-x-2 p-2 rounded-lg text-left transition-colors ${
+              selectedCategories.includes(category)
+                ? 'bg-blue-50 border border-blue-200 text-blue-700'
+                : 'hover:bg-gray-50 border border-transparent text-gray-700'
+            }`}
+          >
+            <div className={`w-4 h-4 rounded border-2 flex items-center justify-center ${
+              selectedCategories.includes(category)
+                ? 'bg-blue-500 border-blue-500'
+                : 'border-gray-300'
+            }`}>
+              {selectedCategories.includes(category) && (
+                <Check size={12} className="text-white" />
+              )}
+            </div>
+            <span className="text-[13px] font-medium">{category}</span>
+          </button>
+        ))}
+      </div>
+      {selectedCategories.length > 0 && (
+        <div className="mt-3 pt-3 border-t border-gray-200">
+          <div className="text-[13px] text-gray-600 mb-2">
+            Selected ({selectedCategories.length}):
+          </div>
+          <div className="flex flex-wrap gap-1">
+            {selectedCategories.map((category) => (
+              <span
+                key={category}
+                className="inline-flex items-center space-x-1 px-2 py-1 bg-blue-100 text-blue-700 text-[12px] rounded-full"
+              >
+                <span>{category}</span>
+                <button
+                  type="button"
+                  onClick={() => onToggle(category)}
+                  className="hover:bg-blue-200 rounded-full p-0.5"
+                >
+                  <X size={10} />
+                </button>
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+    {error && (
+      <div className="flex items-center space-x-1 text-red-500 text-[13px]">
+        <AlertCircle size={14} />
+        <span>{error}</span>
+      </div>
+    )}
+  </div>
+);
+
+const Toggle: React.FC<{ checked: boolean; onChange: (checked: boolean) => void }> = ({ 
+  checked, 
+  onChange
+}) => (
+  <button
+    type="button"
+    onClick={() => onChange(!checked)}
+    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
+      checked ? 'bg-blue-500' : 'bg-gray-300'
+    }`}
+  >
+    <span
+      className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+        checked ? 'translate-x-6' : 'translate-x-1'
+      }`}
+    />
+  </button>
+);
+
 interface CreateCommunityModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -26,7 +177,6 @@ interface CreateCommunityModalProps {
 
 interface CommunityData {
   name: string;
-  handle: string;
   description: string;
   categories: string[];
   location: string;
@@ -42,7 +192,6 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({ isOpen, onC
   const [step, setStep] = useState(1);
   const [community, setCommunity] = useState<CommunityData>({
     name: '',
-    handle: '',
     description: '',
     categories: [],
     location: '',
@@ -88,23 +237,23 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({ isOpen, onC
   ];
 
   const updateCommunity = (field: keyof CommunityData, value: any) => {
-    setCommunity(prev => ({ ...prev, [field]: value }));
-    
-    // Auto-generate handle from name
-    if (field === 'name' && value) {
-      const handle = value.toLowerCase()
-        .replace(/[^a-z0-9\s]/g, '')
-        .replace(/\s+/g, '')
-        .slice(0, 25);
-      setCommunity(prev => ({ ...prev, handle }));
-    }
+    setCommunity(prev => {
+      const newState = { ...prev, [field]: value };
+      
+      // Auto-generate handle from name if handle is empty
+      
+      
+      return newState;
+    });
     
     // Clear errors when user starts typing
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: '' }));
     }
   };
-
+  const checkCommunityName=async ()=>{
+    
+  }
   const toggleCategory = (category: string) => {
     setCommunity(prev => ({
       ...prev,
@@ -145,11 +294,7 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({ isOpen, onC
         newErrors.name = 'Community name must be at least 3 characters';
       }
 
-      if (!community.handle.trim()) {
-        newErrors.handle = 'Handle is required';
-      } else if (community.handle.length < 3) {
-        newErrors.handle = 'Handle must be at least 3 characters';
-      }
+      
 
       if (!community.description.trim()) {
         newErrors.description = 'Description is required';
@@ -189,7 +334,6 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({ isOpen, onC
       // Reset form and close modal
       setCommunity({
         name: '',
-        handle: '',
         description: '',
         categories: [],
         location: '',
@@ -205,157 +349,6 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({ isOpen, onC
       onClose();
     }, 2000);
   };
-
-  const InputField: React.FC<{
-    label: string;
-    value: string;
-    onChange: (value: string) => void;
-    placeholder?: string;
-    maxLength?: number;
-    multiline?: boolean;
-    rows?: number;
-    icon?: React.ReactNode;
-    error?: string;
-    required?: boolean;
-  }> = ({ label, value, onChange, placeholder, maxLength, multiline = false, rows = 3, icon, error, required = false }) => (
-    <div className="space-y-2">
-      <label className="block text-[15px] font-medium text-gray-900">
-        {label} {required && <span className="text-red-500">*</span>}
-      </label>
-      <div className="relative">
-        {icon && (
-          <div className="absolute left-3 top-3 text-gray-500 pointer-events-none">
-            {icon}
-          </div>
-        )}
-        {multiline ? (
-          <textarea
-            value={value}
-            onChange={(e) => onChange(e.target.value)}
-            placeholder={placeholder}
-            maxLength={maxLength}
-            rows={rows}
-            className={`w-full ${icon ? 'pl-10' : 'pl-3'} pr-3 py-3 rounded-xl border ${
-              error ? 'border-red-300 focus:border-red-500 focus:ring-red-500' : 'border-gray-300 focus:border-blue-500 focus:ring-blue-500'
-            } text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-opacity-20 transition-colors resize-none bg-white`}
-          />
-        ) : (
-          <input
-            type="text"
-            value={value}
-            onChange={(e) => onChange(e.target.value)}
-            placeholder={placeholder}
-            maxLength={maxLength}
-            className={`w-full ${icon ? 'pl-10' : 'pl-3'} pr-3 py-3 rounded-xl border ${
-              error ? 'border-red-300 focus:border-red-500 focus:ring-red-500' : 'border-gray-300 focus:border-blue-500 focus:ring-blue-500'
-            } text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-opacity-20 transition-colors bg-white`}
-          />
-        )}
-        {maxLength && (
-          <div className="absolute right-3 top-3 text-[13px] text-gray-500 pointer-events-none">
-            {value.length}/{maxLength}
-          </div>
-        )}
-      </div>
-      {error && (
-        <div className="flex items-center space-x-1 text-red-500 text-[13px]">
-          <AlertCircle size={14} />
-          <span>{error}</span>
-        </div>
-      )}
-    </div>
-  );
-
-  const CategorySelector: React.FC<{
-    label: string;
-    categories: string[];
-    selectedCategories: string[];
-    onToggle: (category: string) => void;
-    error?: string;
-    required?: boolean;
-  }> = ({ label, categories, selectedCategories, onToggle, error, required = false }) => (
-    <div className="space-y-2">
-      <label className="block text-[15px] font-medium text-gray-900">
-        {label} {required && <span className="text-red-500">*</span>}
-      </label>
-      <div className={`border rounded-xl p-4 ${error ? 'border-red-300' : 'border-gray-300'} bg-white`}>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 max-h-48 overflow-y-auto">
-          {categories.map((category) => (
-            <button
-              key={category}
-              type="button"
-              onClick={() => onToggle(category)}
-              className={`flex items-center space-x-2 p-2 rounded-lg text-left transition-colors ${
-                selectedCategories.includes(category)
-                  ? 'bg-blue-50 border border-blue-200 text-blue-700'
-                  : 'hover:bg-gray-50 border border-transparent text-gray-700'
-              }`}
-            >
-              <div className={`w-4 h-4 rounded border-2 flex items-center justify-center ${
-                selectedCategories.includes(category)
-                  ? 'bg-blue-500 border-blue-500'
-                  : 'border-gray-300'
-              }`}>
-                {selectedCategories.includes(category) && (
-                  <Check size={12} className="text-white" />
-                )}
-              </div>
-              <span className="text-[13px] font-medium">{category}</span>
-            </button>
-          ))}
-        </div>
-        {selectedCategories.length > 0 && (
-          <div className="mt-3 pt-3 border-t border-gray-200">
-            <div className="text-[13px] text-gray-600 mb-2">
-              Selected ({selectedCategories.length}):
-            </div>
-            <div className="flex flex-wrap gap-1">
-              {selectedCategories.map((category) => (
-                <span
-                  key={category}
-                  className="inline-flex items-center space-x-1 px-2 py-1 bg-blue-100 text-blue-700 text-[12px] rounded-full"
-                >
-                  <span>{category}</span>
-                  <button
-                    type="button"
-                    onClick={() => onToggle(category)}
-                    className="hover:bg-blue-200 rounded-full p-0.5"
-                  >
-                    <X size={10} />
-                  </button>
-                </span>
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
-      {error && (
-        <div className="flex items-center space-x-1 text-red-500 text-[13px]">
-          <AlertCircle size={14} />
-          <span>{error}</span>
-        </div>
-      )}
-    </div>
-  );
-
-  const Toggle: React.FC<{ checked: boolean; onChange: (checked: boolean) => void }> = ({ 
-    checked, 
-    onChange
-  }) => (
-    <button
-      type="button"
-      onClick={() => onChange(!checked)}
-      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
-        checked ? 'bg-blue-500' : 'bg-gray-300'
-      }`}
-    >
-      <span
-        className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-          checked ? 'translate-x-6' : 'translate-x-1'
-        }`}
-      />
-    </button>
-  );
 
   const renderStep1 = () => (
     <div className="space-y-6">
@@ -375,16 +368,6 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({ isOpen, onC
         required
       />
 
-      <InputField
-        label="Handle"
-        value={community.handle}
-        onChange={(value) => updateCommunity('handle', value.toLowerCase().replace(/[^a-z0-9]/g, ''))}
-        placeholder="communityhandle"
-        maxLength={25}
-        icon={<AtSign size={20} />}
-        error={errors.handle}
-        required
-      />
 
       <InputField
         label="Description"
@@ -567,7 +550,7 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({ isOpen, onC
             </div>
             <div className="flex-1">
               <div className="font-semibold text-gray-900">{community.name || 'Community Name'}</div>
-              <div className="text-[13px] text-gray-500">@{community.handle || 'handle'}</div>
+              
             </div>
             <div className="flex items-center space-x-1 text-[13px] text-gray-500">
               {React.createElement(privacyOptions.find(p => p.id === community.privacy)?.icon || Globe, { size: 14 })}

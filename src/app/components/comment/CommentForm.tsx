@@ -482,6 +482,7 @@ const CommentForm: React.FC<CommentFormProps> = ({
                 autoFocus={true}
                 data-placeholder={"What's on your mind ?"}
                 onFocus={() => setIsFocused(true)}
+                // onBlur={() => setIsFocused(false)}
               />
 
               {/* Placeholder styling */}

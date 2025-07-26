@@ -5,7 +5,7 @@ const Tabs = ({
   tabs,
   state,
   setState
-}:{tabs:string[],state:any,setState:any}) => {
+}:{tabs:any[],state:any,setState:any}) => {
   const [activeTab, setActiveTab] = useState(0);
 
   
@@ -68,13 +68,13 @@ const Tabs = ({
                   key={index}
                   onClick={() => setState(index)}
                   className={`flex-1 ms-3 relative rounded-md before:content-[''] z-10 whitespace-nowrap text-center text-sm text-nowrap py-1 px-3 h-fit ${
-                    state === index
+                    state === tab.index
                       ? "text-[--color]  bg-[hsl(var(--accent))] "
                       : "text-[#777777] border-transparent"
                   }`}
                 >
-                  {state === index && <div className='w-full absolute -bottom-[12px] h-[2px] bg-black dark:bg-white left-0' />}
-                  {tab}
+                  {state === tab.index && <div className='w-full absolute -bottom-[12px] h-[2px] bg-black dark:bg-white left-0' />}
+                  {tab.action}
                 </button>
               ))}
             </div>

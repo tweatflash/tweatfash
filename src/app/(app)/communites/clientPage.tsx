@@ -1,12 +1,13 @@
 "use client"
 import SuggestedCommunityPost from '@/app/components/communityPosts/suggestedcommunityPost';
 import CreateCommunityModal from '@/app/components/createCommunity';
+import { Plus } from 'lucide-react';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 
 export default function Page() {
     const tabs = [
-        "search",
+        "add",
         "Tech Enthusiasts",
         "Gamers",
         "Fitness & Wellness",
@@ -32,7 +33,7 @@ export default function Page() {
 
     },[])
     const [activeTab,setActiveTab]=useState(1)
-    const [open,setOpen]=useState(true)
+    const [open,setOpen]=useState(false)
     const onEnd=()=>{
         setOpen(false)
     }
@@ -125,14 +126,14 @@ export default function Page() {
                                 <div className="flex min-w-full justify-start absolute m-auto w-fit gap-2">
                                     {tabs.map((tab, index) => (
 
-                                        tab==='search' ? 
+                                        tab==='add' ? 
                                             <button
                                                 key={index}
-                                                
+                                                onClick={()=>setOpen(true)}
                                                 className={`flex-1 whitespace-nowrap text-center text-sm text-nowrap h-8 rounded-lg border border-[hsl(var(--border-color))] px-2 font-bold bg-[hsl(var(--accent))] ${2 === index ? "bg-black text-white dark:bg-white dark:text-black" : "text-[#777777]"                                                    
                                             }`}
                                             >
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="stroke-black dark:stroke-white"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg> 
+                                                <Plus size={20}/>
                                             </button> :
                                             
                                             <button

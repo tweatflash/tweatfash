@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 
-export default  function HighlightText({ text } :{text:string}) {
+export default function HighlightText({ text } :{ text:string }) {
   const parsedText = text.split(/(\s+)/).map((word, index) => {
     if (/^@[a-zA-Z0-9_]+$/.test(word)) {
       // @mention ➜ Blue

@@ -10,18 +10,48 @@ import PostedByYou from "../../components/posts/postedByYou";
 import { AuthContext } from "@/app/context/Authcontext";
 import Example from "@/app/components/list";
 import Tabs from "@/app/components/tab";
+import CommunityPost from "@/app/components/posts/eachCommunity";
 export default function HomePage() {
   const [activeTab, setActiveTab] = useState(0);
   const { userObj, openSearch, post, setPost, setOpenSearch } =
     useContext<any>(AuthContext);
-  const tabs = [
-    "Suggested",
-    "Following",
-    "Newest Tweats",
-    "Saved Tweats",
-    "Posted by you",
-    "Liked Posts",
-  ];
+    const localTabs = [
+      
+      "Suggested",
+      "Following",
+      
+    ];
+    const date=[
+      {
+        index:0,
+        action:"Suggested",
+        name:"post",
+        _id:""
+      },
+      {
+        index:1,
+        action:"Following",
+        name:"post",
+        _id:""
+      },
+      {
+        index:2,
+        action:"Saved post",
+        name:"post",
+        _id:""
+      }
+    ]
+    const [tabs,setTabs]=useState([
+      ...date,
+      ...userObj.communities.map((item:any,index:number)=>(
+        {
+          index:index+3,
+          action:item.name,
+          name:"communities",
+          _id:item._id
+        }
+    ))
+  ])
   return (
     <div className="w-full min-h-full h-auto">
       {/* <div className="flex flex-col justify-center relative py-2 px-0 mobile:pl-20 mobile:pr-12 mobile:py-4 overflow-x-hidden resize-none">
@@ -60,14 +90,14 @@ export default function HomePage() {
             />
             <Example />
             {/* { results?.map(item=><Feed dave={item} key={item._id}/>)} */}
-            {activeTab === 0 && <SuggestedPost />}
-            {activeTab === 1 && <FollowingPosts />}
-            {activeTab === 2 && <NewestPosts />}
-            {activeTab === 3 && <SavedPosts />}
-            {userObj?.user && activeTab === 4 && (
+            {activeTab === tabs[activeTab].index && tabs[activeTab].name==="post" && tabs[activeTab].action==="Suggested" && <SuggestedPost />}
+            {activeTab === tabs[activeTab].index && tabs[activeTab].name==="post" && tabs[activeTab].action==="Following" && <FollowingPosts />}
+            {/* {activeTab === 2 && <NewestPosts />} */}
+            {activeTab === tabs[activeTab].index && tabs[activeTab].name==="post" && tabs[activeTab].action==="Saved post" && <SavedPosts />}
+            {/* {userObj?.user && activeTab === 4 && (
               <PostedByYou username={userObj.user.username} />
-            )}
-            {activeTab === 5 && <LikedPosts />}
+            )} */}
+            {activeTab === tabs[activeTab].index && tabs[activeTab].name==="communities" && <CommunityPost communityId={tabs[activeTab]._id} />}
           </div>
         </div>
       </div>
