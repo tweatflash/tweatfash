@@ -356,7 +356,7 @@
               </Link>
               <div className="w-full flex flex-col">
                 <div className="w-full  flex flex-col gap-2">
-                  <div className="gap-1 flex flex-col">
+                  <div className="flex flex-col">
                     <div className="flex flex-col">
                       <div className="flex justify-between gap-2">
                         <div className="flex items-center w-full h-full">

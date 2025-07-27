@@ -526,7 +526,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
           </Link>
         </span>
 
-        <span className="w-full py-2 flex-1">
+        {/* <span className="w-full py-2 flex-1">
           <Link href={`${userObj?.user?.username ? "/"+userObj.user.username :""} `} className="h-full flex flex-col justify-center">
             <div className={`flex items-center justify-center rounded-full ${mainpathname ===userObj.user.username && "bg-[hsl(var(--accent))] border border-[hsl(var(--border-color))]"} m-auto w-16 h-8`}>
               <svg
@@ -541,7 +541,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
             </div>
             <span className="text-current text-xs m-auto">Profile</span>
           </Link>
-        </span>
+        </span> */}
       </nav>
       
     </div>
