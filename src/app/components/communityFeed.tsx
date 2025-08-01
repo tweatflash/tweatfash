@@ -62,7 +62,7 @@ export default function CommunityFeed({dave}: daveA) {
     return (
         <div className="flex flex-col relative border-b border-solid border-[hsl(var(--border-color))] last:border-none last:border-b-0" onClick={()=>console.log(dave)}>
         <div className="flex flex-col py-5 w-full"  role="article">
-            <div className="gap-3 flex item-start w-full px-4 lg:px-0">
+            <div className="gap-3 flex item-start w-full px-4 ">
                 {/* <Link href={""}> */}
             <div className="size-9 relative rounded-md border border-[hsl(var(--border-color))] ">
                 
@@ -75,7 +75,7 @@ export default function CommunityFeed({dave}: daveA) {
                         />
                     </div>
                 </Link>
-                <div className=" size-6 rounded-full z-[2] absolute bottom-[-5px] right-[-5px] outline outline-2 outline-white dark:outline-[#0a0a0a]">
+                <div className=" size-6 rounded-full  absolute bottom-[-5px] right-[-5px] outline outline-2 outline-[hsl(var(--background))]">
                     <img
                         alt={dave.user.name}
                         src={dave.user.profileImage?dave.user.profileImage : "https://abs.twimg.com/sticky/default_profile_images/default_profile_200x200.png"}

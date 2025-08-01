@@ -83,7 +83,7 @@ export default function Login({clientId}:Prop) {
                     'Content-Type': 'application/json',
                     
                 },
-                body: JSON.stringify({
+                body: JSON.stringify({  
                     "email":email,
                     "password":password
                 }) 

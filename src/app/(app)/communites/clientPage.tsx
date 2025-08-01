@@ -155,9 +155,106 @@ export default function Page() {
                         </div>
                         <SuggestedCommunityPost />
                     </div>
-                     {/* <div className="lg:flex hidden w-full max-w-[400px] bg-[hsl(var(--accent))] mt-5 rounded-lg h-[300px] sticky top-[85px]">
+                     <div className="lg:flex hidden flex-col gap-4 w-full border border-[hsl(var(--border-color))] max-w-[400px] bg-[hsl(var(--accent))] mt-5 rounded-lg h-full sticky top-[85px]">
+                        <div className='w-full pt-4 flex flex-col gap-4'>
+                            <div className='px-4'>
+                                <h2>Your communities</h2>
+                            </div>
+                            <div className='flex flex-col '>
+                                <div className="w-full gap-3 px-4 flex flex-row hover:bg-black/5 py-4">
+                                    <div className='bg-red-400 rounded-md size-14'></div>
+                                    <div className='flex flex-col'>
+                                        <div>
+                                            <h2>Allibaba Inteligence</h2>
+                                        </div>
+                                        <div className="flex-1">
+                                            <div
+                                                
+                                                className=" font-[500] w-fit gap-2 flex items-center text-sm text-[--color]"
+                                                >
+                                                <div className="flex -space-x-2">
+                                                {
+                                                    [1,2,3,4,5].slice(0,5).map((item:any,index:number)=>(
+                                                    <div className="bg-[hsl(var(--background))] border border-[hsl(var(--border-color))] overflow-hidden inline-block size-7 rounded-full ring-2 ring-[hsl(var(--accent))]">
+                                                        
+                                                    </div>
+                                                        
+                                                    ))
+                                                }
+                                                
+                                                
+                                                </div>
+                                                <span className="flex items-center">200k</span>
+                                                <span className="text-[#727272]">Members</span>
+                                            </div>
 
-                     </div> */}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="w-full gap-3 px-4 flex flex-row hover:bg-black/5 py-4">
+                                    <div className='bg-red-400 rounded-md size-14'></div>
+                                    <div className='flex flex-col'>
+                                        <div>
+                                            <h2>Nkiri</h2>
+                                        </div>
+                                        <div className="flex-1">
+                                            <div
+                                                
+                                                className=" font-[500] w-fit gap-2 flex items-center text-sm text-[--color]"
+                                                >
+                                                <div className="flex -space-x-2">
+                                                {
+                                                    [1,2].slice(0,5).map((item:any,index:number)=>(
+                                                    <div className="bg-[hsl(var(--background))] border border-[hsl(var(--border-color))] overflow-hidden inline-block size-7 rounded-full ring-2 ring-[hsl(var(--accent))]">
+                                                        
+                                                    </div>
+                                                        
+                                                    ))
+                                                }
+                                                
+                                                
+                                                </div>
+                                                <span className="flex items-center">2</span>
+                                                <span className="text-[#727272]">Members</span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="w-full gap-3 px-4 flex flex-row hover:bg-black/5 py-4">
+                                    <div className='bg-red-400 rounded-md size-14'></div>
+                                    <div className='flex flex-col'>
+                                        <div>
+                                            <h2>Next.js</h2>
+                                        </div>
+                                        <div className="flex-1">
+                                            <div
+                                                
+                                                className=" font-[500] w-fit gap-2 flex items-center text-sm text-[--color]"
+                                                >
+                                                <div className="flex -space-x-2">
+                                                {
+                                                    [1].slice(0,5).map((item:any,index:number)=>(
+                                                    <div className="bg-[hsl(var(--background))] border border-[hsl(var(--border-color))] overflow-hidden inline-block size-7 rounded-full ring-2 ring-[hsl(var(--accent))]">
+                                                        
+                                                    </div>
+                                                        
+                                                    ))
+                                                }
+                                                
+                                                
+                                                </div>
+                                                <span className="flex items-center">1</span>
+                                                <span className="text-[#727272]">Members</span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div></div>
+                     </div>
                     <CreateCommunityModal isOpen={open} onClose={onEnd}/>
                 </div>
             </div>

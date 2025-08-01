@@ -3,8 +3,6 @@ import React from "react";
 import Cookies from "js-cookie"
 import { useRouter } from "next/navigation"
 import { useEffect, useState,FormEvent } from "react"
-import { useGoogleLogin } from '@react-oauth/google';
-import Signup02 from './signup02'
 import Signup03 from './signup03'
 import Signup04 from './signup04';
 export default function Signup01() {
@@ -64,24 +62,7 @@ export default function Signup01() {
             }      
         }
     }
-    const login:any = useGoogleLogin({
-
-        onSuccess: async (response) =>{
-            // showLoader()
-            try {
-                const res =await fetch("https://www.googleapis.com/oauth2/v3/userinfo",{
-                    headers:{
-                        Authorization:`Bearer ${response.access_token}`,
-                    },
-                })
-                const dat=await res.json()
-                console.log(dat)
-              // 
-            } catch (error) {
-                console.log(error)
-            }
-        }
-    });
+   
     return (
         <>
         { !next?
@@ -198,7 +179,7 @@ export default function Signup01() {
                     <button
                             data-slot="button"
                             className="inline-flex items-center justify-between gap-4 whitespace-nowrap rounded-md transition-all disabled:pointer-events-none disabled:cursor-not-allowed hover:opacity-70 disabled:opacity-40 [&_svg]:pointer-events-none [&img:not([class*='size-'])]:size-4 shrink-0 [&img]:shrink-0 outline-none shadow-xs hover:bg-[accent]  px-6 py-4 text-[--color] w-full bg-[hsl(var(--accent))] text-[16px] tracking-wide border dark:border-transparent border-[hsl(var(--border-color))]"
-                            onClick={login}
+                            
                             disabled={validEmail}
                         >
                             <img src="/google.svg" className="size-6" alt="google"/>

@@ -361,9 +361,9 @@
                       <div className="flex justify-between gap-2">
                         <div className="flex items-center w-full h-full">
                           <div className="w-full h-full tracking-wide decoration-0 flex">
-                            <div className="flex justify-between gap-2">
+                            <div className="flex justify-between gap-2 font-[500]">
                               <div className="flex">
-                                <span className="text-black w-full font-[500] dark:text-[#EEEEEE] text-[15px] decoration-0 ">
+                                <span className="text-black w-full font-[500]  dark:text-[#EEEEEE] text-[15px] decoration-0 ">
                                   <Link
                                     href={"/" + dave.user.username}
                                     className="hover:underline decoration-0 "
@@ -518,7 +518,7 @@
                         <div className="flex">
                           <div className="flex">
                             <p
-                              className={`text-[--color] break-all break-words font-[400] text-[15px] whitespace-pre-wrap tracking-wide decoration-0`}
+                              className={`text-[--color] break-all break-words font-[400] text-[15px] opacity-85 whitespace-pre-wrap tracking-wide decoration-0`}
                             >
                               <HighlightText text={dave.text} />
                             </p>

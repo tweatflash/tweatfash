@@ -18,6 +18,7 @@ import {
   Check,
   AlertCircle
 } from 'lucide-react';
+import createPost from '../../../lib/createPost';
 
 const InputField: React.FC<{
   label: string;
@@ -32,7 +33,7 @@ const InputField: React.FC<{
   required?: boolean;
 }> = ({ label, value, onChange, placeholder, maxLength, multiline = false, rows = 3, icon, error, required = false }) => (
   <div className="space-y-2">
-    <label className="block text-[15px] font-medium text-gray-900">
+    <label className="block text-[15px] font-medium text-[--color]">
       {label} {required && <span className="text-red-500">*</span>}
     </label>
     <div className="relative">
@@ -49,8 +50,8 @@ const InputField: React.FC<{
           maxLength={maxLength}
           rows={rows}
           className={`w-full ${icon ? 'pl-10' : 'pl-3'} pr-3 py-3 rounded-xl border ${
-            error ? 'border-red-300 focus:border-red-500 focus:ring-red-500' : 'border-gray-300 focus:border-blue-500 focus:ring-blue-500'
-          } text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-opacity-20 transition-colors resize-none bg-white`}
+            error ? 'border-red-400 focus:border-red-500 focus:ring-red-500' : 'border-[hsl(var(--border-color))] focus:border-blue-500 focus:ring-blue-500'
+          } text-[--color] placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-opacity-20 transition-colors resize-none bg-transparent`}
         />
       ) : (
         <input
@@ -60,8 +61,8 @@ const InputField: React.FC<{
           placeholder={placeholder}
           maxLength={maxLength}
           className={`w-full ${icon ? 'pl-10' : 'pl-3'} pr-3 py-3 rounded-xl border ${
-            error ? 'border-red-300 focus:border-red-500 focus:ring-red-500' : 'border-gray-300 focus:border-blue-500 focus:ring-blue-500'
-          } text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-opacity-20 transition-colors bg-white`}
+            error ? 'border-red-400 focus:border-red-500 focus:ring-red-500' : 'border-[hsl(var(--border-color))] focus:border-blue-500 focus:ring-blue-500'
+          } text-[--color] placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-opacity-20 transition-colors bg-transparent`}
         />
       )}
       {maxLength && (
@@ -88,10 +89,10 @@ const CategorySelector: React.FC<{
   required?: boolean;
 }> = ({ label, categories, selectedCategories, onToggle, error, required = false }) => (
   <div className="space-y-2">
-    <label className="block text-[15px] font-medium text-gray-900">
+    <label className="block text-[15px] font-medium text-[--color]">
       {label} {required && <span className="text-red-500">*</span>}
     </label>
-    <div className={`border rounded-xl p-4 ${error ? 'border-red-300' : 'border-gray-300'} bg-white`}>
+    <div className={`border rounded-xl p-4 ${error ? 'border-red-400' : 'border-[hsl(var(--border-color))]'} bg-[hsl(var(--background))]`}>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-2 max-h-48 overflow-y-auto">
         {categories.map((category) => (
           <button
@@ -100,14 +101,14 @@ const CategorySelector: React.FC<{
             onClick={() => onToggle(category)}
             className={`flex items-center space-x-2 p-2 rounded-lg text-left transition-colors ${
               selectedCategories.includes(category)
-                ? 'bg-blue-50 border border-blue-200 text-blue-700'
-                : 'hover:bg-gray-50 border border-transparent text-gray-700'
+                ? 'bg-[hsl(var(--accent))] border border-[hsl(var(--border-color))] text-[--color]'
+                : 'hover:bg-[gray-50] border border-transparent text-[#727272]'
             }`}
           >
             <div className={`w-4 h-4 rounded border-2 flex items-center justify-center ${
               selectedCategories.includes(category)
                 ? 'bg-blue-500 border-blue-500'
-                : 'border-gray-300'
+                : 'border-[#727272]'
             }`}>
               {selectedCategories.includes(category) && (
                 <Check size={12} className="text-white" />
@@ -118,21 +119,21 @@ const CategorySelector: React.FC<{
         ))}
       </div>
       {selectedCategories.length > 0 && (
-        <div className="mt-3 pt-3 border-t border-gray-200">
-          <div className="text-[13px] text-gray-600 mb-2">
+        <div className="mt-3 pt-3 border-t border-[hsl(var(--border-color))]">
+          <div className="text-[13px] text-[#727272] mb-2">
             Selected ({selectedCategories.length}):
           </div>
           <div className="flex flex-wrap gap-1">
             {selectedCategories.map((category) => (
               <span
                 key={category}
-                className="inline-flex items-center space-x-1 px-2 py-1 bg-blue-100 text-blue-700 text-[12px] rounded-full"
+                className="inline-flex items-center space-x-1 px-2 py-1 bg-[hsl(var(--accent))] border border-[hsl(var(--border-color))] text-[--color] text-[12px] rounded-full"
               >
                 <span>{category}</span>
                 <button
                   type="button"
                   onClick={() => onToggle(category)}
-                  className="hover:bg-blue-200 rounded-full p-0.5"
+                  className=" rounded-full p-0.5"
                 >
                   <X size={10} />
                 </button>
@@ -214,7 +215,7 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({ isOpen, onC
     'Music', 'Photography', 'Fashion', 'Politics', 'Environment',
     'Books & Literature', 'Movies & TV', 'Cryptocurrency', 'Other'
   ];
-
+  const formData = new FormData();
   const privacyOptions = [
     {
       id: 'public',
@@ -267,7 +268,8 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({ isOpen, onC
       setErrors(prev => ({ ...prev, categories: '' }));
     }
   };
-
+  const [coverFile,setCoverFile]=useState<any>('')
+  const [profileFile,setProfileFile]=useState<any>('')
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>, type: 'cover' | 'profile') => {
     const file = event.target.files?.[0];
     if (file) {
@@ -275,8 +277,10 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({ isOpen, onC
       reader.onload = (e) => {
         const imageUrl = e.target?.result as string;
         if (type === 'cover') {
+          setCoverFile(file)
           updateCommunity('coverImage', imageUrl);
         } else {
+          setProfileFile(file)
           updateCommunity('profileImage', imageUrl);
         }
       };
@@ -323,38 +327,44 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({ isOpen, onC
 
   const handleCreate = async () => {
     if (!validateStep(step)) return;
-
+    formData.append("name",community.name)
+    formData.append("bio",community.description)
+    formData.append("coverImage",coverFile)
+    formData.append("profileImage",profileFile)
+    // formData.append("categories", JSON.stringify(community.categories))
     setIsCreating(true);
-    
-    // Simulate API call
-    setTimeout(() => {
-      console.log('Creating community:', community);
-      setIsCreating(false);
-      
-      // Reset form and close modal
-      setCommunity({
-        name: '',
-        description: '',
-        categories: [],
-        location: '',
-        website: '',
-        privacy: 'public',
-        allowMemberPosts: true,
-        requireApproval: false,
-        coverImage: '',
-        profileImage: ''
-      });
+    try {
+      const data = await createPost("community/create",formData);
+      console.log(data)
+      // setCommunity({
+      //   name: '',
+      //   description: '',
+      //   categories: [],
+      //   location: '',
+      //   website: '',
+      //   privacy: 'public',
+      //   allowMemberPosts: true,
+      //   requireApproval: false,
+      //   coverImage: '',
+      //   profileImage: ''
+      // });
       setStep(1);
       setErrors({});
-      onClose();
-    }, 2000);
+      // onClose();
+    } catch (error) {
+      
+    }finally{
+      setIsCreating(false);
+    }
+    // Simulate API call
+    
   };
-
+   
   const renderStep1 = () => (
     <div className="space-y-6">
       <div className="text-center mb-6">
-        <h3 className="text-2xl text-gray-900 mb-2">Create your community</h3>
-        <p className="text-gray-600">Let's start with the basics</p>
+        <h3 className="text-2xl text-[--color] mb-2">Create your community</h3>
+        <p className="text-[#727272]">Let's start with the basics</p>
       </div>
 
       <InputField
@@ -395,13 +405,13 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({ isOpen, onC
   const renderStep2 = () => (
     <div className="space-y-6">
       <div className="text-center mb-6">
-        <h3 className="text-2xl text-gray-900 mb-2">Customize your community</h3>
-        <p className="text-gray-600">Add images and additional details</p>
+        <h3 className="text-2xl text-[--color] mb-2">Customize your community</h3>
+        <p className="text-[#727272]">Add images and additional details</p>
       </div>
 
       {/* Cover Image */}
       <div className="space-y-2">
-        <label className="block text-[15px] font-medium text-gray-900">Cover image</label>
+        <label className="block text-[15px] font-medium text-[--color]">Cover image</label>
         <div className="relative h-32 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl overflow-hidden">
           {community.coverImage ? (
             <img src={community.coverImage} alt="Cover" className="w-full h-full object-cover" />
@@ -425,7 +435,7 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({ isOpen, onC
 
       {/* Profile Image */}
       <div className="space-y-2">
-        <label className="block text-[15px] font-medium text-gray-900">Community icon</label>
+        <label className="block text-[15px] font-medium text-[--color]">Community icon</label>
         <div className="flex items-center space-x-4">
           <div className="relative">
             <div className="w-20 h-20 rounded-full bg-gray-200 overflow-hidden">
@@ -446,7 +456,7 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({ isOpen, onC
             </button>
           </div>
           <div>
-            <p className="text-[15px] font-medium text-gray-900">Upload community icon</p>
+            <p className="text-[15px] font-medium text-[--color]">Upload community icon</p>
             <p className="text-[13px] text-gray-500">Recommended: Square image, at least 256x256px</p>
           </div>
         </div>
@@ -473,13 +483,13 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({ isOpen, onC
   const renderStep3 = () => (
     <div className="space-y-6">
       <div className="text-center mb-6">
-        <h3 className="text-2xl text-gray-900 mb-2">Privacy & settings</h3>
-        <p className="text-gray-600">Choose who can see and interact with your community</p>
+        <h3 className="text-2xl text-[--color] mb-2">Privacy & settings</h3>
+        <p className="text-[#727272]">Choose who can see and interact with your community</p>
       </div>
 
       {/* Privacy Settings */}
       <div className="space-y-4">
-        <h4 className="text-[15px] text-gray-900">Privacy</h4>
+        <h4 className="text-[15px] text-[--color]">Privacy</h4>
         {privacyOptions.map((option) => (
           <button
             key={option.id}
@@ -487,13 +497,13 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({ isOpen, onC
             onClick={() => updateCommunity('privacy', option.id)}
             className={`w-full flex items-start space-x-3 p-4 rounded-xl border transition-colors ${
               community.privacy === option.id
-                ? 'border-blue-500 bg-blue-50'
-                : 'border-gray-200 hover:bg-gray-50'
+                ? 'border-blue-500'
+                : 'border-[hsl(var(--border-color))] hover:bg-[hsl(var(--accent))]'
             }`}
           >
             <option.icon size={20} className={community.privacy === option.id ? 'text-blue-500' : 'text-gray-500'} />
             <div className="flex-1 text-left">
-              <div className={`text-[15px] font-medium ${community.privacy === option.id ? 'text-blue-600' : 'text-gray-900'}`}>
+              <div className={`text-[15px] font-medium ${community.privacy === option.id ? 'text-blue-600' : 'text-[--color]'}`}>
                 {option.title}
               </div>
               <div className="text-[13px] text-gray-500">
@@ -509,11 +519,11 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({ isOpen, onC
 
       {/* Community Settings */}
       <div className="space-y-4">
-        <h4 className="text-[15px] text-gray-900">Community settings</h4>
+        <h4 className="text-[15px] text-[--color]">Community settings</h4>
         
-        <div className="flex items-start justify-between p-4 border border-gray-200 rounded-xl">
+        <div className="flex items-start justify-between p-4 border border-[hsl(var(--border-color))] rounded-xl">
           <div className="flex-1 pr-4">
-            <div className="text-[15px] font-medium text-gray-900">Allow member posts</div>
+            <div className="text-[15px] font-medium text-[--color]">Allow member posts</div>
             <div className="text-[13px] text-gray-500">Let community members create posts</div>
           </div>
           <Toggle
@@ -522,9 +532,9 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({ isOpen, onC
           />
         </div>
 
-        <div className="flex items-start justify-between p-4 border border-gray-200 rounded-xl">
+        <div className="flex items-start justify-between p-4 border border-[hsl(var(--border-color))] rounded-xl">
           <div className="flex-1 pr-4">
-            <div className="text-[15px] font-medium text-gray-900">Require post approval</div>
+            <div className="text-[15px] font-medium text-[--color]">Require post approval</div>
             <div className="text-[13px] text-gray-500">Review posts before they're published</div>
           </div>
           <Toggle
@@ -535,9 +545,9 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({ isOpen, onC
       </div>
 
       {/* Community Preview */}
-      <div className="bg-gray-50 border border-gray-200 rounded-2xl p-4">
-        <h4 className="text-[15px] text-gray-900 mb-3">Preview</h4>
-        <div className="bg-white rounded-xl p-4 border border-gray-200">
+      <div className="bg-[hsl(var(--accent))] border border-[hsl(var(--border-color))] rounded-2xl p-4">
+        <h4 className="text-[15px] text-[--color] mb-3">Preview</h4>
+        <div className="bg-[hsl(var(--background))] rounded-xl p-4 border border-[hsl(var(--border-color))]">
           <div className="flex items-center space-x-3">
             <div className="w-12 h-12 rounded-full border-black/5 bg-gray-200 overflow-hidden">
               {community.profileImage ? (
@@ -549,7 +559,7 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({ isOpen, onC
               )}
             </div>
             <div className="flex-1">
-              <div className="font-semibold text-gray-900">{community.name || 'Community Name'}</div>
+              <div className="text-[--color]">{community.name || 'Community Name'}</div>
               
             </div>
             <div className="flex items-center space-x-1 text-[13px] text-gray-500">
@@ -557,7 +567,7 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({ isOpen, onC
               <span className="capitalize">{community.privacy}</span>
             </div>
           </div>
-          <p className="text-[14px] text-gray-700 mt-3">
+          <p className="text-[14px] text-[#727272] mt-3">
             {community.description || 'Community description will appear here...'}
           </p>
           {community.categories.length > 0 && (
@@ -565,13 +575,13 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({ isOpen, onC
               {community.categories.slice(0, 3).map((category) => (
                 <span
                   key={category}
-                  className="inline-block px-2 py-1 bg-gray-100 text-gray-600 text-[12px] rounded-full"
+                  className="inline-block px-2 py-1 border-[hsl(var(--border-color))] border bg-[hsl(var(--accent))] text-[#727272] text-[12px] rounded-full"
                 >
                   {category}
                 </span>
               ))}
               {community.categories.length > 3 && (
-                <span className="inline-block px-2 py-1 bg-gray-100 text-gray-600 text-[12px] rounded-full">
+                <span className="inline-block px-2 py-1 bg-gray-100  text-[#727272] text-[12px] rounded-full">
                   +{community.categories.length - 3} more
                 </span>
               )}
@@ -594,7 +604,7 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({ isOpen, onC
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-black bg-opacity-40" />
+          <div className="fixed inset-0 bg-[rgba(91,112,131,.4)] w-full h-full" />
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
@@ -608,20 +618,20 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({ isOpen, onC
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden mobile:rounded-2xl max-h-full min-h-screen mobile:min-h-full bg-white shadow-xl transition-all">
+              <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden mobile:rounded-2xl max-h-full min-h-screen mobile:min-h-full bg-[hsl(var(--background))] shadow-xl transition-all">
                 {/* Header */}
-                <div className="flex sticky top-0 items-center justify-between px-4 py-3 border-b border-gray-200">
+                <div className="flex sticky top-0 items-center justify-between px-4 py-3 border-b border-[hsl(var(--border-color))]">
                   <div className="flex items-center space-x-4">
                     <button
                       type="button"
                       onClick={onClose}
-                      className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                      className="p-2 hover:bg-[hsl(var(--accent))] rounded-full transition-colors"
                     >
-                      <X size={20} className="text-gray-700" />
+                      <X size={20} className="text-[#727272]" />
                     </button>
                     <div>
-                      {/* <h2 className="text-xl text-gray-900">Create Community</h2> */}
-                      <p className="text-[13px] text-gray-500">Step {step} of 3</p>
+                      {/* <h2 className="text-xl text-[--color]">Create Community</h2> */}
+                      <p className="text-[13px] text-[--color]">Step {step} of 3</p>
                     </div>
                   </div>
                   
@@ -635,7 +645,7 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({ isOpen, onC
                             ? 'bg-blue-500 text-white'
                             : stepNumber < step
                             ? 'bg-green-500 text-white'
-                            : 'bg-gray-200 text-gray-500'
+                            : 'bg-[hsl(var(--accent))] text-[--color]'
                         }`}
                       >
                         {stepNumber < step ? <Check size={16} /> : stepNumber}
@@ -652,11 +662,11 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({ isOpen, onC
                 </div>
 
                 {/* Footer */}
-                <div className="flex items-center justify-between p-4 border-t border-gray-200">
+                <div className="flex items-center justify-between p-4 border-t border-[hsl(var(--border-color))]">
                   <button
                     type="button"
                     onClick={step === 1 ? onClose : handleBack}
-                    className="px-6 py-2 text-gray-700 hover:bg-gray-100 rounded-full transition-colors"
+                    className="px-6 py-2 text-[--color] hover:bg-[hsl(var(--accent))] rounded-full transition-colors"
                   >
                     {step === 1 ? 'Cancel' : 'Back'}
                   </button>
@@ -693,10 +703,10 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({ isOpen, onC
 
         {/* Loading overlay */}
         {isCreating && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-60">
-            <div className="bg-white rounded-2xl p-6 flex items-center space-x-3">
-              <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-500"></div>
-              <span className="text-[15px] text-gray-900">Creating your community...</span>
+          <div className="fixed inset-0 bg-opacity-50 flex items-center justify-center z-60">
+            <div className="bg-[hsl(var)] rounded-2xl p-6 flex items-center space-x-3">
+              <div className="animate-spin rounded-full h-6 w-6 border-2 border-blue-500"></div>
+              <span className="text-[15px] text-[--color]">Creating your community...</span>
             </div>
           </div>
         )}

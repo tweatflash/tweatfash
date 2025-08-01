@@ -7,7 +7,7 @@ import CommandPalette from "../components/search/command";
 import { usePathname, useRouter } from "next/navigation";
 // import Generate from "./explore/[searchTerm]/add";
 import CreatePostDialog from "../components/addPost/S";
-import Menu from "../components/list";
+import MenuContainer from "../components/list";
 import EditProfile from "../components/editProfile/edit";
 import Sidebar from "../components/posts/sideBar";
 import CommentModal from "../components/comment/modal";
@@ -18,6 +18,16 @@ import Loader from "../components/loader";
 import Cookies from "js-cookie";
 import checkLoggedinStatus from "../../../lib/checkLoggedinStatus";
 // import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
+
+import {
+  ArchiveBoxXMarkIcon,
+  ChevronDownIcon,
+  PencilIcon,
+  Square2StackIcon,
+  TrashIcon,
+} from '@heroicons/react/16/solid'
+import { PanelsTopLeft, Settings } from "lucide-react";
 const HomeLayout = ({ children }: { children: React.ReactNode }) => {
   const {userObj,setUserObj , post ,setPost , setOpenSearch,setIsMobileOpen,isMobileOpen,commentOpen,setCommentOpen,commentFeed}: any = useContext(AuthContext)
   const pathname = usePathname();
@@ -355,7 +365,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
                   </div>
                 </div>
                 <div className="w-full p-3 h-[72px] border-t border-solid border-[hsl(var(--border-color))]">
-                  <div className="w-full h-full hover:bg-[hsl(var(--accent))] rounded-full border border-[hsl(var(--border-color))]">
+                  <div className="w-full p-2 relative h-full hover:bg-[hsl(var(--accent))] rounded-full border border-[hsl(var(--border-color))]">
                     {userObj?.user ? (
                       userObj.user.profileImage ? (
                         <Image
@@ -380,6 +390,48 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
                           className="h-full w-full object-cover object-center rounded-full"
                         />
                     )}
+                     <Menu __demoMode>
+        <MenuButton className="inline-flex absolute top-0 left-0 z-10 items-center gap-2 rounded-full bg-transparent size-full   data-hover:bg-gray-700 data-open:bg-gray-700">
+          
+          {/* <ChevronDownIcon className="size-4 fill-white/60" /> */}
+        </MenuButton>
+
+        <MenuItems
+          transition
+          anchor="bottom end"
+          className="w-52 shadow-xl origin-bottom-right !left-20 rounded-xl border border-[hsl(var(--border-color))] bg-[hsl(var(--background))] p-3 text-sm/6 text-[--color] transition duration-100 ease-out [--anchor-gap:--spacing(1)] focus:outline-none data-closed:scale-95 data-closed:opacity-0"
+        >
+          <MenuItem>
+            <button className="group flex text-[--color] w-full items-center gap-2 rounded-lg px-3 py-1.5 data-focus:bg-[hsl(var(--accent))] hover:bg-[hsl(var(--accent))]">
+              <PanelsTopLeft className="size-4" />
+              My communities
+              <kbd className="ml-auto hidden font-sans text-xs text-white/50 group-data-focus:inline ">⌘E</kbd>
+            </button>
+          </MenuItem>
+          <MenuItem>
+            <button onClick={()=>router.push("/settings")} className="group flex w-full text-[--color] items-center gap-2 rounded-lg px-3 py-1.5 data-focus:bg-[hsl(var(--accent))] hover:bg-[hsl(var(--accent))]">
+              <Settings className="size-4" />
+              Settings
+              <kbd className="ml-auto hidden font-sans text-xs text-white/50 group-data-focus:inline ">⌘D</kbd>
+            </button>
+          </MenuItem>
+          <div className="my-1 h-px bg-white/5" />
+          <MenuItem>
+            <button className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-focus:bg-[hsl(var(--accent))] hover:bg-[hsl(var(--accent))]">
+              <ArchiveBoxXMarkIcon className="size-4 fill-[#727272]" />
+              Archive
+              <kbd className="ml-auto hidden font-sans text-xs text-white/50 group-data-focus:inline ">⌘A</kbd>
+            </button>
+          </MenuItem>
+          <MenuItem>
+            <button className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-focus:bg-[hsl(var(--accent))] hover:bg-[hsl(var(--accent))]">
+              <TrashIcon className="size-4 fill-[#727272]" />
+              Delete
+              <kbd className="ml-auto hidden font-sans text-xs text-white/50 group-data-focus:inline ">⌘D</kbd>
+            </button>
+          </MenuItem>
+        </MenuItems>
+      </Menu>
                   </div>
                 </div>
               </div>
@@ -427,12 +479,12 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
               <path d="M5 12h14M12 5v14" />
             </svg>
         </button>
-          <Menu />
+          <MenuContainer />
         
       </div>
 
       {/* buttom nav */}
-      <nav className="fixed mobile:hidden bottom-0 w-full h-16 border-t border-[hsl(var(--border-color))] border-solid z-20 bg-[hsl(var(--background)/.9)] backdrop-blur-md flex flex-1 gap-2 px-2">
+      <nav className="fixed mobile:hidden !font-[boldCal] bottom-0 w-full h-16 border-t border-[hsl(var(--border-color))] border-solid z-20 bg-[hsl(var(--background)/.9)] backdrop-blur-md flex flex-1 gap-2 px-2">
         <span className="w-full py-2 flex-1 flex justify-center">
           <Link href={"/home"} className="h-full flex flex-col justify-center">
             <div className={`flex items-center justify-center rounded-full ${mainpathname ==="home" && "bg-[hsl(var(--accent))] border border-[hsl(var(--border-color))]"} w-16 h-8`}>

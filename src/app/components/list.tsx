@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { AuthContext } from "../context/Authcontext";
 import * as LucideIcons from "lucide-react";
 
-export default function Menu() {
+export default function MenuContainer() {
   const { visible, position, onClose, mobile, menuList, setMenuList }: any =
     useContext(AuthContext);
   if (!visible) return null;

@@ -144,34 +144,7 @@ export default function CreatePostDialog() {
       setPeople([...people, ...data]);
     }
   };
-  const uploadPostToFormData = async () => {
-    if (text.trim().length) {
-      formData.delete("text"); // remove if exists
-      formData.append("text", text);
-    } else {
-      formData.delete("text"); // remove if exists
-    }
-
-    if (mediaList.length) {
-      selectedFiles.forEach((file: any) => {
-        if (!added.has(file.name)) {
-          formData.append(
-            file.type.startsWith("image") ? "image" : "video",
-            file
-          );
-          added.add(file.name);
-        }
-      });
-    } else {
-      formData.delete("image");
-      formData.delete("video");
-    }
-    if (text.trim().length || selectedFiles.length) {
-      const request: any = await createPost("/posts/create", formData);
-      const response: any = await request;
-      console.log(response);
-    }
-  };
+ 
   const [postContent, setPostContent] = useState('');
     const [selectedOption, setSelectedOption] = useState<string>('everyone');
     const [replyPermission, setReplyPermission] = useState('everyone');

@@ -50,7 +50,7 @@ const Tabs = ({
           {showOverflow.left && (
             <button
               onClick={() => scrollTabs('left')}
-              className="absolute left-0 z-20 h-10 w-14 bg-gradient-to-r from-[hsl(var(--background))] to-transparent flex items-center justify-start hover:from-[hsl(var(--accent))] transition-colors"
+              className="absolute -top-2 left-0 z-20 h-10 w-14 bg-gradient-to-r from-[hsl(var(--background))] to-transparent flex items-center justify-start hover:from-[hsl(var(--accent))] transition-colors"
               aria-label="Scroll tabs left"
             >
               <ChevronLeft size={20} className="text-[--color] ms-2" />
@@ -59,21 +59,21 @@ const Tabs = ({
 
           <div 
             ref={scrollContainerRef}
-            className="w-full border-b border-[hsl(var(--border-color))] relative overflow-x-auto flex flex-col h-10 no-scrollbar"
+            className="w-full  relative overflow-x-auto flex flex-col h-8 no-scrollbar"
             onScroll={checkOverflow}
           >
-            <div className="flex min-w-full h-full justify-start absolute m-auto w-fit">
+            <div className="flex min-w-full h-full justify-center absolute m-auto w-fit ">
               {tabs.map((tab, index) => (
                 <button
                   key={index}
                   onClick={() => setState(index)}
-                  className={`flex-1 ms-3 relative rounded-md before:content-[''] z-10 whitespace-nowrap text-center text-sm text-nowrap py-1 px-3 h-fit ${
+                  className={`last:me-4 ms-3 relative rounded-lg before:content-[''] z-10 whitespace-nowrap text-center text-sm text-nowrap py-1 px-3 h-full ${
                     state === tab.index
-                      ? "text-[--color]  bg-[hsl(var(--accent))] "
-                      : "text-[#777777] border-transparent"
+                      ? "dark:text-black text-white  bg-[--color]"
+                      : "text-[#777777]  bg-[hsl(var(--accent))] border-transparent"
                   }`}
                 >
-                  {state === tab.index && <div className='w-full absolute -bottom-[12px] h-[2px] bg-black dark:bg-white left-0' />}
+                  {/* {state === tab.index && <div className='w-full absolute -bottom-[12px] h-[2px] bg-black dark:bg-white left-0' />} */}
                   {tab.action}
                 </button>
               ))}
@@ -84,7 +84,7 @@ const Tabs = ({
           {showOverflow.right && (
             <button
               onClick={() => scrollTabs('right')}
-              className="absolute z-20 right-0 h-10 w-14 bg-gradient-to-r hover:from-[hsl(var(--accent)) from-transparent to-[hsl(var(--background))] flex items-center justify-end transition-colors"
+              className="absolute z-20 -top-2 right-0 h-10 w-14 bg-gradient-to-r hover:from-[hsl(var(--accent)) from-transparent to-[hsl(var(--background))] flex items-center justify-end transition-colors"
               aria-label="Scroll tabs right"
             >
               <ChevronRight size={20} className=" me-2 text-[--color]" />

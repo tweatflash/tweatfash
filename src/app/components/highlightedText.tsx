@@ -27,5 +27,5 @@ export default function HighlightText({ text } :{ text:string }) {
     return word;
   });
 
-  return <p className={`text-[--color] break-all break-words font-[400] opacity-90 text-[15px] whitespace-pre-wrap tracking-wide decoration-0`}>{parsedText}</p>
+  return <p className={`text-[--color] break-all break-words font-[400] opacity-[inherit] text-[15px] whitespace-pre-wrap tracking-wide decoration-0`}>{parsedText}</p>
 };

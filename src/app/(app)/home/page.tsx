@@ -39,13 +39,19 @@ export default function HomePage() {
         action:"Saved post",
         name:"post",
         _id:""
+      },
+      {
+        index:3,
+        action:"Your posts",
+        name:"post",
+        _id:""
       }
     ]
     const [tabs,setTabs]=useState([
       ...date,
       ...userObj.communities.map((item:any,index:number)=>(
         {
-          index:index+3,
+          index:index+4,
           action:item.name,
           name:"communities",
           _id:item._id
@@ -94,6 +100,7 @@ export default function HomePage() {
             {activeTab === tabs[activeTab].index && tabs[activeTab].name==="post" && tabs[activeTab].action==="Following" && <FollowingPosts />}
             {/* {activeTab === 2 && <NewestPosts />} */}
             {activeTab === tabs[activeTab].index && tabs[activeTab].name==="post" && tabs[activeTab].action==="Saved post" && <SavedPosts />}
+            {activeTab === tabs[activeTab].index && tabs[activeTab].name==="post" && tabs[activeTab].action==="Your posts" && <PostedByYou  username={userObj.user.username}/>}
             {/* {userObj?.user && activeTab === 4 && (
               <PostedByYou username={userObj.user.username} />
             )} */}

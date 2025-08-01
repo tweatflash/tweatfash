@@ -10,7 +10,26 @@ type Props = {
 
 export default function page({ params: { data } }: Props) {
   const [activeTab, setActiveTab] = useState(0);
-  const tabs = ["Likes", "Reposts", "Requotes"];
+  const tabs=[
+      {
+        index:0,
+        action:"Likes",
+        name:"post",
+        _id:""
+      },
+      {
+        index:1,
+        action:"Replies",
+        name:"post",
+        _id:""
+      },
+      {
+        index:2,
+        action:"Reposts",
+        name:"post",
+        _id:""
+      }
+    ]
   const Likes:Person[]=[
   {
     "_id": "67446b0122518e366eddac3c",
