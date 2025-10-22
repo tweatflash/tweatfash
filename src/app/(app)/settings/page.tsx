@@ -1081,19 +1081,19 @@ const SettingsPage: React.FC = () => {
       <div className="max-w-6xl mx-auto">
         <div className="flex">
           {/* Mobile Header */}
-          <div className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-[hsl(var(--background))] border-[hsl(var(--border-color))] border-b">
-            <div className="flex items-center justify-between px-4 h-[55px]">
-              <div className="flex items-center space-x-3">
-                <button 
-                  onClick={() => setSidebarOpen(!sidebarOpen)}
-                  className="p-2 hover:bg-gray-100 rounded-full transition-colors"
-                >
-                  {sidebarOpen ? <X size={20} className="text-gray-700" /> : <Menu size={20} className="text-gray-700" />}
-                </button>
-                <h1 className="text-xl text-[--color]">Settings</h1>
+            <div className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-[hsl(var(--background))] border-[hsl(var(--border-color))] border-b">
+              <div className="flex items-center justify-between px-4 h-[55px]">
+                <div className="flex items-center space-x-3">
+                  <button 
+                    onClick={() => setSidebarOpen(!sidebarOpen)}
+                    className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                  >
+                    {sidebarOpen ? <X size={20} className="text-gray-700" /> : <Menu size={20} className="text-gray-700" />}
+                  </button>
+                  <h1 className="text-xl text-[--color]">Settings</h1>
+                </div>
               </div>
             </div>
-          </div>
 
           {/* Mobile Overlay */}
           {sidebarOpen && (

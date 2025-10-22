@@ -16,7 +16,7 @@ import { ThemeProvider } from "next-themes";
       weight: ['300', '400', '700', ],
       fallback: ["sans-serif"],
       style:"normal"
-      
+        
 
     }
   )
