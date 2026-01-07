@@ -26,7 +26,7 @@ import { ThemeProvider } from "next-themes";
     return (
       <GoogleOAuthProvider clientId={clientId}>
         
-          <html lang="en">
+          <html lang="en" class name="dark">
               {/* <link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet"/> */}
               <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"></meta>
               <body className={ `h-full w-full bg-[hsl(var(--background))]`}>
